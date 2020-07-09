@@ -4,6 +4,8 @@ import Header from "../header";
 import Main from "../main";
 import Footer from "../footer";
 
+import 'normalize.css';
+
 const App = () => {
     return (
         <div>

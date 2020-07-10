@@ -1,3 +1,8 @@
 .site-logo {
     height: 64px;
 }
+
+.force-container-padding {
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+}

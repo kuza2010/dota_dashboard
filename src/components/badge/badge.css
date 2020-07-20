@@ -1,0 +1,17 @@
+/*Badge styles*/
+.badge-centered {
+    margin: auto;
+}
+
+.badge-margin {
+    margin-right: 10px;
+}
+
+.badge {
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+.badge-link {
+    color: black !important;
+}

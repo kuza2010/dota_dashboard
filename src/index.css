@@ -1,6 +1,7 @@
 html, body {
     width: 100%;
     height: 100%;
+    font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
 }
 
 #root {
@@ -8,4 +9,22 @@ html, body {
     display: grid;
     grid-template-rows: auto 1fr auto;
     grid-template-columns: 100%;
+}
+
+.small-icon {
+    margin-right: 5px;
+    height: 16px !important;;
+    width: 16px !important;
+}
+
+.medium-icon {
+    margin-right: 5px;
+    height: 24px !important;;
+    width: 24px !important;
+}
+
+.large-icon {
+    margin-right: 5px;
+    height: 36px !important;;
+    width: 36px !important;
 }

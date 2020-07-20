@@ -1,3 +1,10 @@
 .splash {
-    padding: 3em 0 6em !important;
+    padding: 3em 0 3em !important;
+}
+
+/* Default top and bottom padding is 4rem. Remove bottom margin */
+.jumbotron {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+    margin-bottom: 0 !important;
 }

@@ -1,0 +1,15 @@
+.advantage {
+    margin: 15px auto 15px;
+}
+
+.card-image {
+    margin: 10px auto 10px;
+    width: 102px;
+    height: 102px;
+    background: var(--white);
+    border-radius: 50%;
+}
+
+.card-header {
+    color: var(--white);
+}

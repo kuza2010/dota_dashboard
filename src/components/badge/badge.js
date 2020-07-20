@@ -7,7 +7,7 @@ const Badge = ({image, text, link}) => {
         <span className="badge badge-white badge-margin">
             <img src={image}
                  alt="github-icon"
-                 className="small-icon"/>
+                 className="small-icon badge-icon"/>
             <a href={link}>
                 {text}
             </a>

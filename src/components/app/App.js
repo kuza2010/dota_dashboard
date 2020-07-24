@@ -6,14 +6,21 @@ import Header from "../header";
 import Main from "../main";
 import Footer from "../footer";
 
+import OpenDotaServiceContext from "../context/openDotaContext";
+
+import OpenDotaService from "../../common/service/openDotaService";
+
 
 const App = () => {
+
     return (
-        <HashRouter>
-            <Header/>
-            <Main/>
-            <Footer/>
-        </HashRouter>
+        <OpenDotaServiceContext.Provider value={new OpenDotaService()}>
+            <HashRouter>
+                <Header/>
+                <Main/>
+                <Footer/>
+            </HashRouter>
+        </OpenDotaServiceContext.Provider>
     );
 }
 

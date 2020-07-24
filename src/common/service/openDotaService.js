@@ -2,6 +2,7 @@ class OpenDotaService {
 
     _apiBase = "https://api.opendota.com/api"
 
+
     _getResources = async (url) => {
         const res = await fetch(`${this._apiBase}${url}`);
 
@@ -13,6 +14,10 @@ class OpenDotaService {
 
     getHeroes = async () => {
         return this._getResources("/heroes");
+    }
+
+    getHeroStats = async () => {
+        return this._getResources("/heroStats");
     }
 
 }

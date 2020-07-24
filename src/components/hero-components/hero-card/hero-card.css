@@ -1,0 +1,12 @@
+.hero-grid-icon {
+    height: 72px;
+    width: 128px;
+}
+
+.her-grid-title {
+    bottom: 5px;
+    left: 5px;
+    color: var(--white);
+    font-size: 0.85rem;
+    text-shadow: 1px -1px 0 rgba(0, 0, 0, 1);
+}

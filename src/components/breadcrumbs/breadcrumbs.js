@@ -2,9 +2,9 @@ import React from "react";
 
 import {NavLink} from "react-router-dom";
 
-const Breadcrumbs = ({links}) => {
+const Breadcrumbs = ({crumbs}) => {
 
-    const renderedLinks = links.map(link => {
+    const renderedLinks = crumbs.map(link => {
         const {path, title, isActive} = link;
 
         return (

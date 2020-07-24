@@ -12,7 +12,8 @@ const Card = ({header, image, content, children}) => {
                 <div className="card-image">
                     <img src={image}
                          className="advantage extra-icon"
-                         alt={`icon: ${image}`}/>
+                         alt={`icon: ${image}`}
+                    />
                 </div>
                 <div className="card-body">
                     <h6 className="card-subtitle text-muted">

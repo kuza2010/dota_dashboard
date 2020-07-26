@@ -1,14 +1,18 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect} from "react";
 
-import Breadcrumbs from "../../components/breadcrumbs";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchHeroes} from "../../store/action-creators";
+
 import HeroGrid from "../../components/hero-components/hero-grid";
+import Loading from "../../components/loading";
+import Breadcrumbs from "../../components/breadcrumbs";
 
 import OpenDotaServiceContext from "../../components/context/openDotaContext";
 
 import "./heroes-page.css"
 
 
-const HeroesPage = ({heroes}) => {
+const HeroesPage = ({heroes, loading, error}) => {
 
     return (
         <div className="container">
@@ -23,7 +27,7 @@ const HeroesPage = ({heroes}) => {
                     isActive: true
                 },
             ]}/>
-            <HeroGrid heroes={heroes}/>
+            {loading ? <Loading/> : <HeroGrid heroes={heroes}/>}
         </div>
     );
 }
@@ -32,22 +36,20 @@ const HeroesPage = ({heroes}) => {
  * Wrapper for HeroPage component
  */
 const HeroPageContainer = () => {
+
     const openDotaService = useContext(OpenDotaServiceContext);
+    const dispatch = useDispatch();
+    const {heroes, loading, error} = useSelector(state => state);
 
-    useEffect(() => {
-        openDotaService.getHeroStats()
-            .then(heroes => {
-                setLoading(false);
-                setHeroes([...heroes]);
-            })
-    }, []);
+    useEffect(() => fetchHeroes(openDotaService, dispatch), []);
 
-    const [loading, setLoading] = useState(true);
-    const [heroes, setHeroes] = useState([]);
-
-    return loading ?
-        "Loading ..." :
-        <HeroesPage heroes={heroes}/>;
+    return (
+        <HeroesPage
+            heroes={heroes}
+            error={error || null}
+            loading={loading}
+        />
+    );
 }
 
 

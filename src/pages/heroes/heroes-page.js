@@ -5,10 +5,10 @@ import HeroGrid from "../../components/hero-components/hero-grid";
 
 import OpenDotaServiceContext from "../../components/context/openDotaContext";
 
-import "./heroes.css"
+import "./heroes-page.css"
 
 
-const Heroes = () => {
+const HeroesPage = () => {
 
     const openDotaService = useContext(OpenDotaServiceContext);
 
@@ -45,4 +45,4 @@ const Heroes = () => {
 }
 
 
-export default Heroes;
+export default HeroesPage;

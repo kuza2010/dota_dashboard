@@ -1,3 +1,3 @@
-import Heroes from "./heroes";
+import HeroesPage from "./heroes-page";
 
-export default Heroes;
+export default HeroesPage;

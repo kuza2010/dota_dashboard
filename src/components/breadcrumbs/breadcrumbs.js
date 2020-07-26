@@ -2,6 +2,8 @@ import React from "react";
 
 import {NavLink} from "react-router-dom";
 
+import "./breadcrumbs.css";
+
 const Breadcrumbs = ({crumbs}) => {
 
     const renderedLinks = crumbs.map(link => {
@@ -23,7 +25,7 @@ const Breadcrumbs = ({crumbs}) => {
     })
 
     return (
-        <ol className="breadcrumb">
+        <ol className="breadcrumb ">
             {renderedLinks}
         </ol>
     );

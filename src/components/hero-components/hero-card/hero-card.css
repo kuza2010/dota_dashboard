@@ -3,10 +3,17 @@
     width: 128px;
 }
 
-.her-grid-title {
+.hero-grid-title {
     bottom: 5px;
     left: 5px;
     color: var(--white);
-    font-size: 0.85rem;
     text-shadow: 1px -1px 0 rgba(0, 0, 0, 1);
+}
+
+.selected {
+    font-size: 1rem;
+}
+
+.unselected {
+    font-size: 0.85rem;
 }

@@ -9,10 +9,12 @@ import "./hero-grid.css"
 
 const HeroGrid = ({heroes}) => {
 
-    const renderedHeroes = heroes.sort((a, b) => stringCompare(a.localized_name, b.localized_name))
+    const renderedHeroes = heroes
+        .sort((a, b) => stringCompare(a.localized_name, b.localized_name))
         .map(hero => {
             return (
                 <HeroCard
+                    key={hero.localized_name}
                     image={`https://api.opendota.com${hero.img}`}
                     name={hero.localized_name}
                 />

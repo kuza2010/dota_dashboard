@@ -3,7 +3,6 @@ import React, {useContext, useEffect, useState} from "react";
 import Breadcrumbs from "../../components/breadcrumbs";
 import HeroGrid from "../../components/hero-components/hero-grid";
 
-
 import OpenDotaServiceContext from "../../components/context/openDotaContext";
 
 import "./heroes.css"
@@ -37,12 +36,10 @@ const Heroes = () => {
                     isActive: true
                 },
             ]}/>
-            <div className="jumbotron background-default">
-                {isPending ?
-                    <h1>Wait ...</h1> :
-                    <HeroGrid heroes={heroes}/>
-                }
-            </div>
+            {isPending ?
+                <h1>Loading ...</h1> :
+                <HeroGrid heroes={heroes}/>
+            }
         </div>
     );
 }

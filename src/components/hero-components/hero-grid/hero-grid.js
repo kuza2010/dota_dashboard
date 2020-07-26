@@ -22,8 +22,10 @@ const HeroGrid = ({heroes}) => {
         });
 
     return (
-        <div className="row">
-            {renderedHeroes}
+        <div className="jumbotron background-default">
+            <div className="row">
+                {renderedHeroes}
+            </div>
         </div>
     );
 }

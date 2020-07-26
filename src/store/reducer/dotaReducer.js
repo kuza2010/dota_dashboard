@@ -14,7 +14,6 @@ const dotaReducer = (state = initialState, action) => {
             return {...initialState,}
         case HERO_FETCH_SUCCESSFUL:
             console.log("hero successful");
-
             return {
                 heroes: action.payload,
                 loading: false,
@@ -22,7 +21,6 @@ const dotaReducer = (state = initialState, action) => {
             }
         case HERO_FETCH_FAILURE:
             console.log("hero failed");
-
             return {
                 heroes: [],
                 loading: false,

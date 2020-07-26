@@ -8,20 +8,7 @@ import OpenDotaServiceContext from "../../components/context/openDotaContext";
 import "./heroes-page.css"
 
 
-const HeroesPage = () => {
-
-    const openDotaService = useContext(OpenDotaServiceContext);
-
-    useEffect(() => {
-        openDotaService.getHeroStats().then(heroes => {
-            setPending(false);
-            setHeroes([...heroes]);
-        })
-    }, []);
-
-    const [isPending, setPending] = useState(true);
-    const [heroes, setHeroes] = useState([]);
-
+const HeroesPage = ({heroes}) => {
 
     return (
         <div className="container">
@@ -36,13 +23,32 @@ const HeroesPage = () => {
                     isActive: true
                 },
             ]}/>
-            {isPending ?
-                <h1>Loading ...</h1> :
-                <HeroGrid heroes={heroes}/>
-            }
+            <HeroGrid heroes={heroes}/>
         </div>
     );
 }
 
+/**
+ * Wrapper for HeroPage component
+ */
+const HeroPageContainer = () => {
+    const openDotaService = useContext(OpenDotaServiceContext);
 
-export default HeroesPage;
+    useEffect(() => {
+        openDotaService.getHeroStats()
+            .then(heroes => {
+                setLoading(false);
+                setHeroes([...heroes]);
+            })
+    }, []);
+
+    const [loading, setLoading] = useState(true);
+    const [heroes, setHeroes] = useState([]);
+
+    return loading ?
+        "Loading ..." :
+        <HeroesPage heroes={heroes}/>;
+}
+
+
+export default HeroPageContainer;

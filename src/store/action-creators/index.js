@@ -7,15 +7,17 @@ const heroRequested = () => {
     }
 }
 
-const heroLoaded = () => {
+const heroLoaded = (heroes) => {
     return {
         type: HERO_FETCH_SUCCESSFUL,
+        payload: heroes,
     }
 }
 
-const heroError = () => {
+const heroError = (error) => {
     return {
         type: HERO_FETCH_FAILURE,
+        payload: error
     }
 }
 

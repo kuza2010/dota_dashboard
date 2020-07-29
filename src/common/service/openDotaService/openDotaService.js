@@ -1,7 +1,10 @@
+import {filterPlayers} from "./utils";
+
+import {playersFieldsToFilter} from "../../enums";
+
 class OpenDotaService {
 
     _apiBase = "https://api.opendota.com/api"
-
 
     _getResources = async (url) => {
         const res = await fetch(`${this._apiBase}${url}`);
@@ -18,6 +21,11 @@ class OpenDotaService {
 
     getHeroStats = async () => {
         return this._getResources("/heroStats");
+    }
+
+    getProPlayers = async () => {
+        const proPlayers = await this._getResources("/proPlayers");
+        return  filterPlayers(proPlayers)(...playersFieldsToFilter)
     }
 
 }

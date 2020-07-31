@@ -9,6 +9,8 @@ import Breadcrumbs from "../../components/breadcrumbs";
 
 import OpenDotaServiceContext from "../../components/context/openDotaContext";
 
+import PropTypes from 'prop-types';
+
 import "./heroes-page.css"
 
 
@@ -31,6 +33,13 @@ const HeroesPage = ({heroes, loading, error}) => {
         </div>
     );
 }
+
+HeroesPage.propTypes = {
+    heroes: PropTypes.array,
+    loading: PropTypes.bool,
+    error: PropTypes.object,
+}
+
 
 /**
  * Wrapper for HeroPage component

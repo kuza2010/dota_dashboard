@@ -1,8 +1,8 @@
-const filterPlayers = (players) => (...fields) => {
+const filterProPlayers = (players) => (...criteria) => {
     if (!players || players.length === 0) {
         return players;
     }
-    if (!fields || fields.length === 0) {
+    if (!criteria || criteria.length === 0) {
         return players;
     }
 
@@ -14,11 +14,28 @@ const filterPlayers = (players) => (...fields) => {
             return !!player[fieldName];
         }
 
-        return fields.reduce(fieldCheckerReducer, true);
-    })
+        return criteria.reduce(fieldCheckerReducer, true);
+    });
+}
+
+
+const convertPlayer = (player) => {
+    return {
+        account_id: player["account_id"],
+        steamid: player["steamid"],
+        avatar: player["avatar"],
+        avatarmedium: player["avatarmedium"],
+        country_code: player["country_code"],
+        last_match_time: player["last_match_time"],
+        name: player["name"],
+        team_id: player["team_id"],
+        team_name: player["team_name"],
+        rating: player["solo_competitive_rank"],
+    };
 }
 
 
 export {
-    filterPlayers,
+    filterProPlayers,
+    convertPlayer,
 }

@@ -1,7 +1,7 @@
 import React, {useContext, useEffect} from "react";
 
 import {useDispatch, useSelector} from "react-redux";
-import {fetchHeroes} from "../../store/action-creators";
+import {fetchHeroes} from "../../store/action-creators/hero-actions";
 
 import HeroGrid from "../../components/hero-components/hero-grid";
 import Loading from "../../components/loading";
@@ -49,17 +49,17 @@ const HeroPageContainer = () => {
     const openDotaService = useContext(OpenDotaServiceContext);
     const dispatch = useDispatch();
 
-    const heroes = useSelector(state => state.heroes);
-    const loading = useSelector(state => state.loading);
-    const error = useSelector(state => state.error);
+    const heroes = useSelector(state => state.heroes.heroes);
+    const loading = useSelector(state => state.heroes.loading);
+    const error = useSelector(state => state.heroes.error);
 
     useEffect(() => fetchHeroes(openDotaService, dispatch), []);
 
     return (
         <HeroesPage
             heroes={heroes}
-            error={error || null}
             loading={loading}
+            error={error || null}
         />
     );
 }

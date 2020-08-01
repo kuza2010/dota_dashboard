@@ -1,4 +1,4 @@
-import {HERO_FETCH_FAILURE, HERO_FETCH_SUCCESSFUL, HERO_REQUESTED} from "../actions";
+import {HERO_FETCH_FAILURE, HERO_FETCH_SUCCESSFUL, HERO_REQUESTED} from "../actions/hero-actions";
 
 
 const initialState = {
@@ -7,7 +7,7 @@ const initialState = {
     error: null,
 }
 
-const dotaReducer = (state = initialState, action) => {
+const heroReducer = (state = initialState, action) => {
     switch (action.type) {
         case HERO_REQUESTED:
             return {...initialState,}
@@ -29,4 +29,4 @@ const dotaReducer = (state = initialState, action) => {
 }
 
 
-export default dotaReducer;
+export default heroReducer;

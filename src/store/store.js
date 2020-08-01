@@ -1,9 +1,9 @@
 import {createStore} from "redux";
 
-import dotaReducer from "./reducer/dotaReducer";
+import reducer from "./reducer";
 
 
-const store = createStore(dotaReducer);
+const store = createStore(reducer);
 
 
 export default store;

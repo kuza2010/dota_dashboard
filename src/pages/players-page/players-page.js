@@ -8,15 +8,46 @@ import OpenDotaServiceContext from "../../components/context/openDotaContext";
 
 import Breadcrumbs from "../../components/breadcrumbs";
 import Loading from "../../components/loading";
-
-import countryCodes from "../../common/country-codes"
+import Table from "../../components/table";
 
 import {fetchPlayers} from "../../store/action-creators/player-actions";
+
+import {getCountryFlag, getTimeFromNow} from "../../common/utils";
 
 import "./players-page.css"
 
 
 const PlayersPage = ({players, loading, error}) => {
+
+    const columns = React.useMemo(() => [
+        {
+            Header: "Nickname",
+            Cell: ({row}) => {
+                const {original: player} = row;
+                const flagLink = getCountryFlag(player);
+
+                return (
+                    <React.Fragment>
+                        <img
+                            src={flagLink}
+                            className="flag"
+                            alt={`flag-${player["country_code"]}`}/>
+                        {player.name}
+                    </React.Fragment>
+                )
+            },
+            accessor: "name",
+        },
+        {
+            Header: "Last game",
+            Cell: ({row}) => (getTimeFromNow(row.original["last_match_time"])),
+            accessor: "last_match_time",
+        },
+        {
+            Header: "Team",
+            accessor: "team_name",
+        },
+    ], []);
 
     return (
         <div className="container">
@@ -31,36 +62,13 @@ const PlayersPage = ({players, loading, error}) => {
                     isActive: true
                 },
             ]}/>
-            Player page
             {
                 !players || !players.length ?
                     <Loading/> :
-                    <table className="table table-hover">
-                        <thead>
-                        <tr>
-                            <th>Nickname</th>
-                            <th>Position</th>
-                            <th>Rating</th>
-                            <th>Last game</th>
-                            <th>Team</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr className="table-active">
-                            <th>
-                                <img
-                                    src={countryCodes[0].image}
-                                    style={{height: 21.3, width: 32}}
-                                />
-                                Nickname
-                            </th>
-                            <td>Column content</td>
-                            <td>Column content</td>
-                            <td>Column content</td>
-                            <td>Column content</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <Table
+                        columns={columns}
+                        data={players}
+                    />
             }
         </div>
     )

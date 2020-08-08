@@ -19,23 +19,23 @@ const filterProPlayers = (players) => (...criteria) => {
 }
 
 
-const convertPlayer = (player) => {
+const convertProPlayer = (proPlayer) => {
     return {
-        account_id: player["account_id"],
-        steamid: player["steamid"],
-        avatar: player["avatar"],
-        avatarmedium: player["avatarmedium"],
-        country_code: player["country_code"],
-        last_match_time: player["last_match_time"],
-        name: player["name"],
-        team_id: player["team_id"],
-        team_name: player["team_name"],
-        rating: player["solo_competitive_rank"],
+        account_id: proPlayer["account_id"],
+        steamid: proPlayer["steamid"],
+        avatar: proPlayer["avatar"],
+        avatarmedium: proPlayer["avatarmedium"],
+        country_code: proPlayer["country_code"],
+        last_match_time: proPlayer["last_match_time"],
+        name: proPlayer["name"],
+        team_id: proPlayer["team_id"],
+        team_name: proPlayer["team_name"],
+        rating: proPlayer["solo_competitive_rank"],
     };
 }
 
 
 export {
     filterProPlayers,
-    convertPlayer,
+    convertProPlayer,
 }

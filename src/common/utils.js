@@ -30,10 +30,10 @@ const getCountryFlag = (player) => {
     return flag.image;
 }
 
-
-const getTimeFromNow = (time, pattern = "YYYY-MM-DDTHH:mm") => (
-    moment(time, pattern).fromNow()
-)
+/**
+ * Return human-readable time from now and provided time
+ */
+const getTimeFromNow = (time, pattern = "YYYY-MM-DDTHH:mm") => moment(time, pattern).fromNow();
 
 
 export {

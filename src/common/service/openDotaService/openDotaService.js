@@ -1,4 +1,4 @@
-import {convertPlayer, filterProPlayers} from "./utils";
+import {convertProPlayer, filterProPlayers} from "./utils";
 
 import {playersFieldsToFilter} from "../../enums";
 
@@ -26,7 +26,7 @@ class OpenDotaService {
     getProPlayers = async () => {
         const proPlayers = await this._getResources("/proPlayers");
         return filterProPlayers(proPlayers)(...playersFieldsToFilter)
-            .map(player => convertPlayer(player))
+            .map(player => convertProPlayer(player))
     }
 
 }

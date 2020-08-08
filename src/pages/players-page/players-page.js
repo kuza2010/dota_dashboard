@@ -31,7 +31,8 @@ const PlayersPage = ({players, loading, error}) => {
                         <img
                             src={flagLink}
                             className="flag"
-                            alt={`flag-${player["country_code"]}`}/>
+                            alt={`flag-${player["country_code"]}`}
+                        />
                         {player.name}
                     </React.Fragment>
                 )
@@ -48,6 +49,14 @@ const PlayersPage = ({players, loading, error}) => {
             accessor: "team_name",
         },
     ], []);
+
+    const tableInitialState = React.useMemo(() => (
+        {
+            pageIndex: 0,
+            pageSize: 25,
+        }
+    ), [])
+
 
     return (
         <div className="container">
@@ -68,7 +77,7 @@ const PlayersPage = ({players, loading, error}) => {
                     <Table
                         columns={columns}
                         data={players}
-                    />
+                        initialState={tableInitialState}/>
             }
         </div>
     )

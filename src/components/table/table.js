@@ -81,7 +81,6 @@ TableWrapper.defaultProps = {
     filterProps: null,
 };
 
-
 function renderTableHead(headerGroups) {
     return (
         <thead>

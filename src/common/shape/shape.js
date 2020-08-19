@@ -8,3 +8,16 @@ export const tableFilterShape = PropTypes.shape({
     ]),                                                                                 // popup text for filter
     popupDelay: PropTypes.number,                                                       // popup delay
 });
+
+export const playerShape = PropTypes.shape({
+    account_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    steamid: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    avatar: PropTypes.string.isRequired,
+    avatarmedium: PropTypes.string.isRequired,
+    country_code: PropTypes.string.isRequired,
+    last_match_time: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    team_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    team_name: PropTypes.string.isRequired,
+    rating: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+})

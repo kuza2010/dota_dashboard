@@ -88,8 +88,12 @@ const PlayersPage = ({players, loading, error}) => {
                         columns={columns}
                         data={players}
                         initialState={tableInitialState}
-                        withFilter
-                        globalFilter={globalFilter}/>
+                        filterProps={{
+                            globalFilter,
+                            popupDelay: 2000,
+                            popupText: (<>You can filter it by <strong> nickname and team tag!!!</strong></>)
+                        }}
+                    />
             }
         </div>
     )

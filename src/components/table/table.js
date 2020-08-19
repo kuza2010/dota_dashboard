@@ -9,6 +9,8 @@ import TableFilter from "./table-filter";
 
 import {filterPlugin} from "../../common/utils";
 
+import Shapes from "../../common/shape";
+
 import "./table.css"
 
 
@@ -23,8 +25,10 @@ const Table = ({filter, table, paginator}) => {
 }
 
 
-const TableWrapper = ({data, columns, initialState, withFilter, globalFilter}) => {
-    const plugins = filterPlugin([withFilter ? useGlobalFilter : undefined, usePagination,]);
+const TableWrapper = ({data, columns, initialState, filterProps}) => {
+    const {globalFilter, popupText, popupDelay} = filterProps ? filterProps : {};
+
+    const plugins = filterPlugin([filterProps ? useGlobalFilter : undefined, usePagination,]);
     const tableOptions = {
         columns,
         data,
@@ -38,8 +42,14 @@ const TableWrapper = ({data, columns, initialState, withFilter, globalFilter}) =
         preGlobalFilteredRows, setGlobalFilter,                             // filtering
     } = useTable({...tableOptions}, ...plugins);
 
-    const filter = withFilter
-        ? (<TableFilter setTableFilterValue={setGlobalFilter} filteredRowsLength={preGlobalFilteredRows.length}/>)
+    const filter = filterProps
+        ? (
+            <TableFilter
+                setTableFilterValue={setGlobalFilter}
+                filteredRowsLength={preGlobalFilteredRows.length}
+                popupDelay={popupDelay}
+                popupText={popupText}
+            />)
         : null;
 
     const table = (
@@ -58,21 +68,18 @@ const TableWrapper = ({data, columns, initialState, withFilter, globalFilter}) =
     );
 
     return <Table filter={filter} table={table} paginator={paginator}/>;
-}
+};
 
 TableWrapper.propTypes = {
     data: PropTypes.array.isRequired,
     columns: PropTypes.array.isRequired,
     initialState: PropTypes.object.isRequired,
-    withFilter: PropTypes.bool,
-    globalFilter: PropTypes.func,               // global filter function, it must be momoized
-}
+    filterProps: Shapes.tableFilterShape,
+};
 
-TableWrapper.propTypes = {
-    withFilter: false,
-    globalFilter: () => {
-    },                     // if the function is not provide will use default filter function from table-filter, see: https://react-table.tanstack.com/docs/api/useGlobalFilter
-}
+TableWrapper.defaultProps = {
+    filterProps: null,
+};
 
 
 function renderTableHead(headerGroups) {

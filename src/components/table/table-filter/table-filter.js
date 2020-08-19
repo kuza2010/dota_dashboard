@@ -15,33 +15,42 @@ const TableFilter = ({setTableFilterValue, initialValue, filteredRowsLength, pop
         setTableFilterValue(value || undefined);
     }, 200);
 
+    const withPopup = !!popupText;
+    const filter = (
+        <input
+            className="form-control mr-sm-2"
+            type="text"
+            onChange={(e) => {
+                setFilterValue(e.target.value);
+                onChange(e.target.value);
+            }}
+            value={filterValue}
+            placeholder={placeholderValue}
+        />
+    );
+
     return (
         <div className="float-right search-margin">
             <form className="form-inline my-2 my-lg-0">
                  <span>
-                     <Popup
-                         contentStyle={{background: "", border: "", boxShadow: ""}}
-                         arrow={false}
-                         mouseEnterDelay={popupDelay}
-                         position="left top"
-                         on="hover"
-                         trigger={
-                             <input
-                                 className="form-control mr-sm-2"
-                                 type="text"
-                                 onChange={(e) => {
-                                     setFilterValue(e.target.value);
-                                     onChange(e.target.value);
-                                 }}
-                                 value={filterValue}
-                                 placeholder={placeholderValue}
-                             />
-                         }
-                     >
-                         <div className="alert alert-primary">
-                             {popupText}
-                         </div>
-                     </Popup>
+                     {
+                         withPopup
+                             ? (
+                                 <Popup
+                                     contentStyle={{background: "", border: "", boxShadow: ""}}
+                                     arrow={false}
+                                     mouseEnterDelay={popupDelay}
+                                     position="left top"
+                                     on="hover"
+                                     trigger={filter}
+                                 >
+                                     <div className="alert alert-primary">
+                                         {popupText}
+                                     </div>
+                                 </Popup>
+                             )
+                             : filter
+                     }
                  </span>
             </form>
         </div>
@@ -59,7 +68,7 @@ TableFilter.propTypes = {
 TableFilter.defaultProps = {
     filteredRowsLength: undefined,
     initialValue: "",
-    popupText: "Use this filter for filtering rows",
+    popupText: "",
     popupDelay: 0,
 }
 

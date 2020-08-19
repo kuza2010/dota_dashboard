@@ -12,6 +12,8 @@ import Table from "../../components/table";
 
 import {fetchPlayers} from "../../store/action-creators/player-actions";
 
+import matchSorter from "match-sorter"
+
 import {getCountryFlag, getTimeFromNow} from "../../common/utils";
 
 import "./players-page.css"
@@ -22,6 +24,7 @@ const PlayersPage = ({players, loading, error}) => {
     const columns = React.useMemo(() => [
         {
             Header: "Nickname",
+            accessor: "name",
             Cell: ({row}) => {
                 const {original: player} = row;
                 const flagLink = getCountryFlag(player);
@@ -37,12 +40,11 @@ const PlayersPage = ({players, loading, error}) => {
                     </React.Fragment>
                 )
             },
-            accessor: "name",
         },
         {
             Header: "Last game",
-            Cell: ({row}) => (getTimeFromNow(row.original["last_match_time"])),
             accessor: "last_match_time",
+            Cell: ({row}) => (getTimeFromNow(row.original["last_match_time"])),
         },
         {
             Header: "Team",
@@ -57,6 +59,14 @@ const PlayersPage = ({players, loading, error}) => {
         }
     ), [])
 
+    const globalFilter = React.useMemo(() => (rows, fields, filterValue) => {
+        return matchSorter(rows, filterValue, {
+            keys: [
+                row => row.values["name"],
+                row => row.values["team_name"],
+            ],
+        });
+    }, []);
 
     return (
         <div className="container">
@@ -72,12 +82,14 @@ const PlayersPage = ({players, loading, error}) => {
                 },
             ]}/>
             {
-                !players || !players.length ?
-                    <Loading/> :
-                    <Table
+                !players || !players.length
+                    ? <Loading/>
+                    : <Table
                         columns={columns}
                         data={players}
-                        initialState={tableInitialState}/>
+                        initialState={tableInitialState}
+                        withFilter
+                        globalFilter={globalFilter}/>
             }
         </div>
     )

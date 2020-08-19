@@ -46,10 +46,9 @@ const Paginator = ({pageCount, currentPageIndex, goToPage}) => {
 }
 
 Paginator.propTypes = {
-    goToPage: PropTypes.func.isRequired,
-    pageCount: PropTypes.number.isRequired,         // total page
-    pageSize: PropTypes.number.isRequired,
-    currentPageIndex: PropTypes.number.isRequired,       // index of current page
+    goToPage: PropTypes.func.isRequired,                    // the function allow to navigate to 'xXx' page
+    pageCount: PropTypes.number.isRequired,                 // total page
+    currentPageIndex: PropTypes.number.isRequired,          // index of current page
 }
 
 

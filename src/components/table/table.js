@@ -1,131 +1,125 @@
-import React, {useState} from "react";
+import React from "react";
 
 import PropTypes from 'prop-types';
 
-import {useAsyncDebounce, useGlobalFilter, usePagination, useTable} from "react-table";
+import {useGlobalFilter, usePagination, useTable} from "react-table";
 
 import Paginator from "../paginator";
-
-import "./table.css"
 import TableFilter from "./table-filter";
 
+import {filterPlugin} from "../../common/utils";
 
-// Define a default UI for filtering
-function GlobalFilter({preGlobalFilteredRows, globalFilter, setGlobalFilter,}) {
-    const count = preGlobalFilteredRows.length
-    const [value, setValue] = React.useState(globalFilter)
-    const onChange = useAsyncDebounce(value => {
-        setGlobalFilter(value || undefined)
-    }, 200)
+import "./table.css"
 
+
+const Table = ({filter, table, paginator}) => {
     return (
-        <span>
-      Search:{' '}
-            <input
-                value={value || ""}
-                onChange={e => {
-                    setValue(e.target.value);
-                    onChange(e.target.value);
-                }}
-                placeholder={`${count} records!!!`}
-                style={{
-                    fontSize: '1.1rem',
-                    border: '0',
-                }}
-            />
-    </span>
+        <React.Fragment>
+            {filter}
+            {table}
+            {paginator}
+        </React.Fragment>
     )
 }
 
-const Table = ({data, columns, initialState}) => {
 
-    const [searchValue, setSearchValue] = useState("");
-
-    const filterTypes = React.useMemo(() => ({
-            text: (rows, id, filterValue) => {
-                return rows.filter(row => {
-                    const rowValue = row.values[id]
-                    return rowValue !== undefined
-                        ? String(rowValue)
-                            .toLowerCase()
-                            .startsWith(String(filterValue).toLowerCase())
-                        : true
-                })
-            },
-        }),
-        []);
+const TableWrapper = ({data, columns, initialState, withFilter, globalFilter}) => {
+    const plugins = filterPlugin([withFilter ? useGlobalFilter : undefined, usePagination,]);
+    const tableOptions = {
+        columns,
+        data,
+        initialState: {...initialState},
+        globalFilter,
+    }
 
     const {
-        state,
-        headerGroups,
-        prepareRow,
-        page,
-        pageCount,
-        gotoPage,
-        preGlobalFilteredRows,
-        setGlobalFilter,
-    } = useTable({columns, data, initialState: {...initialState}, filterTypes,}, useGlobalFilter, usePagination);
+        state, headerGroups, getTableProps, getTableBodyProps, prepareRow,  // common props
+        page, pageCount, gotoPage,                                          // pagination
+        preGlobalFilteredRows, setGlobalFilter,                             // filtering
+    } = useTable({...tableOptions}, ...plugins);
+
+    const filter = withFilter
+        ? (<TableFilter setTableFilterValue={setGlobalFilter} filteredRowsLength={preGlobalFilteredRows.length}/>)
+        : null;
 
     const table = (
-        <table className="table table-hover">
-            <thead>{renderTableHead(headerGroups)}</thead>
-            <tbody>{renderTableBody(page, prepareRow)}</tbody>
+        <table {...getTableProps()} className="table table-hover">
+            {renderTableHead(headerGroups)}
+            {renderTableBody(getTableBodyProps(), page, prepareRow)}
         </table>
     );
 
-    const pagination = (
+    const paginator = (
         <Paginator
             pageCount={pageCount}
-            pageSize={state.pageSize}
             currentPageIndex={state.pageIndex}
             goToPage={gotoPage}
         />
     );
 
-    const filter = (
-        <TableFilter
-            setTableFilterValue={setGlobalFilter}
-            filteredRowsLength={preGlobalFilteredRows.length}
-        />
-    );
-
-    return (
-        <React.Fragment>
-            {filter}
-            {table}
-            {pagination}
-        </React.Fragment>
-    )
+    return <Table filter={filter} table={table} paginator={paginator}/>;
 }
 
-Table.propTypes = {
+TableWrapper.propTypes = {
     data: PropTypes.array.isRequired,
     columns: PropTypes.array.isRequired,
     initialState: PropTypes.object.isRequired,
+    withFilter: PropTypes.bool,
+    globalFilter: PropTypes.func,               // global filter function, it must be momoized
 }
 
-function renderTableHead(tableHeader) {
-    return tableHeader.map(header => (
-        <tr>
-            {
-                header.headers.map(column => <th>{column.render('Header')}</th>)
-            }
-        </tr>
-    ))
-}
-
-function renderTableBody(rows, prepareRow) {
-    return rows.map(row => {
-        prepareRow(row);
-        return (
-            <tr className="table-secondary">
-                {
-                    row.cells.map(cell => <td>{cell.render('Cell')}</td>)
-                }
-            </tr>
-        )
-    })
+TableWrapper.propTypes = {
+    withFilter: false,
+    globalFilter: () => {
+    },                     // if the function is not provide will use default filter function from table-filter, see: https://react-table.tanstack.com/docs/api/useGlobalFilter
 }
 
 
-export default Table;
+function renderTableHead(headerGroups) {
+    return (
+        <thead>
+        {
+            headerGroups.map(header => (
+                <tr {...header.getHeaderGroupProps()}>
+                    {
+                        header.headers
+                            .map(column => (
+                                <th {...column.getHeaderProps()}>
+                                    {column.render('Header')}
+                                </th>
+                            ))
+                    }
+                </tr>
+            ))
+        }
+        </thead>);
+}
+
+function renderTableBody(bodyProps, rows, prepareRow) {
+    return (
+        <tbody {...bodyProps}>
+        {
+            rows.map(row => {
+                prepareRow(row);
+                return (
+                    <tr
+                        className="table-secondary"
+                        {...row.getRowProps()}
+                    >
+                        {row.cells.map(cell => {
+                            return (
+                                <td {...cell.getCellProps()}>
+                                    {cell.render('Cell')}
+                                </td>
+                            )
+                        })}
+                    </tr>
+                )
+            })
+        }
+        </tbody>
+    );
+}
+
+
+export default TableWrapper;

@@ -35,6 +35,13 @@ const getCountryFlag = (player) => {
  */
 const getTimeFromNow = (time, pattern = "YYYY-MM-DDTHH:mm") => moment(time, pattern).fromNow();
 
+/**
+ * Filter plugin. Just remove undefined plugins
+ */
+const filterPlugin = (plugins = []) => {
+    return plugins.filter(plugin => plugin !== undefined)
+}
+
 
 export {
     zip,
@@ -43,4 +50,6 @@ export {
     getCountryFlag,
 
     getTimeFromNow,
+
+    filterPlugin,
 };

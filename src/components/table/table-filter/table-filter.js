@@ -2,14 +2,18 @@ import React, {useState} from "react";
 
 import PropTypes from 'prop-types';
 
+import {useAsyncDebounce} from "react-table";
+
 import './table-filter.css'
 
 
 const TableFilter = ({setTableFilterValue, initialValue, filteredRowsLength}) => {
 
     const [filterValue, setFilterValue] = useState(initialValue);
-
     const placeholderValue = filteredRowsLength ? `${filteredRowsLength} records...` : "Search...";
+    const onChange = useAsyncDebounce(value => {
+        setTableFilterValue(value || undefined);
+    }, 200)
 
     return (
         <div className="float-right search-margin">
@@ -20,7 +24,7 @@ const TableFilter = ({setTableFilterValue, initialValue, filteredRowsLength}) =>
                          type="text"
                          onChange={(e) => {
                              setFilterValue(e.target.value);
-                             setTableFilterValue(e.target.value);
+                             onChange(e.target.value);
                          }}
                          value={filterValue || ""}
                          placeholder={placeholderValue}

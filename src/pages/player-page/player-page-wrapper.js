@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import Breadcrumbs from "../../components/breadcrumbs";
 import Loading from "../../components/loading";
 
-import {fetchPlayer} from "../../store/action-creators/plyer-actions";
+import {fetchPlayer} from "../../store/action-creators/player-actions";
 
 import OpenDotaServiceContext from "../../components/context/openDotaContext";
 

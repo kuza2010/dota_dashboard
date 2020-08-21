@@ -1,4 +1,4 @@
-import {PLAYER_FETCH_FAILURE, PLAYER_FETCH_SUCCESSFUL, PLAYER_REQUESTED} from "../actions/player-actions";
+import {PRO_PLAYER_FETCH_FAILURE, PRO_PLAYER_FETCH_SUCCESSFUL, PRO_PLAYER_REQUESTED} from "../actions/pro-player-actions";
 
 
 const initialState = {
@@ -9,15 +9,15 @@ const initialState = {
 
 const playerReducer = (state = initialState, action) => {
     switch (action.type) {
-        case PLAYER_REQUESTED:
+        case PRO_PLAYER_REQUESTED:
             return {...initialState,}
-        case PLAYER_FETCH_SUCCESSFUL:
+        case PRO_PLAYER_FETCH_SUCCESSFUL:
             return {
                 players: action.payload,
                 loading: false,
                 error: null,
             }
-        case PLAYER_FETCH_FAILURE:
+        case PRO_PLAYER_FETCH_FAILURE:
             return {
                 players: [],
                 loading: false,

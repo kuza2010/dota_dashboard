@@ -1,22 +1,22 @@
-import {PLAYER_FETCH_FAILURE, PLAYER_FETCH_SUCCESSFUL, PLAYER_REQUESTED} from "../actions/player-actions";
+import {PRO_PLAYER_FETCH_FAILURE, PRO_PLAYER_FETCH_SUCCESSFUL, PRO_PLAYER_REQUESTED} from "../actions/pro-player-actions";
 
 
 const playerRequested = () => {
     return {
-        type: PLAYER_REQUESTED,
+        type: PRO_PLAYER_REQUESTED,
     }
 }
 
 const playersLoaded = (players) => {
     return {
-        type: PLAYER_FETCH_SUCCESSFUL,
+        type: PRO_PLAYER_FETCH_SUCCESSFUL,
         payload: players,
     }
 }
 
 const playersError = (error) => {
     return {
-        type: PLAYER_FETCH_FAILURE,
+        type: PRO_PLAYER_FETCH_FAILURE,
         payload: error
     }
 }

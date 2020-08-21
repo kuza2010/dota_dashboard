@@ -4,6 +4,8 @@ import {useDispatch, useSelector} from "react-redux";
 
 import Breadcrumbs from "../../components/breadcrumbs";
 import Loading from "../../components/loading";
+import ConditionalDisplay from "../../components/conditional-display/conditional-display";
+import PlayerPageFallback from "../../components/fallback";
 
 import {fetchPlayer} from "../../store/action-creators/player-actions";
 
@@ -11,8 +13,7 @@ import OpenDotaServiceContext from "../../components/context/openDotaContext";
 
 import "./player-page.css"
 
-
-const PlayerPage = ({player, loading, error}) => {
+const PlayerPage = ({player, loading, error, accountId}) => {
     return (
         <div className="container">
             <Breadcrumbs crumbs={[
@@ -26,11 +27,16 @@ const PlayerPage = ({player, loading, error}) => {
                     isActive: true
                 },
             ]}/>
-            {
-                loading
-                    ? <Loading/>
-                    : `${player.nickname}`
-            }
+            <ConditionalDisplay
+                condition={!error}
+                fallback={(<PlayerPageFallback accountId={accountId}/>)}
+            >
+                {
+                    loading
+                        ? <Loading/>
+                        : `${player.nickname}`
+                }
+            </ConditionalDisplay>
         </div>
     )
 }
@@ -58,6 +64,7 @@ const PlayerPageWrapper = (props) => {
             player={player}
             loading={loading}
             error={error}
+            accountId={accountId}
         />
     );
 }

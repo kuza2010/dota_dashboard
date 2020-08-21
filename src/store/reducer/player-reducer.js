@@ -2,7 +2,7 @@ import {PLAYER_FETCH_FAILURE, PLAYER_FETCH_SUCCESSFUL, PLAYER_REQUESTED} from ".
 
 
 const initialState = {
-    player: null,
+    player: {},
     loading: true,
     error: null,
 }
@@ -19,7 +19,7 @@ const proPlayersReducer = (state = initialState, action) => {
             }
         case PLAYER_FETCH_FAILURE:
             return {
-                player: null,
+                player: {},
                 loading: false,
                 error: action.payload,
             }

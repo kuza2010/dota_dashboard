@@ -11,10 +11,7 @@ import OpenDotaServiceContext from "../../components/context/openDotaContext";
 
 import "./player-page.css"
 
-/**
- * This page render player by provided id
- * Props should contain 'props.match.accountId' field. It must be number.
- */
+
 const PlayerPage = ({player, loading, error}) => {
     return (
         <div className="container">
@@ -39,7 +36,13 @@ const PlayerPage = ({player, loading, error}) => {
 }
 
 
+/**
+ * This page render player by provided id
+ * Props should contain 'props.match.accountId' field. It must be number.
+ */
 const PlayerPageWrapper = (props) => {
+
+    const {match: {params: {accountId}}} = props;
 
     const openDotaService = useContext(OpenDotaServiceContext);
     const dispatch = useDispatch();
@@ -48,13 +51,13 @@ const PlayerPageWrapper = (props) => {
     const error = useSelector(({player}) => player.error);
     const loading = useSelector(({player}) => player.loading);
 
-    useEffect(() => fetchPlayer(92423451)(openDotaService, dispatch), []);
+    useEffect(() => fetchPlayer(accountId)(openDotaService, dispatch), []);
 
     return (
         <PlayerPage
             player={player}
             loading={loading}
-            error={error || null}
+            error={error}
         />
     );
 }

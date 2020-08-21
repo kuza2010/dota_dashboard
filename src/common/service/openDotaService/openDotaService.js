@@ -2,6 +2,8 @@ import {convertProPlayer, filterProPlayers, getPlayerDAO} from "./utils";
 
 import {proPlayersFieldsToFilter} from "./enums";
 
+import NotFoundException from "../../error/not-found";
+
 class OpenDotaService {
 
     _apiBase = "https://api.opendota.com/api"
@@ -15,6 +17,18 @@ class OpenDotaService {
         return await res.json();
     }
 
+    _getPlayer = async (accountId) => {
+        return this._getResources(`/players/${accountId}`)
+            .then(res => {
+                // if there is no player with id it will return empty object, not code 404
+                if (!res || !res.profile) {
+                    console.error(`_getPlayer (${accountId}), player with accountId: ${accountId} was not found`);
+                    throw new NotFoundException(`Player with accountId: ${accountId} was not found!`)
+                }
+                return res;
+            });
+    };
+
     getHeroes = async () => {
         return this._getResources("/heroes");
     }
@@ -26,12 +40,13 @@ class OpenDotaService {
     getProPlayer = async (accountId) => {
         if (typeof accountId !== 'number') {
             if (!parseInt(accountId, 10)) {
+                console.error(`getProPlayer (${accountId}), player id must be number, provided: ${typeof accountId}, value is: ${accountId}`);
                 throw new Error(`Player id must be number, provided: ${typeof accountId}, value is: ${accountId}`);
             }
         }
 
         const proPlayers = await this._getResources("/proPlayers");
-        return proPlayers.find(proPlayer => proPlayer['account_id'] === accountId);
+        return proPlayers.find(proPlayer => proPlayer['account_id'] === parseInt(accountId));
     }
 
     getProPlayers = async () => {
@@ -50,12 +65,13 @@ class OpenDotaService {
     getPlayer = async (accountId) => {
         if (typeof accountId !== 'number') {
             if (!parseInt(accountId, 10)) {
+                console.error(`getPlayer (${accountId}), player id must be number, provided: ${typeof accountId}, value is: ${accountId}`);
                 throw new Error(`Player id must be number, provided: ${typeof accountId}, value is: ${accountId}`);
             }
         }
 
         const [player, proPlayer, teams] = await Promise.all([
-            this._getResources(`/players/${accountId}`),
+            this._getPlayer(accountId),
             this.getProPlayer(accountId),
             this.getTeams(),
         ]);
@@ -73,6 +89,7 @@ class OpenDotaService {
     getTeam = async (teamId) => {
         if (typeof teamId !== 'number') {
             if (!parseInt(teamId, 10)) {
+                console.error(`getTeam (${teamId}), team id must be number, provided: ${typeof teamId}, value is: ${teamId}`);
                 throw new Error(`Team id must be number, provided: ${typeof teamId}, value is: ${teamId}`);
             }
         }

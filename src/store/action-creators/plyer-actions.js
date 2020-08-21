@@ -1,7 +1,7 @@
 import {PLAYER_FETCH_FAILURE, PLAYER_FETCH_SUCCESSFUL, PLAYER_REQUESTED} from "../actions/player-actions";
 
 
-const playerRequested = (id) => {
+const playerRequested = () => {
     return {
         type: PLAYER_REQUESTED,
     }
@@ -22,7 +22,7 @@ const playerError = (error) => {
 }
 
 const fetchPlayer = (accountId) => (openDotaService, dispatch) => {
-    dispatch(playerRequested(accountId));
+    dispatch(playerRequested());
     openDotaService.getPlayer(accountId)
         .then(player => dispatch(playerLoaded(player)))
         .catch(error => dispatch(playerError(error)));

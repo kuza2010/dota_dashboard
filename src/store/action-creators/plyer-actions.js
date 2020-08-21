@@ -7,10 +7,10 @@ const playerRequested = (id) => {
     }
 }
 
-const playerLoaded = (players) => {
+const playerLoaded = (player) => {
     return {
         type: PLAYER_FETCH_SUCCESSFUL,
-        payload: players,
+        payload: player,
     }
 }
 
@@ -21,10 +21,10 @@ const playerError = (error) => {
     }
 }
 
-const fetchPlayer = (playerId) => (openDotaService, dispatch) => {
-    dispatch(playerRequested(playerId));
-    openDotaService.getProPlayers()
-        .then(players => dispatch(playerLoaded(players)))
+const fetchPlayer = (accountId) => (openDotaService, dispatch) => {
+    dispatch(playerRequested(accountId));
+    openDotaService.getPlayer(accountId)
+        .then(player => dispatch(playerLoaded(player)))
         .catch(error => dispatch(playerError(error)));
 }
 

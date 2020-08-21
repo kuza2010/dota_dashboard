@@ -7,7 +7,7 @@ const initialState = {
     error: null,
 }
 
-const playerReducer = (state = initialState, action) => {
+const proPlayersReducer = (state = initialState, action) => {
     switch (action.type) {
         case PRO_PLAYER_REQUESTED:
             return {...initialState,}
@@ -29,4 +29,4 @@ const playerReducer = (state = initialState, action) => {
 }
 
 
-export default playerReducer;
+export default proPlayersReducer;

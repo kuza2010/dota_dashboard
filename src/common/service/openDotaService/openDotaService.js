@@ -63,6 +63,9 @@ class OpenDotaService {
         return getPlayerDAO(proPlayer, player, teams);
     }
 
+    /**
+     * This functions return all available teams
+     */
     getTeams = async () => {
         return this._getResources("/teams");
     }
@@ -77,7 +80,6 @@ class OpenDotaService {
         const teams = this._getResources("/teams");
         return teams.find(team => team['team_id'] === teamId);
     }
-
 }
 
 

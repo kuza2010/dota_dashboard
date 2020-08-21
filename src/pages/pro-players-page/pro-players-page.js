@@ -10,14 +10,14 @@ import Breadcrumbs from "../../components/breadcrumbs";
 import Loading from "../../components/loading";
 import Table from "../../components/table";
 
-import {fetchPlayers} from "../../store/action-creators/player-actions";
+import {fetchPlayers} from "../../store/action-creators/pro-player-actions";
 
 import matchSorter from "match-sorter"
 
 import {getCountryFlag, getTimeFromNow} from "../../common/utils";
 import Shapes from "../../common/shape"
 
-import "./players-page.css"
+import "./pro-players-page.css"
 
 
 const PlayersPage = ({players, loading, error}) => {
@@ -101,7 +101,7 @@ const PlayersPage = ({players, loading, error}) => {
 }
 
 PlayersPage.propTypes = {
-    players: PropTypes.arrayOf(Shapes.playerShape),
+    players: PropTypes.arrayOf(Shapes.proPlayerShape),
     loading: PropTypes.bool,
     error: PropTypes.object,
 }

@@ -9,7 +9,7 @@ export const tableFilterShape = PropTypes.shape({
     popupDelay: PropTypes.number,                                                       // popup delay
 });
 
-export const playerShape = PropTypes.shape({
+export const proPlayerShape = PropTypes.shape({
     account_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     steamid: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     avatar: PropTypes.string.isRequired,

@@ -1,3 +1,4 @@
+// Pro Players
 const filterProPlayers = (players) => (...criteria) => {
     if (!players || players.length === 0) {
         return players;
@@ -18,7 +19,6 @@ const filterProPlayers = (players) => (...criteria) => {
     });
 }
 
-
 const convertProPlayer = (proPlayer) => {
     return {
         account_id: proPlayer["account_id"],
@@ -35,7 +35,32 @@ const convertProPlayer = (proPlayer) => {
 }
 
 
+const getPlayerDAO = (proPlayer, specificPlayer, teams) => {
+    const team = teams.find(team => team['team_id'] === proPlayer['team_id']);
+
+    return {
+        //specific
+        rank: specificPlayer['solo_competitive_rank'],
+        accountId: specificPlayer['profile']['account_id'],
+        personName: specificPlayer['profile']['personaname'],
+        nickname: specificPlayer['profile']['name'],
+        steamId: specificPlayer['profile']['steamid'],
+        avatar: specificPlayer['profile']['avatarfull'],
+        lastMatch: proPlayer['last_match_time'],
+        countryCode: proPlayer['country_code'],
+        team: {
+            id: proPlayer['team_id'],
+            name: proPlayer['team_name'],
+            tag: proPlayer['team_tag'],
+            logo: team['logo_url'],
+        },
+    };
+}
+
+
 export {
     filterProPlayers,
     convertProPlayer,
+
+    getPlayerDAO,
 }

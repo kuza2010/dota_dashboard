@@ -1,5 +1,7 @@
 import React, {useContext, useEffect} from "react";
 
+import PropTypes from 'prop-types';
+
 import {useDispatch, useSelector} from "react-redux";
 
 import Breadcrumbs from "../../components/breadcrumbs";
@@ -11,9 +13,11 @@ import {fetchPlayer} from "../../store/action-creators/player-actions";
 
 import OpenDotaServiceContext from "../../components/context/openDotaContext";
 
+import {playerShape} from "../../common/shape/shape";
+
 import "./player-page.css"
 
-const PlayerPage = ({player, loading, error, accountId}) => {
+const PlayerPage = ({player, error, accountId}) => {
     return (
         <div className="container">
             <Breadcrumbs crumbs={[
@@ -28,18 +32,30 @@ const PlayerPage = ({player, loading, error, accountId}) => {
                 },
             ]}/>
             <ConditionalDisplay
-                condition={!error}
+                fallbackCondition={error}
                 fallback={(<PlayerPageFallback accountId={accountId}/>)}
             >
-                {
-                    loading
-                        ? <Loading/>
-                        : `${player.nickname}`
-                }
+                {`${player.nickname}`}
             </ConditionalDisplay>
         </div>
     )
-}
+};
+
+PlayerPage.propTypes = {
+    accountId: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+    ]).isRequired,
+    player: PropTypes.oneOfType([
+        playerShape,                        // data fetched successfully
+        PropTypes.object,                   // {} in error case
+    ]).isRequired,
+    error: PropTypes.instanceOf(Error),
+};
+
+PlayerPage.defaultProps = {
+    error: null,
+};
 
 
 /**
@@ -60,13 +76,13 @@ const PlayerPageWrapper = (props) => {
     useEffect(() => fetchPlayer(accountId)(openDotaService, dispatch), []);
 
     return (
-        <PlayerPage
-            player={player}
-            loading={loading}
-            error={error}
-            accountId={accountId}
-        />
-    );
+        loading
+            ? <Loading/>
+            : <PlayerPage
+                player={player}
+                error={error}
+                accountId={accountId}
+            />);
 }
 
 

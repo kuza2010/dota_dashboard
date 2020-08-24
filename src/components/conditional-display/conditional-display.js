@@ -1,8 +1,8 @@
 import React from "react";
 
 
-const ConditionalDisplay = ({condition, fallback, children}) => {
-    return condition ? children : fallback;
+const ConditionalDisplay = ({fallbackCondition, fallback, children}) => {
+    return fallbackCondition ? fallback : children;
 }
 
 

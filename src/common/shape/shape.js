@@ -20,4 +20,21 @@ export const proPlayerShape = PropTypes.shape({
     team_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     team_name: PropTypes.string.isRequired,
     rating: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-})
+});
+
+export const playerShape = PropTypes.shape({
+    accountId: PropTypes.number.isRequired,
+    avatar: PropTypes.string,
+    countryCode: PropTypes.string.isRequired,
+    lastMatch: PropTypes.string,
+    nickname: PropTypes.string.isRequired,
+    personName: PropTypes.string.isRequired,
+    rank: PropTypes.number.isRequired,
+    steamId: PropTypes.string.isRequired,
+    team: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        logo: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        tag: PropTypes.string.isRequired,
+    }).isRequired,
+});

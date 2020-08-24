@@ -14,11 +14,18 @@ const Breadcrumbs = ({crumbs}) => {
                 className={`breadcrumb-item ${isActive ? "active" : null}`}
             >
                 {
-                    !isActive ?
-                        <NavLink to={path}>
-                            {title}
-                        </NavLink> :
-                        title
+                    !isActive
+                        ? (
+                            <NavLink to={path}>
+                                <text className="text-success">
+                                    {title}
+                                </text>
+                            </NavLink>
+                        ) : (
+                            <text className="text-muted">
+                                {title}
+                            </text>
+                        )
                 }
             </li>
         );

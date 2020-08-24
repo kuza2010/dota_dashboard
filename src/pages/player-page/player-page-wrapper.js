@@ -8,6 +8,7 @@ import Breadcrumbs from "../../components/breadcrumbs";
 import Loading from "../../components/loading";
 import ConditionalDisplay from "../../components/conditional-display/conditional-display";
 import PlayerPageFallback from "../../components/fallback";
+import PlayerLayout from "./player-layout";
 
 import {fetchPlayer} from "../../store/action-creators/player-actions";
 
@@ -35,7 +36,7 @@ const PlayerPage = ({player, error, accountId}) => {
                 fallbackCondition={error}
                 fallback={(<PlayerPageFallback accountId={accountId}/>)}
             >
-                {`${player.nickname}`}
+                <PlayerLayout player={player}/>
             </ConditionalDisplay>
         </div>
     )

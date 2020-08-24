@@ -14,10 +14,11 @@ import {fetchPlayers} from "../../store/action-creators/pro-player-actions";
 
 import matchSorter from "match-sorter"
 
-import {getCountryFlag, getTimeFromNow} from "../../common/utils";
+import {getTimeFromNow} from "../../common/utils";
 import Shapes from "../../common/shape"
 
 import "./pro-players-page.css"
+import Flag from "../../components/flag";
 
 
 const PlayersPage = ({players, loading, error}) => {
@@ -28,15 +29,9 @@ const PlayersPage = ({players, loading, error}) => {
             accessor: "name",
             Cell: ({row}) => {
                 const {original: player} = row;
-                const flagLink = getCountryFlag(player);
-
                 return (
                     <React.Fragment>
-                        <img
-                            src={flagLink}
-                            className="flag"
-                            alt={`flag-${player["country_code"]}`}
-                        />
+                        <Flag alt={`flag-${player["country_code"]}`} flagCode={player["country_code"]}/>
                         {player.name}
                     </React.Fragment>
                 )

@@ -14,15 +14,14 @@ const stringCompare = (str1, str2) => {
 }
 
 /**
- * Get country flag for provided player
- * The player object should contain 'player.country_code' field with ISO-2 country code value
+ * Get country flag for provided country code ISO-2 or ISO-3 format
  */
-const getCountryFlag = (player) => {
-    if (!player || !player["country_code"]) {
+const getCountryFlag = (code) => {
+    if (!code) {
         return "undefined"
     }
 
-    const flag = countryCodes.find(country => country.iso2 === player["country_code"]);
+    const flag = countryCodes.find(country => country.iso2 === code || country.iso3 === code);
     if (!flag) {
         return "undefined"
     }

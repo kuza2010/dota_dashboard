@@ -102,5 +102,5 @@ export const commonStatsShape = PropTypes.arrayOf(
         assists: PropTypes.number.isRequired,
         lane: PropTypes.number.isRequired,
         laneRole: PropTypes.number.isRequired,
-    })
+    }).isRequired
 );

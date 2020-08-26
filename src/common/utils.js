@@ -44,7 +44,7 @@ const filterPlugin = (plugins = []) => {
 
 const calculateRolesInPercent = (stats = []) => {
     if (!stats || stats.length <= 0) {
-        return [...defaultRoleAssignment]
+        return {...defaultRoleAssignment}
     }
 
     const total = stats.length;             // 20

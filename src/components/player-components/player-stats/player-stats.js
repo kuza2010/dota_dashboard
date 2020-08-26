@@ -22,7 +22,7 @@ const PlayerStats = ({stats, loading, error}) => {
             fallbackCondition={error}
             fallback={<PlayerStatsFallback/>}
         >
-            <GameRoles stats={stats}/>
+            <GameRoles stats={stats} loading={loading}/>
         </ConditionalDisplay>
     )
 };

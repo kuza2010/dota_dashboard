@@ -1,12 +1,15 @@
 import React from "react";
 
+import PropTypes from "prop-types"
+import {commonStatsShape} from "../../../common/shape/shape";
+
+
 import {calculateRolesInPercent} from "../../../common/utils";
 
 import "./game-roles.css"
 
 
-const GameRoles = ({stats}) => {
-    const {carry, mid, offlane, support} = calculateRolesInPercent(stats);
+const GameRoles = ({carry, mid, offlane, support}) => {
 
     return (
         <React.Fragment>
@@ -31,7 +34,32 @@ const GameRoles = ({stats}) => {
             <hr className="my-66"/>
         </React.Fragment>
     )
-}
+};
 
 
-export default GameRoles;
+const GameRoleContainer = ({stats, loading}) => {
+    let carry, mid, offlane, support;
+
+    if (loading) {
+        carry = "loading...";
+        mid = "loading...";
+        offlane = "loading...";
+        support = "loading...";
+    } else {
+        const percentage = calculateRolesInPercent(stats);
+        carry = percentage.carry;
+        mid = percentage.mid;
+        offlane = percentage.offlane;
+        support = percentage.support;
+    }
+
+    return <GameRoles carry={carry} mid={mid} offlane={offlane} support={support} />
+};
+
+GameRoleContainer.propTypes = {
+    stats: commonStatsShape.isRequired,
+    loading: PropTypes.bool.isRequired,
+};
+
+
+export default GameRoleContainer;

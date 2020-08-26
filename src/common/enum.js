@@ -5,12 +5,12 @@ export const position = {
     support: "support",
 }
 
-export const defaultRoleAssignment = [
-    {carry: "N/A"},
-    {mid: "N/A"},
-    {offlane: "N/A"},
-    {support: "N/A"},
-];
+export const defaultRoleAssignment = {
+    carry: "N/A",
+    mid: "N/A",
+    offlane: "N/A",
+    support: "N/A",
+};
 
 export const laneMapping = {
     bot: 1,

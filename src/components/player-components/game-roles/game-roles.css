@@ -11,7 +11,7 @@
     text-shadow: 3px 3px 13px #888888;
 }
 
-.my-66 {
+.stats-divider {
     border: 0;
     height: 1px;
     background: #333 linear-gradient(to right, #333, #00bc8c, #333);

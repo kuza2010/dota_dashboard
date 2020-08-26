@@ -1,8 +1,9 @@
-import {convertProPlayer, filterProPlayers, getPlayerDAO} from "./utils";
+import {filterProPlayers, toCommonStatsDTO, toPlayerDTO, toProPlayerDTO} from "./utils";
 
 import {proPlayersFieldsToFilter} from "./enums";
 
 import NotFoundException from "../../error/not-found";
+
 
 class OpenDotaService {
 
@@ -52,7 +53,7 @@ class OpenDotaService {
     getProPlayers = async () => {
         const proPlayers = await this._getResources("/proPlayers");
         return filterProPlayers(proPlayers)(...proPlayersFieldsToFilter)
-            .map(player => convertProPlayer(player));
+            .map(player => toProPlayerDTO(player));
     }
 
     /**
@@ -76,7 +77,7 @@ class OpenDotaService {
             this.getTeams(),
         ]);
 
-        return getPlayerDAO(proPlayer, player, teams);
+        return toPlayerDTO(proPlayer, player, teams);
     }
 
     /**
@@ -97,6 +98,19 @@ class OpenDotaService {
         const teams = this._getResources("/teams");
         return teams.find(team => team['team_id'] === teamId);
     }
+
+    getPlayerStats = async (accountId) => {
+        if (typeof accountId !== 'number') {
+            if (!parseInt(accountId, 10)) {
+                console.error(`getPlayer (${accountId}), player id must be number, provided: ${typeof accountId}, value is: ${accountId}`);
+                throw new Error(`Player id must be number, provided: ${typeof accountId}, value is: ${accountId}`);
+            }
+        }
+
+        const last20Matches = await this._getResources(`/players/${accountId}/recentmatches`)
+        return toCommonStatsDTO(last20Matches);
+    }
+
 }
 
 

@@ -7,8 +7,8 @@ import {useDispatch, useSelector} from "react-redux";
 import Breadcrumbs from "../../components/breadcrumbs";
 import Loading from "../../components/loading";
 import ConditionalDisplay from "../../components/conditional-display/conditional-display";
-import PlayerPageFallback from "../../components/fallback";
 import PlayerLayout from "./player-layout";
+import {PlayerPageFallback} from "../../components/fallback";
 
 import {fetchPlayer} from "../../store/action-creators/player-actions";
 
@@ -18,7 +18,8 @@ import {playerShape} from "../../common/shape/shape";
 
 import "./player-page.css"
 
-const PlayerPage = ({player, error, accountId}) => {
+
+const PlayerPage = ({player, error, accountId, getStatsFunc}) => {
     return (
         <div className="container">
             <Breadcrumbs crumbs={[

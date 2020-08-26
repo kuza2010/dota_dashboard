@@ -8,7 +8,7 @@ const PlayerPageFallback = ({accountId}) => {
         <div className="text-center">
             <h2 className="text-danger">
                 <br/>
-                Sorry, but we <strong>can't find</strong> player with id {`${accountId}`} :(
+                Sorry, but we <strong>can't find</strong> player with id {`${accountId}`}. Or something went wrong.
             </h2>
         </div>
     )

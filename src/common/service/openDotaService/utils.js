@@ -17,9 +17,9 @@ const filterProPlayers = (players) => (...criteria) => {
 
         return criteria.reduce(fieldCheckerReducer, true);
     });
-}
+};
 
-const convertProPlayer = (proPlayer) => {
+const toProPlayerDTO = (proPlayer) => {
     return {
         account_id: proPlayer["account_id"],
         steamid: proPlayer["steamid"],
@@ -32,10 +32,10 @@ const convertProPlayer = (proPlayer) => {
         team_name: proPlayer["team_name"],
         rating: proPlayer["solo_competitive_rank"],
     };
-}
+};
 
-
-const getPlayerDAO = (proPlayer, specificPlayer, teams) => {
+// Player
+const toPlayerDTO = (proPlayer, specificPlayer, teams) => {
     const team = teams.find(team => team['team_id'] === proPlayer['team_id']);
 
     return {
@@ -55,12 +55,34 @@ const getPlayerDAO = (proPlayer, specificPlayer, teams) => {
             logo: team['logo_url'],
         },
     };
-}
+};
+
+
+const toCommonStatsDTO = (commonStats = []) => {
+    if (!commonStats || commonStats.length <= 0) {
+        return commonStats;
+    }
+
+    return commonStats.map(stat => {
+        return {
+            matchId: stat['match_id'],
+            playerSlot: stat['player_slot'],
+            gameMode: stat['game_mode'],
+            lobbyType: stat['lobby_type'],
+            kills: stat['kills'],
+            deaths: stat['deaths'],
+            assists: stat['assists'],
+            lane: stat['lane'],
+            laneRole: stat['lane_role'],
+        };
+    });
+};
 
 
 export {
     filterProPlayers,
-    convertProPlayer,
 
-    getPlayerDAO,
+    toProPlayerDTO,
+    toPlayerDTO,
+    toCommonStatsDTO
 }

@@ -10,23 +10,23 @@ const initialState = {
 const proPlayersReducer = (state = initialState, action) => {
     switch (action.type) {
         case PLAYER_REQUESTED:
-            return {...initialState,}
+            return {...initialState,};
         case PLAYER_FETCH_SUCCESSFUL:
             return {
                 player: action.payload,
                 loading: false,
                 error: null,
-            }
+            };
         case PLAYER_FETCH_FAILURE:
             return {
                 player: {},
                 loading: false,
                 error: action.payload,
-            }
+            };
         default:
             return state;
     }
-}
+};
 
 
 export default proPlayersReducer;

@@ -1,3 +1,7 @@
-import PlayerPageFallback from "./fallback";
+import PlayerPageFallback from "./player-page-fallback";
+import PlayerStatsFallback from "./player-stats-fallback";
 
-export default PlayerPageFallback;
+export {
+    PlayerPageFallback,
+    PlayerStatsFallback,
+};

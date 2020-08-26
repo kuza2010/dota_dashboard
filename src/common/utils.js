@@ -1,5 +1,6 @@
 import countryCodes from "../common/country-codes"
 import moment from "moment";
+import {defaultRoleAssignment, defaultRoleValue, laneMapping, laneRoleMapping} from "./enum";
 
 
 /**
@@ -41,6 +42,61 @@ const filterPlugin = (plugins = []) => {
     return plugins.filter(plugin => plugin !== undefined)
 }
 
+const calculateRolesInPercent = (stats = []) => {
+    if (!stats || stats.length <= 0) {
+        return [...defaultRoleAssignment]
+    }
+
+    const total = stats.length;             // 20
+    let mid = 0;
+    let offlane = 0;
+    let carry = 0;
+    let support = 0;
+
+    stats.forEach(stat => {
+        const {laneRole, lane} = stat;
+
+        // mid lane
+        if (lane === laneMapping.mid) {
+            if (laneRole === laneRoleMapping.mid) {
+                mid += 1;                       // lane = 2 and lane role = 2
+            } else {
+                support += 1;
+            }
+            return;
+        }
+        if (lane === laneMapping.top) {
+            if (laneRole === laneRoleMapping.carry) {
+                carry += 1;
+            } else {
+                support += 1;
+            }
+            return;
+        }
+        if (lane === laneMapping.bot) {
+            if (laneRole === laneRoleMapping.carry) {
+                offlane += 1;
+            } else {
+                support += 1;
+            }
+        }
+    });
+
+    return {
+        carry: _calcPercent(carry, total),
+        mid: _calcPercent(mid, total),
+        offlane: _calcPercent(offlane, total),
+        support: _calcPercent(support, total),
+    };
+};
+
+const _calcPercent = (part, total) => {
+    if (part <= 0) {
+        return defaultRoleValue;
+    }
+    return `${Math.round(part / total * 100)}%`;
+}
+
 
 export {
     zip,
@@ -51,4 +107,6 @@ export {
     getTimeFromNow,
 
     filterPlugin,
+
+    calculateRolesInPercent,
 };

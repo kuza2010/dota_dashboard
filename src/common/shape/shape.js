@@ -9,6 +9,20 @@ export const tableFilterShape = PropTypes.shape({
     popupDelay: PropTypes.number,                                                       // popup delay
 });
 
+/**
+ * Describe pro player model:
+ *
+ *  account_id - pro player account id
+ *  steamid - pro player steam id
+ *  avatar - avatar url (steam)
+ *  avatarmedium - avatar medium
+ *  country_code - ISO2 or ISO3 country code format
+ *  last_match_time - last match date
+ *  name - nickname
+ *  team_id - team id
+ *  team_name - team name
+ *  rating - solo rating
+ */
 export const proPlayerShape = PropTypes.shape({
     account_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     steamid: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
@@ -22,6 +36,34 @@ export const proPlayerShape = PropTypes.shape({
     rating: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 });
 
+/**
+ * Describe team model with is used inside playerShape:
+ *
+ *  id - team id
+ *  logo - team banner
+ *  name - team name
+ *  tag - team tag aka shortcut name
+ */
+export const playerTeamShape = PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    logo: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    tag: PropTypes.string.isRequired,
+})
+
+/**
+ * Describe player model with is used in player-page:
+ *
+ *  accountId - pro player account id
+ *  avatar - avatar url (steam)
+ *  countryCode - ISO2 or ISO3 country code format
+ *  lastMatch - last match date
+ *  nickname - nickname
+ *  personName - i dont know what is it
+ *  rank - solo rating
+ *  steamId - steam id
+ *  team - playerTeamShape
+ */
 export const playerShape = PropTypes.shape({
     accountId: PropTypes.number.isRequired,
     avatar: PropTypes.string,
@@ -31,10 +73,34 @@ export const playerShape = PropTypes.shape({
     personName: PropTypes.string.isRequired,
     rank: PropTypes.number.isRequired,
     steamId: PropTypes.string.isRequired,
-    team: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        logo: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        tag: PropTypes.string.isRequired,
-    }).isRequired,
+    team: playerTeamShape.isRequired,
 });
+
+/**
+ *
+ * Describe player recent matched. It is used for calculating user
+ * player role (mid, offlane, support or carry)
+ *
+ *  matchId - match id
+ *  playerSlot - player slot
+ *  gameMode - game mode (rating, lobby, regular match)
+ *  lobbyType - lobby type
+ *  kills - number of kills
+ *  deaths - number of deaths
+ *  assists - number of assists
+ *  lane - number lane
+ *  laneRole - lane role
+ */
+export const commonStatsShape = PropTypes.arrayOf(
+    PropTypes.shape({
+        matchId: PropTypes.number.isRequired,
+        playerSlot: PropTypes.number.isRequired,
+        gameMode: PropTypes.number.isRequired,
+        lobbyType: PropTypes.number.isRequired,
+        kills: PropTypes.number.isRequired,
+        deaths: PropTypes.number.isRequired,
+        assists: PropTypes.number.isRequired,
+        lane: PropTypes.number.isRequired,
+        laneRole: PropTypes.number.isRequired,
+    })
+);

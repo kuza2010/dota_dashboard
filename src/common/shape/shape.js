@@ -104,3 +104,9 @@ export const commonStatsShape = PropTypes.arrayOf(
         laneRole: PropTypes.number.isRequired,
     }).isRequired
 );
+
+export const recentMatchesShape = PropTypes.shape({
+    loading: PropTypes.bool.isRequired,
+    stats: commonStatsShape.isRequired,
+    error: PropTypes.instanceOf(Error),     // or null if there is no error
+});

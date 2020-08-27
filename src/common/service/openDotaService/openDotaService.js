@@ -1,6 +1,7 @@
-import {filterProPlayers, toCommonStatsDTO, toPlayerDTO, toProPlayerDTO} from "./utils";
+import {filterProPlayers, toCommonStatsDTO, toMatchDTO, toPlayerDTO, toProPlayerDTO} from "./utils";
 
 import {proPlayersFieldsToFilter} from "./enums";
+import Cache from "../cache";
 
 import NotFoundException from "../../error/not-found";
 
@@ -8,14 +9,20 @@ import NotFoundException from "../../error/not-found";
 class OpenDotaService {
 
     _apiBase = "https://api.opendota.com/api"
+    _cache = new Cache();
 
     _getResources = async (url) => {
-        const res = await fetch(`${this._apiBase}${url}`);
+        let res;
 
+        if (this._cache.has(url)) {
+            return this._cache.get(url);
+        }
+
+        res = await fetch(`${this._apiBase}${url}`);
         if (!res.ok) {
             throw new Error(`Couldn't fetch: ${url}, status is: ${res.status}`)
         }
-        return await res.json();
+        return this._cache.put(url, await res.json());
     }
 
     _getPlayer = async (accountId) => {
@@ -111,6 +118,45 @@ class OpenDotaService {
         return toCommonStatsDTO(last20Matches);
     }
 
+    _getMatch = async (matchId) => {
+        return await this._getResources(`/matches/${matchId}`)
+    }
+
+    _getMatchStat = async (matchId, accountId) => {
+        if (typeof matchId !== 'number') {
+            if (!parseInt(matchId, 10)) {
+                console.error(`getMatchStat (${matchId}), match id must be number, provided: ${typeof matchId}, value is: ${matchId}`);
+                throw new Error(`Match id must be number, provided: ${typeof matchId}, value is: ${matchId}`);
+            }
+        }
+        if (typeof accountId !== 'number') {
+            if (!parseInt(accountId, 10)) {
+                console.error(`getPlayer (${accountId}), player id must be number, provided: ${typeof accountId}, value is: ${accountId}`);
+                throw new Error(`Player id must be number, provided: ${typeof accountId}, value is: ${accountId}`);
+            }
+        }
+
+
+        const [heroes, match] = await Promise.all([
+            this.getHeroStats(),
+            this._getMatch(matchId),
+        ]);
+
+        return toMatchDTO(match, heroes, accountId);
+    }
+
+    getLastMatchesStats = async (matchesIds = [], accountId) => {
+        if (typeof accountId !== 'number') {
+            if (!parseInt(accountId, 10)) {
+                console.error(`getPlayer (${accountId}), player id must be number, provided: ${typeof accountId}, value is: ${accountId}`);
+                throw new Error(`Player id must be number, provided: ${typeof accountId}, value is: ${accountId}`);
+            }
+        }
+
+        return await Promise.all([
+            ...matchesIds.map(matchId => this._getMatchStat(matchId, accountId)),
+        ]);
+    }
 }
 
 

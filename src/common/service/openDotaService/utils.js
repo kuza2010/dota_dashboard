@@ -1,4 +1,6 @@
 // Pro Players
+import {heroImageStaticURL} from "../../enum";
+
 const filterProPlayers = (players) => (...criteria) => {
     if (!players || players.length === 0) {
         return players;
@@ -57,7 +59,7 @@ const toPlayerDTO = (proPlayer, specificPlayer, teams) => {
     };
 };
 
-
+// Common stats
 const toCommonStatsDTO = (commonStats = []) => {
     if (!commonStats || commonStats.length <= 0) {
         return commonStats;
@@ -78,11 +80,43 @@ const toCommonStatsDTO = (commonStats = []) => {
     });
 };
 
+//Match
+const toMatchDTO = (match, heroes, accountId) => {
+    const player = match.players.find(player => player["account_id"] === accountId);
+    const hero = heroes.find(hero => hero["id"] === player["hero_id"]);
+
+    return {
+        startTime: match["start_time"],
+        radiantTeam: {
+            teamId: match["radiant_team"]["team_id"],
+            name: match["radiant_team"]["name"],
+            tag: match["radiant_team"]["tag"],
+            logo: match["radiant_team"]["logo"],
+        },
+        direTeam: {
+            teamId: match["dire_team"]["team_id"],
+            name: match["dire_team"]["name"],
+            tag: match["dire_team"]["tag"],
+            logo: match["dire_team"]["logo_url"],
+        },
+        league: match["league"]["name"],
+        player: {
+            accountId,
+            assists: player["assists"],
+            kills: player["kills"],
+            deaths: player["deaths"],
+            heroId: player["hero_id"],
+            heroImage: `${heroImageStaticURL}${hero.img}`
+        },
+    }
+};
+
 
 export {
     filterProPlayers,
 
     toProPlayerDTO,
     toPlayerDTO,
-    toCommonStatsDTO
+    toCommonStatsDTO,
+    toMatchDTO,
 }

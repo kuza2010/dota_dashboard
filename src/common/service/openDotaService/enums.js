@@ -1,6 +1,7 @@
 /**
  * Use this array to filter pro players field
  */
+
 const proPlayersFieldsToFilter = [
     // 'is_locked',
     // 'last_login',
@@ -9,7 +10,10 @@ const proPlayersFieldsToFilter = [
     'team_tag',
 ]
 
+const cacheAliveTimeInMinutes = 1;
+
 
 export {
     proPlayersFieldsToFilter,
+    cacheAliveTimeInMinutes,
 }

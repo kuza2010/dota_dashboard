@@ -8,12 +8,10 @@ export default class Cache {
         this.cache = new Map();
     };
 
-    isEmpty = () => {
-        return this.cache.size === 0;
-    };
+    isEmpty = () => (this.cache.size === 0);
 
     put = (key, val, expireDate) => {
-        if (this.isEmpty() || !this.has(key)) {
+        if (!this.has(key)) {
             console.log("Add", key, " to cache.")
             this.cache.set(key, new CacheItem(val, expireDate));
         }
@@ -21,29 +19,29 @@ export default class Cache {
     };
 
     get = (key, defaultValue = null) => {
-        const value = this.cache.get(key);
-
-        if (value === undefined) {
-            return defaultValue;
+        if (this.has(key)) {
+            console.log("Return value for ", key, " from cache")
+            return this.cache.get(key).val;
         }
-
-        if (value.isExpired()) {
-            console.log("Cache is expired for key:", key, " remove them")
-            this._remove(key);
-            return defaultValue;
-        }
-
-        console.log("Return value for ", key, " from cache")
-        return value.val;
+        return defaultValue;
     };
 
     has = (key) => {
-        return this.get(key) !== null;
+        if (this.isEmpty()) return false
+
+        const value = this.cache.get(key);
+        if (value === undefined) return false
+
+        if (value.isExpired()) {
+            console.log("Cache is expired for key:", key, " remove them");
+            this._remove(key);
+            return false;
+        }
+
+        return true;
     };
 
-    _remove = (key) => {
-        this.cache.delete(key);
-    };
+    _remove = (key) => (this.cache.delete(key));
 }
 
 

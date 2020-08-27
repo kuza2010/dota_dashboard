@@ -27,7 +27,10 @@ const playerStatsError = (error) => {
 const fetchStats = (accountId) => (openDotaService, dispatch) => {
     dispatch(playerStatsRequested());
     openDotaService.getPlayerStats(accountId)
-        .then(stats => dispatch(playerStatsLoaded(stats)))
+        .then(stats => {
+            console.log('stats were loaded, dispatch stats loaded')
+            dispatch(playerStatsLoaded(stats));
+        })
         .catch(error => dispatch(playerStatsError(error)));
 }
 

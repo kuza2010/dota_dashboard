@@ -13,8 +13,19 @@ const initialState = {
 
 const statsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case PLAYER_STATS_REQUESTED:
-            return {...initialState};
+        case PLAYER_STATS_REQUESTED: {
+            const {stats} = state;
+
+            if (stats.length === 0) {
+                return {...initialState};
+            }
+
+            return {
+                ...initialState,
+                loading: false,
+                stats,
+            }
+        }
         case PLAYER_STATS_FETCH_SUCCESSFUL:
             return {
                 stats: [...action.payload],

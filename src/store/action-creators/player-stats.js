@@ -4,6 +4,7 @@ import {
     PLAYER_STATS_REQUESTED
 } from "../actions/player-stats";
 
+
 const playerStatsRequested = () => {
     return {
         type: PLAYER_STATS_REQUESTED,
@@ -24,17 +25,21 @@ const playerStatsError = (error) => {
     }
 };
 
-const fetchStats = (accountId) => (openDotaService, dispatch) => {
+const fetchRecentMatches = (accountId) => (openDotaService, dispatch) => {
     dispatch(playerStatsRequested());
     openDotaService.getPlayerStats(accountId)
         .then(stats => {
-            console.log('stats were loaded, dispatch stats loaded')
             dispatch(playerStatsLoaded(stats));
+            const matchesIds = stats.map(stat => stat.matchId);
+            openDotaService.getLastMatchesStats(matchesIds, accountId)
+                .then(res => console.log(res))
+                .catch(error => console.error(error));
+
         })
         .catch(error => dispatch(playerStatsError(error)));
 }
 
 
 export {
-    fetchStats,
+    fetchRecentMatches,
 }

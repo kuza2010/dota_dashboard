@@ -5,16 +5,20 @@ import {
 } from "../actions/player-stats";
 
 
-const initialState = {
+const recentMatchesInitState = {
     stats: [],
     loading: true,
     error: null,
 }
 
+const initialState = {
+    recentMatches: recentMatchesInitState,
+};
+
 const statsReducer = (state = initialState, action) => {
     switch (action.type) {
         case PLAYER_STATS_REQUESTED: {
-            const {stats} = state;
+            const {recentMatches: {stats}} = state;
 
             if (stats.length === 0) {
                 return {...initialState};
@@ -22,21 +26,30 @@ const statsReducer = (state = initialState, action) => {
 
             return {
                 ...initialState,
-                loading: false,
-                stats,
-            }
+                recentMatches: {
+                    error: null,
+                    loading: false,
+                    stats: stats
+                },
+            };
         }
         case PLAYER_STATS_FETCH_SUCCESSFUL:
             return {
-                stats: [...action.payload],
-                loading: false,
-                error: null,
+                ...state,
+                recentMatches: {
+                    stats: [...action.payload],
+                    loading: false,
+                    error: null,
+                },
             };
         case PLAYER_STATS_FETCH_FAILURE:
             return {
-                stats: [],
-                loading: false,
-                error: action.payload,
+                ...state,
+                recentMatches: {
+                    stats: [],
+                    loading: false,
+                    error: action.payload,
+                },
             };
         default:
             return state;

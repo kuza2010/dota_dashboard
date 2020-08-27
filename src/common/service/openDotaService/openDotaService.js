@@ -22,6 +22,7 @@ class OpenDotaService {
         if (!res.ok) {
             throw new Error(`Couldn't fetch: ${url}, status is: ${res.status}`)
         }
+
         return this._cache.put(url, await res.json());
     }
 

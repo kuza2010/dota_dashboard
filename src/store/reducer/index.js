@@ -9,7 +9,7 @@ const reducer = combineReducers({
     heroes: heroReducer,
     players: proPlayersReducer,
     player: playerReducer,
-    stats: statsReducer,
+    playerStats: statsReducer,
 });
 
 

@@ -3,11 +3,11 @@ import React from "react";
 import PropTypes from "prop-types"
 import {commonStatsShape} from "../../../common/shape/shape";
 
-
 import {calculateRolesInPercent} from "../../../common/utils";
 
-import "./game-roles.css"
 import Spinner from "../../spinner";
+
+import "./game-roles.css"
 
 
 const GameRoles = ({carry, mid, offlane, support}) => {

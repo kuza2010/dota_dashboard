@@ -11,6 +11,7 @@ import {fetchStats} from "../../../store/action-creators/player-stats";
 import GameRoles from "../game-roles";
 import ConditionalDisplay from "../../conditional-display/conditional-display";
 import {PlayerStatsFallback} from "../../fallback";
+import PlayerRecentMatches from "../player-recent-matches";
 
 import "./player-stats.css"
 
@@ -23,6 +24,7 @@ const PlayerStats = ({stats, loading, error}) => {
             fallback={<PlayerStatsFallback/>}
         >
             <GameRoles stats={stats} loading={loading}/>
+            <PlayerRecentMatches/>
         </ConditionalDisplay>
     )
 };

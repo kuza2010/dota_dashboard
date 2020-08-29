@@ -59,21 +59,23 @@ const TableWrapper = ({data, columns, initialState, filterProps}) => {
         </table>
     );
 
-    const paginator = (
-        <Paginator
-            pageCount={pageCount}
-            currentPageIndex={state.pageIndex}
-            goToPage={gotoPage}
-        />
-    );
+    const paginator = pageCount >= 2
+        ? (
+            <Paginator
+                pageCount={pageCount}
+                currentPageIndex={state.pageIndex}
+                goToPage={gotoPage}
+            />
+        )
+        : null
 
     return <Table filter={filter} table={table} paginator={paginator}/>;
 };
 
 TableWrapper.propTypes = {
     data: PropTypes.array.isRequired,
-    columns: PropTypes.array.isRequired,
-    initialState: PropTypes.object.isRequired,
+    columns: PropTypes.array.isRequired,            //should be memoized
+    initialState: PropTypes.object.isRequired,      //should be memoized
     filterProps: Shapes.tableFilterShape,
 };
 

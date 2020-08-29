@@ -60,7 +60,7 @@ const toPlayerDTO = (proPlayer, specificPlayer, teams) => {
 };
 
 // Common stats
-const toCommonStatsDTO = (commonStats = []) => {
+const toCommonMatchesStatsDTO = (commonStats = []) => {
     if (!commonStats || commonStats.length <= 0) {
         return commonStats;
     }
@@ -106,7 +106,10 @@ const toMatchDTO = (match, heroes, accountId) => {
             kills: player["kills"],
             deaths: player["deaths"],
             heroId: player["hero_id"],
-            heroImage: `${heroImageStaticURL}${hero.img}`
+            heroName: hero["localized_name"],
+            heroImage: `${heroImageStaticURL}${hero.img}`,
+            isRadiant: player["isRadiant"],
+            radiantWin: player["radiant_win"],
         },
     }
 };
@@ -117,6 +120,6 @@ export {
 
     toProPlayerDTO,
     toPlayerDTO,
-    toCommonStatsDTO,
+    toCommonMatchesStatsDTO,
     toMatchDTO,
 }

@@ -12,7 +12,7 @@ export default class Cache {
 
     put = (key, val, expireDate) => {
         if (!this.has(key)) {
-            console.log("Add", key, " to cache.")
+            //console.log("Add", key, " to cache.")
             this.cache.set(key, new CacheItem(val, expireDate));
         }
         return this.get(key);
@@ -20,7 +20,7 @@ export default class Cache {
 
     get = (key, defaultValue = null) => {
         if (this.has(key)) {
-            console.log("Return value for ", key, " from cache")
+            //console.log("Return value for ", key, " from cache")
             return this.cache.get(key).val;
         }
         return defaultValue;

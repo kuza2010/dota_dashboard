@@ -1,0 +1,17 @@
+.player-match-hero-icon {
+    height: 39px;
+    width: 70px;
+    margin-left: 5px
+}
+
+.win {
+    color: #00bc8c !important;
+}
+
+.lose {
+    color: #bf2718 !important;
+}
+
+.progress-small{
+    height: 10px !important;
+}

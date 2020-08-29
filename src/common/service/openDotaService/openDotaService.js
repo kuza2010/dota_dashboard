@@ -1,4 +1,4 @@
-import {filterProPlayers, toCommonStatsDTO, toMatchDTO, toPlayerDTO, toProPlayerDTO} from "./utils";
+import {filterProPlayers, toCommonMatchesStatsDTO, toMatchDTO, toPlayerDTO, toProPlayerDTO} from "./utils";
 
 import {proPlayersFieldsToFilter} from "./enums";
 import Cache from "../cache";
@@ -107,7 +107,11 @@ class OpenDotaService {
         return teams.find(team => team['team_id'] === teamId);
     }
 
-    getPlayerStats = async (accountId) => {
+    _getRecentMatches = async (accountId) => {
+        return this._getResources(`/players/${accountId}/recentmatches`);
+    }
+
+    getRecentPlayerMatchesStats = async (accountId) => {
         if (typeof accountId !== 'number') {
             if (!parseInt(accountId, 10)) {
                 console.error(`getPlayer (${accountId}), player id must be number, provided: ${typeof accountId}, value is: ${accountId}`);
@@ -115,8 +119,8 @@ class OpenDotaService {
             }
         }
 
-        const last20Matches = await this._getResources(`/players/${accountId}/recentmatches`)
-        return toCommonStatsDTO(last20Matches);
+        const last20Matches = await this._getRecentMatches(accountId);
+        return toCommonMatchesStatsDTO(last20Matches);
     }
 
     _getMatch = async (matchId) => {
@@ -137,7 +141,6 @@ class OpenDotaService {
             }
         }
 
-
         const [heroes, match] = await Promise.all([
             this.getHeroStats(),
             this._getMatch(matchId),
@@ -152,6 +155,10 @@ class OpenDotaService {
                 console.error(`getPlayer (${accountId}), player id must be number, provided: ${typeof accountId}, value is: ${accountId}`);
                 throw new Error(`Player id must be number, provided: ${typeof accountId}, value is: ${accountId}`);
             }
+        }
+
+        if (matchesIds.length > 25) {
+            console.error("To many matches requested! It may cause some trouble on API side. (There is restriction on number of requests)")
         }
 
         return await Promise.all([

@@ -1,7 +1,9 @@
-import PlayerPageFallback from "./player-page-fallback";
+import PlayerNotFoundFallback from "./player-not-found-fallback";
 import PlayerStatsFallback from "./player-stats-fallback";
+import PlayerRecentMatchesFallback from "./player-recent-stat-fallback";
 
 export {
-    PlayerPageFallback,
+    PlayerNotFoundFallback,
     PlayerStatsFallback,
+    PlayerRecentMatchesFallback,
 };

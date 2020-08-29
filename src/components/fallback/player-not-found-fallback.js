@@ -3,10 +3,10 @@ import React from "react";
 import PropTypes from "prop-types"
 
 
-const PlayerPageFallback = ({accountId}) => {
+const PlayerNotFoundFallback = ({accountId}) => {
     return (
         <div className="text-center">
-            <h2 className="text-danger">
+            <h2 className="text-warning">
                 <br/>
                 Sorry, but we <strong>can't find</strong> player with id {`${accountId}`}. Or something went wrong.
             </h2>
@@ -14,7 +14,7 @@ const PlayerPageFallback = ({accountId}) => {
     )
 };
 
-PlayerPageFallback.propTypes = {
+PlayerNotFoundFallback.propTypes = {
     accountId: PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.string,
@@ -22,4 +22,4 @@ PlayerPageFallback.propTypes = {
 };
 
 
-export default PlayerPageFallback;
+export default PlayerNotFoundFallback;

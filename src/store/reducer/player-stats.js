@@ -1,4 +1,6 @@
 import {
+    PLAYER_RECENT_MATCHES_FULL_STAT_FAILED,
+    PLAYER_RECENT_MATCHES_FULL_STAT_SUCCESSFUL,
     PLAYER_STATS_FETCH_FAILURE,
     PLAYER_STATS_FETCH_SUCCESSFUL,
     PLAYER_STATS_REQUESTED
@@ -11,8 +13,15 @@ const recentMatchesInitState = {
     error: null,
 }
 
+const fullStatInitState = {
+    matches: [],
+    loading: true,
+    error: null,
+}
+
 const initialState = {
     recentMatches: recentMatchesInitState,
+    fullStat: fullStatInitState,
 };
 
 const statsReducer = (state = initialState, action) => {
@@ -51,6 +60,24 @@ const statsReducer = (state = initialState, action) => {
                     error: action.payload,
                 },
             };
+        case PLAYER_RECENT_MATCHES_FULL_STAT_SUCCESSFUL:
+            return {
+                ...state,
+                fullStat: {
+                    matches: [...action.payload],
+                    loading: false,
+                    error: null,
+                }
+            }
+        case PLAYER_RECENT_MATCHES_FULL_STAT_FAILED:
+            return {
+                ...state,
+                fullStat: {
+                    matches: [],
+                    loading: false,
+                    error: action.payload,
+                }
+            }
         default:
             return state;
     }

@@ -19,7 +19,7 @@ import {playerShape} from "../../common/shape/shape";
 import "./player-page.css"
 
 
-const PlayerPage = ({player, error, accountId, getStatsFunc}) => {
+const PlayerPage = ({player, error, accountId}) => {
     return (
         <div className="container">
             <Breadcrumbs crumbs={[
@@ -29,13 +29,13 @@ const PlayerPage = ({player, error, accountId, getStatsFunc}) => {
                     isActive: false
                 },
                 {
-                    title: "Player",
+                    title: player.nickname ? `Players ${player.nickname}` : "Player",
                     isActive: true
                 },
             ]}/>
             <ConditionalDisplay
                 fallbackCondition={error}
-                fallback={(<PlayerNotFoundFallback accountId={accountId}/>)}
+                fallback={(<PlayerNotFoundFallback accountId={accountId} error={error}/>)}
             >
                 <PlayerLayout player={player}/>
             </ConditionalDisplay>

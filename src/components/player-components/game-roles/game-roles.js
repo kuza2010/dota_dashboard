@@ -5,7 +5,7 @@ import {commonStatsShape} from "../../../common/shape/shape";
 
 import {calculateRolesInPercent} from "../../../common/utils";
 
-import Spinner from "../../spinner";
+import {Spinner} from "../../spinner";
 
 import "./game-roles.css"
 

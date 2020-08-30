@@ -1,3 +1,5 @@
-import Spinner from "./spinner";
+import {Spinner, SpinnerFacebook} from "./spinner";
 
-export default Spinner;
+export {
+    Spinner, SpinnerFacebook
+};

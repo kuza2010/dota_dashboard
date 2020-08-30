@@ -1,9 +1,10 @@
 import React from "react";
+import {SpinnerFacebook} from "../spinner";
 
 const Loading = () => {
     return (
         <div className="container text-center">
-            <h2>Loading ...</h2>
+            <SpinnerFacebook/>
         </div>
     )
 }

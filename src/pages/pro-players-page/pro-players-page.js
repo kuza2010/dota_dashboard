@@ -19,6 +19,7 @@ import Shapes from "../../common/shape"
 
 import "./pro-players-page.css"
 import Flag from "../../components/flag";
+import {Link} from "react-router-dom";
 
 
 const PlayersPage = ({players, loading, error}) => {
@@ -32,7 +33,9 @@ const PlayersPage = ({players, loading, error}) => {
                 return (
                     <React.Fragment>
                         <Flag alt={`flag-${player["country_code"]}`} flagCode={player["country_code"]}/>
-                        {player.name}
+                        <Link to={`player/${player["account_id"]}`}>
+                            {player.name}
+                        </Link>
                     </React.Fragment>
                 )
             },

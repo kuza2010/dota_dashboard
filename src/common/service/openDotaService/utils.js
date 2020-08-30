@@ -54,7 +54,7 @@ const toPlayerDTO = (proPlayer, specificPlayer, teams) => {
             id: proPlayer['team_id'],
             name: proPlayer['team_name'],
             tag: proPlayer['team_tag'],
-            logo: team['logo_url'],
+            logo: team ? team['logo_url'] : undefined,
         },
     };
 };

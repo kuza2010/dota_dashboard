@@ -2,13 +2,20 @@ import React from "react";
 
 import PropTypes from "prop-types"
 
+import NotFoundException from "../../common/error/not-found";
 
-const PlayerNotFoundFallback = ({accountId}) => {
+
+const PlayerNotFoundFallback = ({accountId, error}) => {
+    console.error(error)
     return (
         <div className="text-center">
             <h2 className="text-warning">
                 <br/>
-                Sorry, but we <strong>can't find</strong> player with id {`${accountId}`}. Or something went wrong.
+                {
+                    error instanceof NotFoundException
+                        ? <>Sorry, but we <strong>can't find</strong> player with id {`${accountId}`}.</>
+                        : <strong className="text-danger">Something went wrong :(</strong>
+                }
             </h2>
         </div>
     )

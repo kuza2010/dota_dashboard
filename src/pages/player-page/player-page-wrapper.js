@@ -29,6 +29,11 @@ const PlayerPage = ({player, error, accountId}) => {
                     isActive: false
                 },
                 {
+                    path: "/players",
+                    title: "Players",
+                    isActive: false,
+                },
+                {
                     title: player.nickname ? `Players ${player.nickname}` : "Player",
                     isActive: true
                 },

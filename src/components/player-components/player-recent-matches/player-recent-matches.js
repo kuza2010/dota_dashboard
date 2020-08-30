@@ -8,7 +8,7 @@ import {fetchFullStats} from "../../../store/action-creators/player-stats";
 
 import TableWrapper from "../../table";
 import ConditionalDisplay from "../../conditional-display/conditional-display";
-import {PlayerRecentMatchesFallback} from "../../fallback";
+import {PlayerStatsFallback} from "../../fallback";
 import Loading from "../../loading";
 
 import "./player-recent-matches.css"
@@ -130,7 +130,20 @@ const Container = (props) => {
     const {error, loading} = props;
 
     return (
-        <ConditionalDisplay fallbackCondition={error} fallback={<PlayerRecentMatchesFallback/>}>
+        <ConditionalDisplay
+            fallbackCondition={error}
+            fallback={
+                <PlayerStatsFallback
+                    content={(
+                        <>
+                            <br/>
+                            Sorry, but we <strong>can't load</strong> last player matches.
+                        </>
+                    )}
+                    error={error}
+                />
+            }
+        >
             {
                 loading
                     ? <Loading/>

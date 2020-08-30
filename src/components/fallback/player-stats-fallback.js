@@ -1,11 +1,15 @@
 import React from "react";
 
 
-const PlayerStatsFallback = () => {
+const PlayerStatsFallback = ({content, error}) => {
+
+    console.error(error);
     return (
         <div className="text-center" style={{margin: "10px 0px"}}>
             <h5 className="text-warning">
-                Something went wrong during loading player stats.
+                {
+                    content
+                }
             </h5>
         </div>
     )

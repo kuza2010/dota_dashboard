@@ -7,11 +7,11 @@ import PlayerHeader from "../../../components/player-components/player-header";
 import "./player-layout.css"
 
 
-const PlayerLayout = ({player}) => {
+const PlayerLayout = ({player, accountId}) => {
     return (
         <div className="jumbotron">
             <PlayerHeader {...player}/>
-            <PlayerStats {...player}/>
+            <PlayerStats accountId={accountId}/>
         </div>
     )
 }

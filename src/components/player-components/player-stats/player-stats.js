@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector, shallowEqual} from "react-redux";
 
 import PropTypes from "prop-types";
 
@@ -10,6 +10,7 @@ import GameRoles from "../game-roles";
 import ConditionalDisplay from "../../conditional-display/conditional-display";
 import {PlayerStatsFallback} from "../../fallback";
 import PlayerRecentMatches from "../player-recent-matches";
+import Loading from "../../loading";
 
 import Shape from "../../../common/shape";
 
@@ -18,7 +19,7 @@ import "./player-stats.css"
 
 const PlayerStats = ({recentMatches, accountId}) => {
 
-    const {stats, error} = recentMatches;
+    const {stats, error, loading} = recentMatches;
     const matchIds = stats.map(match => match.matchId);
 
     return (
@@ -27,7 +28,11 @@ const PlayerStats = ({recentMatches, accountId}) => {
             fallback={<PlayerStatsFallback/>}
         >
             <GameRoles {...recentMatches}/>
-            <PlayerRecentMatches accountId={accountId} matchIdsArray={matchIds}/>
+            {
+                loading
+                    ? <Loading/>
+                    : <PlayerRecentMatches accountId={accountId} matchIdsArray={matchIds}/>
+            }
         </ConditionalDisplay>
     )
 };
@@ -45,12 +50,12 @@ const PlayerStatsWrapper = ({accountId}) => {
     const openDotaService = useContext(OpenDotaServiceContext);
     const dispatch = useDispatch();
 
-    const recentMatches = useSelector(({playerStats}) => playerStats.recentMatches);
-
     useEffect(() => fetchRecentPlayerMatchesStats(accountId)(openDotaService, dispatch), []);
 
+    const playerStats = useSelector(({playerStats}) => playerStats);
+
     return (
-        <PlayerStats recentMatches={recentMatches} accountId={accountId}/>
+        <PlayerStats recentMatches={playerStats.recentMatches} accountId={accountId}/>
     )
 }
 

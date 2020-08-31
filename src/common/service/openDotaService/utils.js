@@ -43,6 +43,7 @@ const toPlayerDTO = (proPlayer, specificPlayer, teams) => {
     return {
         //specific
         rank: specificPlayer['solo_competitive_rank'],
+        estimateRank: specificPlayer['mmr_estimate']['estimate'],
         accountId: specificPlayer['profile']['account_id'],
         personName: specificPlayer['profile']['personaname'],
         nickname: specificPlayer['profile']['name'],
@@ -65,25 +66,30 @@ const toCommonMatchesStatsDTO = (commonStats = []) => {
         return commonStats;
     }
 
-    return commonStats.map(stat => {
-        return {
-            matchId: stat['match_id'],
-            playerSlot: stat['player_slot'],
-            gameMode: stat['game_mode'],
-            lobbyType: stat['lobby_type'],
-            kills: stat['kills'],
-            deaths: stat['deaths'],
-            assists: stat['assists'],
-            lane: stat['lane'],
-            laneRole: stat['lane_role'],
-        };
-    });
+    return commonStats
+        .filter(stat => stat['lobby_type'] === 1 && stat['game_mode'] === 2)
+        .map(stat => {
+            return {
+                matchId: stat['match_id'],
+                playerSlot: stat['player_slot'],
+                gameMode: stat['game_mode'],
+                lobbyType: stat['lobby_type'],
+                kills: stat['kills'],
+                deaths: stat['deaths'],
+                assists: stat['assists'],
+                lane: stat['lane'],
+                laneRole: stat['lane_role'],
+            };
+        })
 };
 
 //Match
 const toMatchDTO = (match, heroes, accountId) => {
-    const player = match.players.find(player => player["account_id"] === accountId);
-    const hero = heroes.find(hero => hero["id"] === player["hero_id"]);
+    const player = match.players.find(player => player["account_id"] == accountId);
+    const hero = heroes.find(hero => hero["id"] == player["hero_id"]);
+
+    // filter broke match
+    if (match["radiant_team"] === undefined || match["dire_team"] === undefined) return null;
 
     return {
         startTime: match["start_time"],

@@ -17,6 +17,7 @@ import OpenDotaServiceContext from "../../components/context/openDotaContext";
 import {playerShape} from "../../common/shape/shape";
 
 import "./player-page.css"
+import {playerStatsRequested} from "../../store/action-creators/player-stats";
 
 
 const PlayerPage = ({player, error, accountId}) => {
@@ -42,7 +43,7 @@ const PlayerPage = ({player, error, accountId}) => {
                 fallbackCondition={error}
                 fallback={(<PlayerNotFoundFallback accountId={accountId} error={error}/>)}
             >
-                <PlayerLayout player={player}/>
+                <PlayerLayout player={player} accountId={accountId}/>
             </ConditionalDisplay>
         </div>
     )
@@ -76,11 +77,14 @@ const PlayerPageWrapper = (props) => {
     const openDotaService = useContext(OpenDotaServiceContext);
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        fetchPlayer(accountId)(openDotaService, dispatch)
+        return () => dispatch(playerStatsRequested());
+    }, [accountId]);
+
     const player = useSelector(({player}) => player.player);
     const error = useSelector(({player}) => player.error);
     const loading = useSelector(({player}) => player.loading);
-
-    useEffect(() => fetchPlayer(accountId)(openDotaService, dispatch), []);
 
     return (
         loading

@@ -1,6 +1,7 @@
 import {
     PLAYER_RECENT_MATCHES_FULL_STAT_FAILED,
     PLAYER_RECENT_MATCHES_FULL_STAT_SUCCESSFUL,
+    PLAYER_STATS_CLEANUP,
     PLAYER_STATS_FETCH_FAILURE,
     PLAYER_STATS_FETCH_SUCCESSFUL,
     PLAYER_STATS_REQUESTED
@@ -26,20 +27,10 @@ const initialState = {
 
 const statsReducer = (state = initialState, action) => {
     switch (action.type) {
+        case PLAYER_STATS_CLEANUP:
         case PLAYER_STATS_REQUESTED: {
-            const {recentMatches: {stats}} = state;
-
-            if (stats.length === 0) {
-                return {...initialState};
-            }
-
             return {
                 ...initialState,
-                recentMatches: {
-                    error: null,
-                    loading: false,
-                    stats: stats
-                },
             };
         }
         case PLAYER_STATS_FETCH_SUCCESSFUL:

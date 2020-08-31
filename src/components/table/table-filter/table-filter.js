@@ -61,7 +61,10 @@ TableFilter.propTypes = {
     setTableFilterValue: PropTypes.func.isRequired,
     initialValue: PropTypes.string,
     filteredRowsLength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    popupText: PropTypes.string,
+    popupText: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object,
+    ]),
     popupDelay: PropTypes.number,
 }
 

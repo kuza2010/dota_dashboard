@@ -46,9 +46,9 @@ export const proPlayerShape = PropTypes.shape({
  */
 export const playerTeamShape = PropTypes.shape({
     id: PropTypes.number.isRequired,
-    logo: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     tag: PropTypes.string.isRequired,
+    logo: PropTypes.string,
 })
 
 /**
@@ -71,9 +71,10 @@ export const playerShape = PropTypes.shape({
     lastMatch: PropTypes.string,
     nickname: PropTypes.string.isRequired,
     personName: PropTypes.string.isRequired,
-    rank: PropTypes.number.isRequired,
     steamId: PropTypes.string.isRequired,
     team: playerTeamShape.isRequired,
+    rank: PropTypes.number,
+    EstimateRank: PropTypes.number,
 });
 
 /**
@@ -100,8 +101,8 @@ export const commonStatsShape = PropTypes.arrayOf(
         kills: PropTypes.number.isRequired,
         deaths: PropTypes.number.isRequired,
         assists: PropTypes.number.isRequired,
-        lane: PropTypes.number.isRequired,
-        laneRole: PropTypes.number.isRequired,
+        lane: PropTypes.number,
+        laneRole: PropTypes.number,
     }).isRequired
 );
 

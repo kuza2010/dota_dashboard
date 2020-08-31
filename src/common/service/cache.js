@@ -12,7 +12,6 @@ export default class Cache {
 
     put = (key, val, expireDate) => {
         if (!this.has(key)) {
-            //console.log("Add", key, " to cache.")
             this.cache.set(key, new CacheItem(val, expireDate));
         }
         return this.get(key);
@@ -20,7 +19,6 @@ export default class Cache {
 
     get = (key, defaultValue = null) => {
         if (this.has(key)) {
-            //console.log("Return value for ", key, " from cache")
             return this.cache.get(key).val;
         }
         return defaultValue;
@@ -33,7 +31,6 @@ export default class Cache {
         if (value === undefined) return false
 
         if (value.isExpired()) {
-            console.log("Cache is expired for key:", key, " remove them");
             this._remove(key);
             return false;
         }

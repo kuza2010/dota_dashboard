@@ -11,8 +11,9 @@ import ConditionalDisplay from "../../conditional-display/conditional-display";
 import {PlayerStatsFallback} from "../../fallback";
 import Loading from "../../loading";
 
-import "./player-recent-matches.css"
 import moment from "moment";
+
+import "./player-recent-matches.css"
 
 
 const PlayerRecentMatches = ({matches}) => {
@@ -114,19 +115,19 @@ const PlayerRecentMatches = ({matches}) => {
         <div>
             <h4>Recent matches:</h4>
             {
-                matches
+                matches && matches.length > 0
                     ? (<TableWrapper
                         columns={columns}
                         data={matches}
                         initialState={tableInitialState}
                     />)
-                    : null
+                    : (<h2 className="text-warning">No matches...</h2>)
             }
         </div>
     )
 };
 
-const Container = (props) => {
+const PlayerRecentMatchesContainer = (props) => {
     const {error, loading} = props;
 
     return (
@@ -153,22 +154,19 @@ const Container = (props) => {
     )
 }
 
-const Wrapper = ({matchIdsArray, accountId}) => {
+const PlayerRecentMatchesWrapper = ({matchIdsArray, accountId}) => {
 
     const openDotaService = useContext(OpenDotaServiceContext);
     const dispatch = useDispatch();
 
+    useEffect(() => fetchFullStats(matchIdsArray, accountId)(openDotaService, dispatch), []);
+
     const fullStat = useSelector(({playerStats}) => playerStats.fullStat);
 
-    useEffect(() => {
-        if (matchIdsArray.length === 0) return
-        fetchFullStats(matchIdsArray, accountId)(openDotaService, dispatch);
-    }, [accountId, matchIdsArray]);
-
-    return <Container {...fullStat}/>
+    return <PlayerRecentMatchesContainer {...fullStat}/>
 }
 
-Wrapper.propTypes = {
+PlayerRecentMatchesWrapper.propTypes = {
     matchIdsArray: PropTypes.arrayOf(
         PropTypes.oneOfType([
             PropTypes.string,
@@ -181,4 +179,4 @@ Wrapper.propTypes = {
 };
 
 
-export default Wrapper;
+export default PlayerRecentMatchesWrapper;

@@ -60,11 +60,10 @@ const fetchRecentPlayerMatchesStats = (accountId) => (openDotaService, dispatch)
 const fetchFullStats = (matchesIds, accountId) => (openDotaService, dispatch) => {
     openDotaService.getLastMatchesStats(matchesIds, accountId)
         .then(res => {
-            console.log("stats: ", res)
-            dispatch(playerRecentMatchesSuccessful(res));
+            dispatch(playerRecentMatchesSuccessful(res.filter(val => val)));
         })
         .catch(err => {
-            console.error("FAILED FETCH FULL STATS!!!",err);
+            console.error("FAILED FETCH FULL STATS!!!", err);
             dispatch(playerRecentMatchesFullStatFailed(err));
         })
 }
@@ -73,4 +72,6 @@ const fetchFullStats = (matchesIds, accountId) => (openDotaService, dispatch) =>
 export {
     fetchRecentPlayerMatchesStats,
     fetchFullStats,
+
+    playerStatsRequested,
 }

@@ -120,7 +120,7 @@ class OpenDotaService {
         }
 
         const last20Matches = await this._getRecentMatches(accountId);
-        return toCommonMatchesStatsDTO(last20Matches);
+        return toCommonMatchesStatsDTO(last20Matches.slice(0, 5));
     }
 
     _getMatch = async (matchId) => {
@@ -157,7 +157,7 @@ class OpenDotaService {
             }
         }
 
-        if (matchesIds.length > 25) {
+        if (matchesIds.length > 20) {
             console.error("To many matches requested! It may cause some trouble on API side. (There is restriction on number of requests)")
         }
 

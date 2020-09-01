@@ -17,7 +17,7 @@ import OpenDotaServiceContext from "../../components/context/openDotaContext";
 import {playerShape} from "../../common/shape/shape";
 
 import "./player-page.css"
-import {playerStatsRequested} from "../../store/action-creators/player-stats";
+import {playerStatsCleanup, playerStatsRequested} from "../../store/action-creators/player-stats";
 
 
 const PlayerPage = ({player, error, accountId}) => {
@@ -79,7 +79,7 @@ const PlayerPageWrapper = (props) => {
 
     useEffect(() => {
         fetchPlayer(accountId)(openDotaService, dispatch)
-        return () => dispatch(playerStatsRequested());
+        return () => dispatch(playerStatsCleanup());
     }, [accountId]);
 
     const player = useSelector(({player}) => player.player);

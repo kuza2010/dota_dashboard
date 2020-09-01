@@ -14,6 +14,7 @@ import Loading from "../../loading";
 import moment from "moment";
 
 import "./player-recent-matches.css"
+import Popup from "reactjs-popup";
 
 
 const PlayerRecentMatches = ({matches}) => {
@@ -105,23 +106,43 @@ const PlayerRecentMatches = ({matches}) => {
         },
     ], []);
 
-    const tableInitialState = React.useMemo(() => (
-        {
-            pageSize: 25,
-        }
-    ), [])
+    const tableInitialState = React.useMemo(() => ({pageSize: 25,}), [])
 
     return (
         <div>
             <h4>Recent matches:</h4>
             {
                 matches && matches.length > 0
-                    ? (<TableWrapper
-                        columns={columns}
-                        data={matches}
-                        initialState={tableInitialState}
-                    />)
-                    : (<h2 className="text-warning">No matches...</h2>)
+                    ? (
+                        <TableWrapper
+                            columns={columns}
+                            data={matches}
+                            initialState={tableInitialState}
+                        />
+                    )
+                    : (
+                        <div className="shrink">
+                            <Popup
+                                contentStyle={{background: "", border: "", boxShadow: ""}}
+                                arrow={false}
+                                mouseEnterDelay={200}
+                                position="right center"
+                                on="hover"
+                                trigger={(
+                                    <div className="row">
+                                        <h2 className="text-warning">No matches...</h2>
+                                        <div className="align-self-center">
+                                            <span className="circle-border text-muted">&nbsp;?&nbsp;</span>
+                                        </div>
+                                    </div>)}
+                            >
+                                <div className="alert alert-primary">
+                                    We can't find any pro scene matches for this player or this player has not professional
+                                    matches yet...
+                                </div>
+                            </Popup>
+                        </div>
+                    )
             }
         </div>
     )

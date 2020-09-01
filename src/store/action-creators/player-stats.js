@@ -1,6 +1,7 @@
 import {
     PLAYER_RECENT_MATCHES_FULL_STAT_FAILED,
     PLAYER_RECENT_MATCHES_FULL_STAT_SUCCESSFUL,
+    PLAYER_STATS_CLEANUP,
     PLAYER_STATS_FETCH_FAILURE,
     PLAYER_STATS_FETCH_SUCCESSFUL,
     PLAYER_STATS_REQUESTED
@@ -10,6 +11,12 @@ import {
 const playerStatsRequested = () => {
     return {
         type: PLAYER_STATS_REQUESTED,
+    }
+}
+
+const playerStatsCleanup = () => {
+    return {
+        type: PLAYER_STATS_CLEANUP,
     }
 }
 
@@ -59,9 +66,7 @@ const fetchRecentPlayerMatchesStats = (accountId) => (openDotaService, dispatch)
  */
 const fetchFullStats = (matchesIds, accountId) => (openDotaService, dispatch) => {
     openDotaService.getLastMatchesStats(matchesIds, accountId)
-        .then(res => {
-            dispatch(playerRecentMatchesSuccessful(res.filter(val => val)));
-        })
+        .then(res => dispatch(playerRecentMatchesSuccessful(res.filter(val => val))))
         .catch(err => {
             console.error("FAILED FETCH FULL STATS!!!", err);
             dispatch(playerRecentMatchesFullStatFailed(err));
@@ -73,5 +78,5 @@ export {
     fetchRecentPlayerMatchesStats,
     fetchFullStats,
 
-    playerStatsRequested,
+    playerStatsCleanup,
 }

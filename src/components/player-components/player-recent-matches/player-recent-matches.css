@@ -12,6 +12,18 @@
     color: #bf2718 !important;
 }
 
-.progress-small{
+.progress-small {
     height: 10px !important;
+}
+
+.shrink {
+    display: inline-block;
+}
+
+.circle-border {
+    border-radius: 50%;
+    text-align: center;
+    text-transform: none;
+    cursor: help;
+    border: 1px solid #999999;
 }

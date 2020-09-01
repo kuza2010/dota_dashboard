@@ -3,9 +3,9 @@ import React from "react";
 import Flag from "../../flag";
 
 import PropTypes from 'prop-types';
+import Shapes from "../../../common/shape";
 
 import "./player-header.css"
-import {playerTeamShape} from "../../../common/shape/shape";
 
 
 const PlayerHeader = ({avatar, nickname, countryCode, rank, team, estimateRank}) => {
@@ -46,7 +46,7 @@ PlayerHeader.propTypes = {
         PropTypes.string,
         PropTypes.number,
     ]),
-    team: playerTeamShape,
+    team: Shapes.playerTeamShape,
 };
 
 PlayerHeader.defaultProps = {

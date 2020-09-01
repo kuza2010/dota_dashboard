@@ -26,11 +26,23 @@ const PlayerRecentMatches = ({matches}) => {
                 const {player} = originalRow;
 
                 return (
-                    <img
-                        className="player-match-hero-icon"
-                        src={player.heroImage}
-                        alt={`${player.heroName}_icon`}
-                    />
+                    <Popup
+                        contentStyle={{background: "", border: "", boxShadow: ""}}
+                        arrow={false}
+                        mouseEnterDelay={200}
+                        position="right center"
+                        on="hover"
+                        trigger={(
+                            <img
+                                className="player-match-hero-icon"
+                                src={player.heroImage}
+                                alt={`${player.heroName}_icon`}
+                            />)}
+                    >
+                        <div className="alert alert-primary">
+                            Hero: {player.heroName}
+                        </div>
+                    </Popup>
                 );
             },
         },

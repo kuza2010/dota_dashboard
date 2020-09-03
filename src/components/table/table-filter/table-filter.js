@@ -24,6 +24,7 @@ const TableFilter = ({setTableFilterValue, initialValue, filteredRowsLength, pop
                 setFilterValue(e.target.value);
                 onChange(e.target.value);
             }}
+            onSubmit={e => e.preventDefault()}
             value={filterValue}
             placeholder={placeholderValue}
         />

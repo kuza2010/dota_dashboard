@@ -11466,6 +11466,10 @@ a.text-warning:hover, a.text-warning:focus {
     color: #E74C3C !important;
 }
 
+.text-green {
+    color: #009e3f !important;
+}
+
 a.text-danger:hover, a.text-danger:focus {
     color: #bf2718 !important;
 }

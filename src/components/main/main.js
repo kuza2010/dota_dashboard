@@ -6,6 +6,7 @@ import HomePage from "../../pages/home-page";
 import HeroesPage from "../../pages/heroes-page";
 import PlayersPage from "../../pages/pro-players-page";
 import PlayerPageWrapper from "../../pages/player-page";
+import TeamsPage from "../../pages/teams-page";
 import NotFound from "../not-found";
 
 
@@ -25,6 +26,9 @@ const Main = () => {
                    component={PlayersPage}/>
             <Route path={'/player/:accountId(\\d+)'}
                    component={PlayerPageWrapper}/>
+            <Route exact
+                   path={'/teams'}
+                   component={TeamsPage}/>
             <Route path={'*'}
                    render={NotFound}/>
         </Switch>

@@ -119,8 +119,8 @@ export const teamsShape = PropTypes.arrayOf(
         name: PropTypes.string.isRequired,
         tag: PropTypes.string.isRequired,
         logo: PropTypes.string.isRequired,
-    })
-)
+    }),
+).isRequired;
 
 export const recentMatchesShape = PropTypes.shape({
     loading: PropTypes.bool.isRequired,

@@ -131,7 +131,7 @@ const toTeamsDTO = (...teams) => {
             teamId: team["team_id"],
             rating: team["rating"],
             wins: team["wins"],
-            losses: team["loses"],
+            losses: team["losses"],
             lastMatchTime: team["last_match_time"],
             name: team["name"],
             tag: team["tag"],

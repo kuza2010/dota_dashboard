@@ -116,7 +116,7 @@ function renderTableBody(bodyProps, rows, prepareRow) {
                     >
                         {row.cells.map(cell => {
                             return (
-                                <td {...cell.getCellProps()}>
+                                <td className="center-vertical" {...cell.getCellProps()}>
                                     {cell.render('Cell')}
                                 </td>
                             )

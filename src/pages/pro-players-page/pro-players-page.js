@@ -43,7 +43,7 @@ const PlayersPage = ({players, loading, error}) => {
         {
             Header: "Last game",
             accessor: "last_match_time",
-            Cell: ({row}) => (getTimeFromNow(row.original["last_match_time"])),
+            Cell: ({row}) => (getTimeFromNow(row.original["last_match_time"],"YYYY-MM-DDTHH:mm")),
         },
         {
             Header: "Team",

@@ -21,7 +21,7 @@ const heroError = (error) => {
     }
 }
 
-const fetchHeroes = (openDotaService, dispatch) => {
+const fetchHeroes = (openDotaService) => (dispatch) => {
     dispatch(heroRequested());
     openDotaService.getHeroStats()
         .then(heroes => dispatch(heroLoaded(heroes)))

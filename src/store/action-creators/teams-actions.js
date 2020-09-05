@@ -28,9 +28,13 @@ const teamsError = (error) => {
     }
 }
 
+const fetchTeams = (openDotaService) => (dispatch) => {
+    dispatch(teamsRequested());
+    openDotaService.getTeams()
+        .then(teams => dispatch(teamsLoaded(teams)))
+        .catch(error => dispatch(teamsError(error)));
+}
 
 export {
-    teamsRequested,
-    teamsLoaded,
-    teamsError,
+    fetchTeams,
 }

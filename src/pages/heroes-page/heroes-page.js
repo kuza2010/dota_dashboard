@@ -49,7 +49,7 @@ const HeroPageContainer = () => {
     const openDotaService = useContext(OpenDotaServiceContext);
     const dispatch = useDispatch();
 
-    useEffect(() => fetchHeroes(openDotaService, dispatch), []);
+    useEffect(() => dispatch(fetchHeroes(openDotaService)), []);
 
     const heroes = useSelector(state => state.heroes.heroes);
     const loading = useSelector(state => state.heroes.loading);

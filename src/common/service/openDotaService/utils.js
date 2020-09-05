@@ -1,6 +1,6 @@
-// Pro Players
 import {heroImageStaticURL} from "../../enum";
 
+// Pro Players
 const filterProPlayers = (players) => (...criteria) => {
     if (!players || players.length === 0) {
         return players;
@@ -38,7 +38,7 @@ const toProPlayerDTO = (proPlayer) => {
 
 // Player
 const toPlayerDTO = (proPlayer, specificPlayer, teams) => {
-    const team = teams.find(team => team['team_id'] === proPlayer['team_id']);
+    const team = teams.find(team => team['teamId'] === proPlayer['team_id']);
 
     return {
         //specific
@@ -55,7 +55,7 @@ const toPlayerDTO = (proPlayer, specificPlayer, teams) => {
             id: proPlayer['team_id'],
             name: proPlayer['team_name'],
             tag: proPlayer['team_tag'],
-            logo: team ? team['logo_url'] : undefined,
+            logo: team ? team['logo'] : undefined,
         },
     };
 };
@@ -120,6 +120,26 @@ const toMatchDTO = (match, heroes, accountId) => {
     }
 };
 
+//Teams
+const toTeamsDTO = (...teams) => {
+    if (teams.length <= 0) {
+        return [];
+    }
+
+    return teams.map(team => {
+        return {
+            teamId: team["team_id"],
+            rating: team["rating"],
+            wins: team["wins"],
+            losses: team["loses"],
+            lastMatchTime: team["last_match_time"],
+            name: team["name"],
+            tag: team["tag"],
+            logo: team["logo_url"],
+        };
+    })
+}
+
 
 export {
     filterProPlayers,
@@ -128,4 +148,5 @@ export {
     toPlayerDTO,
     toCommonMatchesStatsDTO,
     toMatchDTO,
+    toTeamsDTO,
 }

@@ -106,6 +106,22 @@ export const commonStatsShape = PropTypes.arrayOf(
     }).isRequired
 );
 
+/**
+ * Describe teams shape. It used on Teams page.
+ */
+export const teamsShape = PropTypes.arrayOf(
+    PropTypes.shape({
+        teamId: PropTypes.number.isRequired,
+        rating: PropTypes.number.isRequired,
+        wins: PropTypes.number.isRequired,
+        losses: PropTypes.number.isRequired,
+        lastMatchTime: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        tag: PropTypes.string.isRequired,
+        logo: PropTypes.string.isRequired,
+    })
+)
+
 export const recentMatchesShape = PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     stats: commonStatsShape.isRequired,

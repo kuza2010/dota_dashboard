@@ -5,8 +5,8 @@ import Breadcrumbs from "../../components/breadcrumbs";
 import "./teams-page.css"
 
 
-const TeamsPage = () =>{
-    return(
+const TeamsPage = () => {
+    return (
         <div className="container">
             <Breadcrumbs crumbs={[
                 {

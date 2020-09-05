@@ -1,4 +1,4 @@
-import {filterProPlayers, toCommonMatchesStatsDTO, toMatchDTO, toPlayerDTO, toProPlayerDTO} from "./utils";
+import {filterProPlayers, toCommonMatchesStatsDTO, toMatchDTO, toPlayerDTO, toProPlayerDTO, toTeamsDTO} from "./utils";
 
 import {proPlayersFieldsToFilter} from "./enums";
 import Cache from "../cache";
@@ -46,6 +46,7 @@ class OpenDotaService {
         return this._getResources("/heroStats");
     }
 
+
     getProPlayer = async (accountId) => {
         if (typeof accountId !== 'number') {
             if (!parseInt(accountId, 10)) {
@@ -63,6 +64,7 @@ class OpenDotaService {
         return filterProPlayers(proPlayers)(...proPlayersFieldsToFilter)
             .map(player => toProPlayerDTO(player));
     }
+
 
     /**
      * This function compose general information about
@@ -88,11 +90,13 @@ class OpenDotaService {
         return toPlayerDTO(proPlayer, player, teams);
     }
 
+
     /**
      * This functions return all available teams
      */
     getTeams = async () => {
-        return this._getResources("/teams");
+        const teams = await this._getResources("/teams");
+        return toTeamsDTO(...teams);
     }
 
     getTeam = async (teamId) => {
@@ -106,6 +110,7 @@ class OpenDotaService {
         const teams = this._getResources("/teams");
         return teams.find(team => team['team_id'] === teamId);
     }
+
 
     _getRecentMatches = async (accountId) => {
         return this._getResources(`/players/${accountId}/recentmatches`);
@@ -122,6 +127,7 @@ class OpenDotaService {
         const last20Matches = await this._getRecentMatches(accountId);
         return toCommonMatchesStatsDTO(last20Matches.slice(0, 5));
     }
+
 
     _getMatch = async (matchId) => {
         return await this._getResources(`/matches/${matchId}`)

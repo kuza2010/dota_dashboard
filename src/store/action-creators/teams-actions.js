@@ -1,12 +1,6 @@
 import {TEAMS_FETCH_FAILURE, TEAMS_FETCH_SUCCESSFUL, TEAMS_REQUESTED} from "../actions/teams-actions"
+import {getOnlyTeamWithLogo} from "../../common/utils";
 
-const initialState = {
-    allTeams: {
-        teams: [],
-        loading: true,
-        error: null,
-    },
-};
 
 const teamsRequested = () => {
     return {
@@ -31,9 +25,10 @@ const teamsError = (error) => {
 const fetchTeams = (openDotaService) => (dispatch) => {
     dispatch(teamsRequested());
     openDotaService.getTeams()
-        .then(teams => dispatch(teamsLoaded(teams)))
+        .then(teams => dispatch(teamsLoaded(getOnlyTeamWithLogo(teams))))
         .catch(error => dispatch(teamsError(error)));
 }
+
 
 export {
     fetchTeams,

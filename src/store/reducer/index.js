@@ -11,7 +11,7 @@ const reducer = combineReducers({
     players: proPlayersReducer,
     player: playerReducer,
     playerStats: statsReducer,
-    team: teamReducer,
+    teams: teamReducer,
 });
 
 

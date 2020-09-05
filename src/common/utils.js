@@ -33,7 +33,7 @@ const getCountryFlag = (code) => {
 /**
  * Return human-readable time from now and provided time
  */
-const getTimeFromNow = (time, pattern = "YYYY-MM-DDTHH:mm") => moment(time, pattern).fromNow();
+const getTimeFromNow = (time, pattern) => moment(time, pattern).fromNow();
 
 /**
  * Filter plugin. Just remove undefined plugins
@@ -90,6 +90,16 @@ const calculateRolesInPercent = (stats = []) => {
     };
 };
 
+const filterTeams = (teams = []) => {
+    return teams.filter(team => {
+        if (!team.logo || !team.name) {
+            return false;
+        }
+
+        return true;
+    });
+}
+
 const _calcPercent = (part, total) => {
     if (part <= 0) {
         return defaultRoleValue;
@@ -101,12 +111,9 @@ const _calcPercent = (part, total) => {
 export {
     zip,
     stringCompare,
-
     getCountryFlag,
-
     getTimeFromNow,
-
     filterPlugin,
-
+    filterTeams,
     calculateRolesInPercent,
 };

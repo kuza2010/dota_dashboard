@@ -1,5 +1,5 @@
 import {TEAMS_FETCH_FAILURE, TEAMS_FETCH_SUCCESSFUL, TEAMS_REQUESTED} from "../actions/teams-actions"
-import {getOnlyTeamWithLogo} from "../../common/utils";
+import {filterTeams} from "../../common/utils";
 
 
 const teamsRequested = () => {
@@ -25,7 +25,7 @@ const teamsError = (error) => {
 const fetchTeams = (openDotaService) => (dispatch) => {
     dispatch(teamsRequested());
     openDotaService.getTeams()
-        .then(teams => dispatch(teamsLoaded(getOnlyTeamWithLogo(teams))))
+        .then(teams => dispatch(teamsLoaded(filterTeams(teams))))
         .catch(error => dispatch(teamsError(error)));
 }
 

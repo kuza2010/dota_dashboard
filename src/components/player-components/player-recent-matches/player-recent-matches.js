@@ -8,13 +8,13 @@ import {fetchFullStats} from "../../../store/action-creators/player-stats";
 
 import TableWrapper from "../../table";
 import ConditionalDisplay from "../../conditional-display/conditional-display";
-import {PlayerStatsFallback} from "../../fallback";
 import Loading from "../../loading";
+import Popup from "reactjs-popup";
+import {PlayerStatsFallback} from "../../fallback";
 
-import moment from "moment";
+import {getTimeFromNow} from "../../../common/utils";
 
 import "./player-recent-matches.css"
-import Popup from "reactjs-popup";
 
 
 const PlayerRecentMatches = ({matches}) => {
@@ -58,9 +58,9 @@ const PlayerRecentMatches = ({matches}) => {
 
                 return isWin
                     ? <span className="text-muted"> <b
-                        className="win">Win</b> <br/>{moment(new Date(startTime * 1000)).fromNow()} </span>
+                        className="win">Win</b> <br/>{getTimeFromNow(startTime * 1000)} </span>
                     : <span className="text-muted"> <b
-                        className="lose">Lose</b> <br/>{moment(new Date(startTime * 1000)).fromNow()}</span>
+                        className="lose">Lose</b> <br/>{getTimeFromNow(startTime * 1000)}</span>
             },
         },
         {

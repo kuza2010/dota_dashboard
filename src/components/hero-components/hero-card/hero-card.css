@@ -17,3 +17,28 @@
 .unselected {
     font-size: 0.85rem;
 }
+
+.gradient {
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(0, 0, 0, 0.7091211484593838) 100%);
+}
+
+.overlay-block {
+    position: absolute;
+    opacity: 0;
+    transition: 0.5s ease;
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.5) 0%, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.4990371148459384) 100%);
+    overflow: hidden;
+    height: 72px;
+    width: 128px;
+    z-index: 99999;
+}
+
+.overlay-container {
+    background-size: cover;
+    position: relative;
+}
+
+.overlay-hover {
+    opacity: 1;
+    cursor: pointer;
+}

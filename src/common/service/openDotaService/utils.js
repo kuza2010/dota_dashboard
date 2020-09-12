@@ -1,4 +1,4 @@
-import {heroImageStaticURL} from "../../enum";
+import {baseApiURL} from "../../enum";
 
 // Pro Players
 const filterProPlayers = (players) => (...criteria) => {
@@ -113,7 +113,7 @@ const toMatchDTO = (match, heroes, accountId) => {
             deaths: player["deaths"],
             heroId: player["hero_id"],
             heroName: hero["localized_name"],
-            heroImage: `${heroImageStaticURL}${hero.img}`,
+            heroImage: `${baseApiURL}${hero.img}`,
             isRadiant: player["isRadiant"],
             radiantWin: player["radiant_win"],
         },

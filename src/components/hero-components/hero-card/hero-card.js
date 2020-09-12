@@ -2,10 +2,12 @@ import React, {useState} from "react";
 
 import {Link} from "react-router-dom";
 
+import {baseApiURL} from "../../../common/enum";
+
 import "./hero-card.css"
 
 
-const HeroCard = ({image, name}) => {
+const HeroCard = ({img, localized_name, id}) => {
 
     const [isMouseOver, setMouseOver] = useState(false);
 
@@ -14,14 +16,15 @@ const HeroCard = ({image, name}) => {
             <div
                 onMouseOver={() => setMouseOver(state => !state)}
                 onMouseOut={() => setMouseOver(state => !state)}
-                className="position-relative"
+                className={`position-relative overlay-container ${isMouseOver ? "overlay-hover" : ""}`}
             >
+                <div className={`overlay-block ${isMouseOver ? "overlay-hover" : ""}`}/>
                 <img className="hero-grid-icon"
-                     src={image}
-                     alt={name}
+                     src={`${baseApiURL}${img}`}
+                     alt={localized_name}
                 />
                 <div className={`position-absolute hero-grid-title ${isMouseOver ? "selected" : "unselected"}`}>
-                    {name}
+                    {localized_name}
                 </div>
             </div>
         </Link>

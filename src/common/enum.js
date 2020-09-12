@@ -29,4 +29,4 @@ export const laneRoleMapping = {
 };
 
 export const defaultRoleValue = "N/A"
-export const heroImageStaticURL = "https://api.opendota.com";
+export const baseApiURL = "https://api.opendota.com";

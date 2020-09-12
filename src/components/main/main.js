@@ -3,7 +3,7 @@ import React from "react";
 import {Route, Switch} from "react-router-dom";
 
 import HomePage from "../../pages/home-page";
-import HeroesPage from "../../pages/heroes-page";
+import HeroesPage from "../../pages/heroes-page/all-heroes-page";
 import PlayersPage from "../../pages/pro-players-page";
 import PlayerPageWrapper from "../../pages/player-page";
 import TeamsPage from "../../pages/teams-page";

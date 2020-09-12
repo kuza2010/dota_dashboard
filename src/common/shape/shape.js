@@ -127,3 +127,39 @@ export const recentMatchesShape = PropTypes.shape({
     stats: commonStatsShape.isRequired,
     error: PropTypes.instanceOf(Error),     // or null if there is no error
 });
+
+export const heroStatShape = PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    name: PropTypes.string,
+    localized_name: PropTypes.string,
+    primary_attr: PropTypes.string,
+    attack_type: PropTypes.string,
+    roles: PropTypes.arrayOf(PropTypes.string),
+    img: PropTypes.string,
+    icon: PropTypes.string,
+    base_health: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    base_health_regen: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    base_mana: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    base_mana_regen: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    base_armor: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    base_mr: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    base_attack_min: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    base_attack_max: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    base_str: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    base_agi: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    base_int: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    str_gain: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    agi_gain: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    int_gain: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    attack_range: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    projectile_speed: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    attack_rate: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    move_speed: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    turn_rate: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    cm_enabled: PropTypes.bool,
+    legs: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    pro_ban: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    hero_id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+})
+
+export const heroStatsShape = PropTypes.arrayOf(heroStatShape).isRequired

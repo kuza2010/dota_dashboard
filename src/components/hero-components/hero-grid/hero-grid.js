@@ -1,8 +1,11 @@
 import React from "react";
 
+import Shapes from "../../../common/shape"
+
 import HeroCard from "../hero-card";
 
 import {stringCompare} from "../../../common/utils";
+import {baseApiURL} from "../../../common/enum";
 
 import "./hero-grid.css"
 
@@ -13,11 +16,11 @@ const HeroGrid = ({heroes}) => {
         .sort((a, b) => stringCompare(a.localized_name, b.localized_name))
         .map(hero => {
             return (
-                <HeroCard
-                    key={hero.localized_name}
-                    image={`https://api.opendota.com${hero.img}`}
-                    name={hero.localized_name}
-                />
+                <HeroCard {...hero} />
+                //     key={hero.name}
+                //     image={`${baseApiURL}${hero.img}`}
+                //     name={hero.localized_name}
+                // />
             );
         });
 
@@ -28,6 +31,10 @@ const HeroGrid = ({heroes}) => {
             </div>
         </div>
     );
+}
+
+HeroGrid.propTypes = {
+    heroes: Shapes.heroStatsShape,
 }
 
 

@@ -1,15 +1,16 @@
 import React, {useContext, useEffect} from "react";
 
 import {useDispatch, useSelector} from "react-redux";
-import {fetchHeroes} from "../../store/action-creators/hero-actions";
+import {fetchHeroes} from "../../../store/action-creators/hero-actions";
 
-import HeroGrid from "../../components/hero-components/hero-grid";
-import Loading from "../../components/loading";
-import Breadcrumbs from "../../components/breadcrumbs";
+import HeroGrid from "../../../components/hero-components/hero-grid";
+import Loading from "../../../components/loading";
+import Breadcrumbs from "../../../components/breadcrumbs";
 
-import OpenDotaServiceContext from "../../components/context/openDotaContext";
+import OpenDotaServiceContext from "../../../components/context/openDotaContext";
 
 import PropTypes from 'prop-types';
+import Shapes from "../../../common/shape"
 
 import "./heroes-page.css"
 
@@ -35,10 +36,14 @@ const HeroesPage = ({heroes, loading, error}) => {
 }
 
 HeroesPage.propTypes = {
-    heroes: PropTypes.array,
-    loading: PropTypes.bool,
+    heroes: Shapes.heroStatsShape,
+    loading: PropTypes.bool.isRequired,
     error: PropTypes.object,
 }
+
+HeroesPage.defaultProps = {
+    error: null,
+};
 
 
 /**

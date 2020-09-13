@@ -1,4 +1,5 @@
 import {baseApiURL} from "../../enum";
+import NotFoundException from "../../error/not-found";
 
 // Pro Players
 const filterProPlayers = (players) => (...criteria) => {
@@ -140,6 +141,82 @@ const toTeamsDTO = (...teams) => {
     })
 }
 
+//Hero
+const getHeroInfo = (heroId, heroes, abilitiesAndTalents, description) => {
+    const hero = heroes.find(hero => hero.id === heroId)
+    if (hero === undefined) {
+        throw new NotFoundException(`No hero with id: ${heroId}`)
+    }
+
+    // name like as 'npc_dota_hero_XXX'
+    const {name} = hero
+    // filter and prepare data
+    const heroAbilitiesAndTalents = _filterAbilityAndTalents(name, abilitiesAndTalents)
+
+    const ATwithDescription = {
+        abilities: heroAbilitiesAndTalents.abilities.map(ability => description[ability]),
+        talents: heroAbilitiesAndTalents.talents.map(talent => talent),
+    }
+
+    return toHeroStatsDTO(hero, ATwithDescription)
+}
+
+const _filterAbilityAndTalents = (heroName, abilitiesAndTalents) => {
+    const heroAbilitiesAndTalents = abilitiesAndTalents[heroName]
+
+    //filter ability
+    const filtered = heroAbilitiesAndTalents.abilities
+        .filter(ability => !ability.startsWith("generic_hidden"));
+
+    return {
+        abilities: [...filtered],
+        talents: heroAbilitiesAndTalents.talents,
+    }
+}
+
+const toHeroStatsDTO = (hero, abilitiesAndTalents) => {
+    if (!hero) {
+        console.error("toHeroDTO(), heroes is not provided")
+        return {}
+    }
+
+    return {
+        id: hero["id"],
+        name: hero["name"],
+        localized_name: hero["localized_name"],
+        primary_attr: hero["primary_attr"],
+        attack_type: hero["attack_type"],
+        roles: hero["roles"],
+        img: hero["img"],
+        icon: hero["icon"],
+        base_health: hero["base_health"],
+        base_health_regen: hero["base_health_regen"],
+        base_mana: hero["base_mana"],
+        base_mana_regen: hero["base_mana_regen"],
+        base_armor: hero["base_armor"],
+        base_mr: hero["base_mr"],
+        base_attack_min: hero["base_attack_min"],
+        base_attack_max: hero["base_attack_max"],
+        base_str: hero["base_str"],
+        base_agi: hero["base_agi"],
+        base_int: hero["base_int"],
+        str_gain: hero["str_gain"],
+        agi_gain: hero["agi_gain"],
+        int_gain: hero["int_gain"],
+        attack_range: hero["attack_range"],
+        projectile_speed: hero["projectile_speed"],
+        attack_rate: hero["attack_rate"],
+        move_speed: hero["move_speed"],
+        turn_rate: hero["turn_rate"],
+        cm_enabled: hero["cm_enabled"],
+        legs: hero["legs"],
+        pro_win: hero["pro_win"],
+        pro_pick: hero["pro_pick"],
+
+        abilitiesAndTalents,
+    }
+}
+
 
 export {
     filterProPlayers,
@@ -149,4 +226,5 @@ export {
     toCommonMatchesStatsDTO,
     toMatchDTO,
     toTeamsDTO,
+    getHeroInfo,
 }

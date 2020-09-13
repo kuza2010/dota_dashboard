@@ -1,4 +1,12 @@
-import {filterProPlayers, toCommonMatchesStatsDTO, toMatchDTO, toPlayerDTO, toProPlayerDTO, toTeamsDTO} from "./utils";
+import {
+    filterProPlayers,
+    getHeroInfo,
+    toCommonMatchesStatsDTO,
+    toMatchDTO,
+    toPlayerDTO,
+    toProPlayerDTO,
+    toTeamsDTO
+} from "./utils";
 
 import {proPlayersFieldsToFilter} from "./enums";
 import Cache from "../cache";
@@ -38,12 +46,39 @@ class OpenDotaService {
             });
     };
 
+
+    getHero = async (heroId) => {
+        if (typeof heroId !== 'number') {
+            if (!parseInt(heroId, 10)) {
+                console.error(`getHero (${heroId}), hero id must be number, provided: ${typeof heroId}, value is: ${heroId}`);
+                throw new Error(`Hero id must be number, provided: ${typeof heroId}, value is: ${heroId}`);
+            }
+        }
+
+        const [heroes, abilitiesDesc, abilitiesAndTalents] = await Promise.all([
+            this.getHeroesStats(),
+            this._getHeroAbilitiesDescription(),
+            this._getHeroAbilitiesAndTalents(),
+        ])
+
+        return getHeroInfo(heroId, heroes, abilitiesAndTalents, abilitiesDesc)
+    }
+
     getHeroes = async () => {
         return this._getResources("/heroes");
     }
 
-    getHeroStats = async () => {
+    getHeroesStats = async () => {
         return this._getResources("/heroStats");
+    }
+
+
+    _getHeroAbilitiesDescription = async () => {
+        return this._getResources("/constants/abilities")
+    }
+
+    _getHeroAbilitiesAndTalents = async () => {
+        return this._getResources("/constants/hero_abilities")
     }
 
 
@@ -148,7 +183,7 @@ class OpenDotaService {
         }
 
         const [heroes, match] = await Promise.all([
-            this.getHeroStats(),
+            this.getHeroesStats(),
             this._getMatch(matchId),
         ]);
 

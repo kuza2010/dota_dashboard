@@ -26,7 +26,7 @@
     position: absolute;
     opacity: 0;
     transition: 0.5s ease;
-    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.5) 0%, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.4990371148459384) 100%);
+    background-image: radial-gradient(circle, rgba(255,255,255,0.21612394957983194) 0%, rgba(0,0,0,0.6026785714285714) 100%);
     overflow: hidden;
     height: 72px;
     width: 128px;

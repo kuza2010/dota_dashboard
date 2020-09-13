@@ -6,7 +6,7 @@ import Breadcrumbs from "../../components/breadcrumbs";
 import ConditionalDisplay from "../../components/conditional-display/conditional-display";
 import TableWrapper from "../../components/table";
 import Loading from "../../components/loading";
-import {PlayerStatsFallback} from "../../components/fallback";
+import {CommonFallback} from "../../components/fallback";
 
 import OpenDotaServiceContext from "../../components/context/openDotaContext";
 import {fetchTeams} from "../../store/action-creators/teams-actions";
@@ -58,7 +58,7 @@ const TeamContainer = (props) => {
 
     const teams = (
         <ConditionalDisplay
-            fallback={<PlayerStatsFallback content="Something went wrong!"/>}
+            fallback={<CommonFallback content="Something went wrong!"/>}
             fallbackCondition={isError}
         >
             <TeamsPage {...props}/>

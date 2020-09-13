@@ -8,7 +8,7 @@ import {fetchRecentPlayerMatchesStats} from "../../../store/action-creators/play
 
 import GameRoles from "../game-roles";
 import ConditionalDisplay from "../../conditional-display/conditional-display";
-import {PlayerStatsFallback} from "../../fallback";
+import {CommonFallback} from "../../fallback";
 import PlayerRecentMatches from "../player-recent-matches";
 import Loading from "../../loading";
 
@@ -25,7 +25,7 @@ const PlayerStats = ({recentMatches, accountId}) => {
     return (
         <ConditionalDisplay
             fallbackCondition={error}
-            fallback={<PlayerStatsFallback/>}
+            fallback={<CommonFallback/>}
         >
             <GameRoles {...recentMatches}/>
             {

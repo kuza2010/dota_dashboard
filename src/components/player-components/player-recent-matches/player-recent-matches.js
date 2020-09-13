@@ -10,7 +10,7 @@ import TableWrapper from "../../table";
 import ConditionalDisplay from "../../conditional-display/conditional-display";
 import Loading from "../../loading";
 import Popup from "reactjs-popup";
-import {PlayerStatsFallback} from "../../fallback";
+import {CommonFallback} from "../../fallback";
 
 import {getTimeFromNow} from "../../../common/utils";
 
@@ -167,7 +167,7 @@ const PlayerRecentMatchesContainer = (props) => {
         <ConditionalDisplay
             fallbackCondition={error}
             fallback={
-                <PlayerStatsFallback
+                <CommonFallback
                     content={(
                         <>
                             <br/>

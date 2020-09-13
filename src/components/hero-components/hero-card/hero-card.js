@@ -12,7 +12,7 @@ const HeroCard = ({img, localized_name, id}) => {
     const [isMouseOver, setMouseOver] = useState(false);
 
     return (
-        <Link to="/">
+        <Link to={`heroes/${id}`}>
             <div
                 onMouseOver={() => setMouseOver(state => !state)}
                 onMouseOut={() => setMouseOver(state => !state)}

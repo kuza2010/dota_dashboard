@@ -16,8 +16,9 @@ import OpenDotaServiceContext from "../../components/context/openDotaContext";
 
 import {playerShape} from "../../common/shape/shape";
 
+import {playerStatsCleanup} from "../../store/action-creators/player-stats";
+
 import "./player-page.css"
-import {playerStatsCleanup, playerStatsRequested} from "../../store/action-creators/player-stats";
 
 
 const PlayerPage = ({player, error, accountId}) => {

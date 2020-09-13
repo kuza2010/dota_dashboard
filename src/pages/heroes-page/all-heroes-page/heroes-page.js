@@ -56,9 +56,9 @@ const HeroPageContainer = () => {
 
     useEffect(() => dispatch(fetchHeroes(openDotaService)), []);
 
-    const heroes = useSelector(state => state.heroes.heroes);
-    const loading = useSelector(state => state.heroes.loading);
-    const error = useSelector(state => state.heroes.error);
+    const heroes = useSelector(state => state.heroes.allHeroes.heroes);
+    const loading = useSelector(state => state.heroes.allHeroes.loading);
+    const error = useSelector(state => state.heroes.allHeroes.error);
 
     return (
         <HeroesPage

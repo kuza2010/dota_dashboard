@@ -143,14 +143,15 @@ const toTeamsDTO = (...teams) => {
 
 //Hero
 const getHeroInfo = (heroId, heroes, abilitiesAndTalents, description) => {
-    const hero = heroes.find(hero => hero.id === heroId)
+    const hero = heroes.find(hero => +hero.id === +heroId)
+    console.log(hero)
     if (hero === undefined) {
-        throw new NotFoundException(`No hero with id: ${heroId}`)
+        throw new NotFoundException(`No hero with id: ${heroId}`, heroId)
     }
 
     // name like as 'npc_dota_hero_XXX'
     const {name} = hero
-    // filter and prepare data
+    // filter and prepare data for ability and talents
     const heroAbilitiesAndTalents = _filterAbilityAndTalents(name, abilitiesAndTalents)
 
     const ATwithDescription = {

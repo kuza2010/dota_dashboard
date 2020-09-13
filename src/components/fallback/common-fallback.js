@@ -1,7 +1,7 @@
 import React from "react";
 
 
-const PlayerStatsFallback = ({content, error}) => {
+const CommonFallback = ({content, error}) => {
 
     error && console.error(error);
 
@@ -17,4 +17,4 @@ const PlayerStatsFallback = ({content, error}) => {
 };
 
 
-export default PlayerStatsFallback;
+export default CommonFallback;

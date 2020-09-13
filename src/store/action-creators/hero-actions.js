@@ -1,37 +1,72 @@
-import {HERO_FETCH_FAILURE, HERO_FETCH_SUCCESSFUL, HERO_REQUESTED} from "../actions/hero-actions";
+import {
+    HERO_INFO_LOADED,
+    HERO_INFO_NOTFOUND,
+    HERO_INFO_REQUESTED,
+    HEROES_FETCH_FAILURE,
+    HEROES_FETCH_SUCCESSFUL,
+    HEROES_REQUESTED
+} from "../actions/hero-actions";
 
 
-const heroRequested = () => {
+const heroesRequested = () => {
     return {
-        type: HERO_REQUESTED,
+        type: HEROES_REQUESTED,
     }
 }
 
-const heroLoaded = (heroes) => {
+const heroesLoaded = (heroes) => {
     return {
-        type: HERO_FETCH_SUCCESSFUL,
+        type: HEROES_FETCH_SUCCESSFUL,
         payload: heroes,
     }
 }
 
-const heroError = (error) => {
+const heroesError = (error) => {
     return {
-        type: HERO_FETCH_FAILURE,
+        type: HEROES_FETCH_FAILURE,
+        payload: error
+    }
+}
+
+const heroInfoRequested = () => {
+    return {
+        type: HERO_INFO_REQUESTED,
+    }
+}
+
+const heroInfoLoaded = (heroInfo) => {
+    return {
+        type: HERO_INFO_LOADED,
+        payload: heroInfo,
+    }
+}
+
+const heroInfoError = (error) => {
+    return {
+        type: HERO_INFO_NOTFOUND,
         payload: error
     }
 }
 
 const fetchHeroes = (openDotaService) => (dispatch) => {
-    dispatch(heroRequested());
-    openDotaService.getHeroStats()
-        .then(heroes => dispatch(heroLoaded(heroes)))
-        .catch(error => dispatch(heroError(error)));
+    dispatch(heroesRequested());
+    openDotaService.getHeroesStats()
+        .then(heroes => dispatch(heroesLoaded(heroes)))
+        .catch(error => dispatch(heroesError(error)));
+}
+
+const fetchHero = (heroId, openDotaService) => (dispatch) => {
+    dispatch(heroInfoRequested())
+    openDotaService.getHero(heroId)
+        .then(heroInfo => dispatch(heroInfoLoaded(heroInfo)))
+        .catch(error => {
+            console.log(typeof error)
+            dispatch(heroInfoError(error))
+        })
 }
 
 
 export {
     fetchHeroes,
-    heroRequested,
-    heroLoaded,
-    heroError,
+    fetchHero,
 };

@@ -1,7 +1,7 @@
 import PlayerNotFoundFallback from "./player-not-found-fallback";
-import PlayerStatsFallback from "./player-stats-fallback";
+import CommonFallback from "./common-fallback";
 
 export {
     PlayerNotFoundFallback,
-    PlayerStatsFallback,
+    CommonFallback,
 };

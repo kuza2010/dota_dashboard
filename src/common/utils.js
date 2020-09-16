@@ -1,6 +1,6 @@
 import countryCodes from "../common/country-codes"
 import moment from "moment";
-import {defaultRoleAssignment, defaultRoleValue, laneMapping, laneRoleMapping} from "./enum";
+import {baseApiURL, defaultRoleAssignment, defaultRoleValue, laneMapping, laneRoleMapping} from "./enum";
 
 
 /**
@@ -107,6 +107,10 @@ const _calcPercent = (part, total) => {
     return `${Math.round(part / total * 100)}%`;
 }
 
+const getImageURL = (postfix) => {
+    return `${baseApiURL}/${postfix.startsWith('/') ? postfix.slice(1, postfix.length) : postfix}`
+}
+
 
 export {
     zip,
@@ -116,4 +120,5 @@ export {
     filterPlugin,
     filterTeams,
     calculateRolesInPercent,
+    getImageURL
 };

@@ -59,10 +59,7 @@ const fetchHero = (heroId, openDotaService) => (dispatch) => {
     dispatch(heroInfoRequested())
     openDotaService.getHero(heroId)
         .then(heroInfo => dispatch(heroInfoLoaded(heroInfo)))
-        .catch(error => {
-            console.log(typeof error)
-            dispatch(heroInfoError(error))
-        })
+        .catch(error => dispatch(heroInfoError(error)))
 }
 
 

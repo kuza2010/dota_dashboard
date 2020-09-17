@@ -4,52 +4,34 @@ import {useDispatch, useSelector} from "react-redux";
 
 import OpenDotaServiceContext from "../../../components/context/openDotaContext";
 import {fetchHero} from "../../../store/action-creators/hero-actions";
+import {getImageURL} from "../../../common/utils";
+
 
 import Loading from "../../../components/loading";
 import Breadcrumbs from "../../../components/breadcrumbs";
 import ConditionalDisplay from "../../../components/conditional-display/conditional-display";
 import CommonFallback from "../../../components/fallback/common-fallback";
+import HeroAvatar from "../../../components/hero-components/hero-avatar";
+import HeroBasicInfo from "../../../components/hero-components/hero-basic-info";
 
 import NotFoundException from "../../../common/error/not-found";
 
 import styled from 'styled-components';
 
 import "./hero-page.css"
-import {getImageURL} from "../../../common/utils";
 
 
 const HeroPage = (heroInfo) => {
-
     return (
-        <div className="container">
-            <Breadcrumbs crumbs={[
-                {
-                    path: "/",
-                    title: "Home",
-                    isActive: false
-                },
-                {
-                    path: "/heroes",
-                    title: "Heroes",
-                    isActive: false
-                },
-                {
-                    title: heroInfo["localized_name"],
-                    isActive: true
-                },
-            ]}/>
-            <div className="jumbotron">
-                <ImageBackground
-                    link={getImageURL(heroInfo.img)}
-                >
-                    <div className="image-bg-inside text-center">
-                        <p>Hello 12</p>
-                        <p>Hello 12</p>
-                        <p>Hello 12</p>
+        <div className="jumbotron">
+            <ImageBackground link={getImageURL(heroInfo.img)}>
+                <div className="hero-preview-padding">
+                    <div className="row justify-content-center align-items-center">
+                        <HeroAvatar {...heroInfo}/>
+                        <HeroBasicInfo {...heroInfo} additionalStyle="image-bg-inside col-lg-4 col-sm"/>
                     </div>
-                </ImageBackground>
-                Hero {heroInfo.localized_name}
-            </div>
+                </div>
+            </ImageBackground>
         </div>
     )
 };
@@ -92,7 +74,25 @@ const HeroContainer = ({hero, loading, error}) => {
                 />
             )}
         >
-            <HeroPage {...hero}/>
+            <div className="container">
+                <Breadcrumbs crumbs={[
+                    {
+                        path: "/",
+                        title: "Home",
+                        isActive: false
+                    },
+                    {
+                        path: "/heroes",
+                        title: "Heroes",
+                        isActive: false
+                    },
+                    {
+                        title: hero["localized_name"],
+                        isActive: true
+                    },
+                ]}/>
+                <HeroPage {...hero}/>
+            </div>
         </ConditionalDisplay>
     )
 }

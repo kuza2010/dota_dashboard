@@ -1,0 +1,12 @@
+.hero-avatar {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    box-shadow: rgba(0, 0, 0, 0.3) 0 12px 32px;
+    border-radius: 16px;
+    height: 128px;
+    width: 180px;
+    object-fit: cover;
+}
+
+.hero-avatar-z-index-top {
+    z-index: 999 !important;
+}

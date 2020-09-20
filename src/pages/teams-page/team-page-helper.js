@@ -1,6 +1,6 @@
 import React from "react";
+
 import {getTimeFromNow} from "../../common/utils";
-import moment from "moment";
 
 
 export const colForTeamsTable = [

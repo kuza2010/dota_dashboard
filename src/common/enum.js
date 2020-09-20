@@ -28,5 +28,11 @@ export const laneRoleMapping = {
     supp2: 5,       //5 pos?
 };
 
+export const STRENGTH_COLOR = "#f4353c"
+export const AGILITY_COLOR = "#39d402"
+export const INTELLECT_COLOR = "#01a9f4"
+
+export const TRIGGER_SPELL_SIZE = 6
+
 export const defaultRoleValue = "N/A"
 export const baseApiURL = "https://api.opendota.com";

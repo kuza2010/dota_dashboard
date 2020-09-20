@@ -17,14 +17,14 @@ const Breadcrumbs = ({crumbs}) => {
                     !isActive
                         ? (
                             <NavLink to={path}>
-                                <text className="text-success">
+                                <span className="text-success">
                                     {title}
-                                </text>
+                                </span>
                             </NavLink>
                         ) : (
-                            <text className="text-muted">
+                            <span className="text-muted">
                                 {title}
-                            </text>
+                            </span>
                         )
                 }
             </li>

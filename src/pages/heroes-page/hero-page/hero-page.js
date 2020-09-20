@@ -13,6 +13,7 @@ import ConditionalDisplay from "../../../components/conditional-display/conditio
 import CommonFallback from "../../../components/fallback/common-fallback";
 import HeroAvatar from "../../../components/hero-components/hero-avatar";
 import HeroBasicInfo from "../../../components/hero-components/hero-basic-info";
+import HeroStats from "../../../components/hero-components/hero-stats";
 
 import NotFoundException from "../../../common/error/not-found";
 
@@ -28,7 +29,8 @@ const HeroPage = (heroInfo) => {
                 <div className="hero-preview-padding">
                     <div className="row justify-content-center align-items-center">
                         <HeroAvatar {...heroInfo}/>
-                        <HeroBasicInfo {...heroInfo} additionalStyle="image-bg-inside col-lg-4 col-sm"/>
+                        <HeroBasicInfo {...heroInfo} additionalStyle="image-bg-inside col-lg col-sm"/>
+                        <HeroStats heroInfo={heroInfo} additionalStyle="col col-sm"/>
                     </div>
                 </div>
             </ImageBackground>
@@ -107,7 +109,6 @@ const HeroWrapper = (props) => {
     useEffect(() => dispatch(fetchHero(heroId, service)), [heroId])
 
     const selectedHero = useSelector(({heroes}) => heroes.selectedHero)
-    console.log(selectedHero)
 
     return <HeroContainer {...selectedHero}/>
 };

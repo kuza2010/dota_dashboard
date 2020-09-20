@@ -12,7 +12,7 @@ const Footer = () => {
             <div className="row">
                 <div className="col">
                     <h4>Dota2 dashboard</h4>
-                    <p>Hand-made with <text className="text-danger">❤</text> for Dota2.</p>
+                    <p>Hand-made with <span className="text-danger">❤</span> for Dota2.</p>
                 </div>
                 <div className="col">
                     <blockquote className="blockquote text-right">

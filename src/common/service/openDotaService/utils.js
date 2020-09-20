@@ -86,8 +86,8 @@ const toCommonMatchesStatsDTO = (commonStats = []) => {
 
 //Match
 const toMatchDTO = (match, heroes, accountId) => {
-    const player = match.players.find(player => player["account_id"] == accountId);
-    const hero = heroes.find(hero => hero["id"] == player["hero_id"]);
+    const player = match.players.find(player => +player["account_id"] === +accountId);
+    const hero = heroes.find(hero => +hero["id"] === +player["hero_id"]);
 
     // filter broke match
     if (match["radiant_team"] === undefined || match["dire_team"] === undefined) return null;
@@ -184,35 +184,35 @@ const toHeroStatsDTO = (hero, abilitiesAndTalents) => {
     return {
         id: hero["id"],
         name: hero["name"],
-        localized_name: hero["localized_name"],
-        primary_attr: hero["primary_attr"],
-        attack_type: hero["attack_type"],
+        localizedName: hero["localized_name"],
+        primaryAttr: hero["primary_attr"],
+        attackType: hero["attack_type"],
         roles: hero["roles"],
         img: hero["img"],
         icon: hero["icon"],
-        base_health: hero["base_health"],
-        base_health_regen: hero["base_health_regen"],
-        base_mana: hero["base_mana"],
-        base_mana_regen: hero["base_mana_regen"],
-        base_armor: hero["base_armor"],
-        base_mr: hero["base_mr"],
-        base_attack_min: hero["base_attack_min"],
-        base_attack_max: hero["base_attack_max"],
-        base_str: hero["base_str"],
-        base_agi: hero["base_agi"],
-        base_int: hero["base_int"],
-        str_gain: hero["str_gain"],
-        agi_gain: hero["agi_gain"],
-        int_gain: hero["int_gain"],
-        attack_range: hero["attack_range"],
-        projectile_speed: hero["projectile_speed"],
-        attack_rate: hero["attack_rate"],
-        move_speed: hero["move_speed"],
-        turn_rate: hero["turn_rate"],
-        cm_enabled: hero["cm_enabled"],
+        baseHealth: hero["base_health"],
+        baseHealthRegen: hero["base_health_regen"],
+        baseMana: hero["base_mana"],
+        baseManaRegen: hero["base_mana_regen"],
+        baseArmor: hero["base_armor"],
+        baseMr: hero["base_mr"],
+        baseAttackMin: hero["base_attack_min"],
+        baseAttackMax: hero["base_attack_max"],
+        baseStraight: hero["base_str"],
+        baseAgility: hero["base_agi"],
+        baseIntellect: hero["base_int"],
+        strGain: hero["str_gain"],
+        agiGain: hero["agi_gain"],
+        intGain: hero["int_gain"],
+        attackRange: hero["attack_range"],
+        projectileSpeed: hero["projectile_speed"],
+        attackRate: hero["attack_rate"],
+        moveSpeed: hero["move_speed"],
+        turnRate: hero["turn_rate"],
+        cmEnabled: hero["cm_enabled"],
         legs: hero["legs"],
-        pro_win: hero["pro_win"],
-        pro_pick: hero["pro_pick"],
+        proWin: hero["pro_win"],
+        proPick: hero["pro_pick"],
 
         abilitiesAndTalents,
     }

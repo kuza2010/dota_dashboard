@@ -14,6 +14,7 @@ import CommonFallback from "../../../components/fallback/common-fallback";
 import HeroAvatar from "../../../components/hero-components/hero-avatar";
 import HeroBasicInfo from "../../../components/hero-components/hero-basic-info";
 import HeroStats from "../../../components/hero-components/hero-stats";
+import HeroDetailsTable from "../../../components/hero-components/hero-details-table";
 
 import NotFoundException from "../../../common/error/not-found";
 
@@ -23,8 +24,11 @@ import "./hero-page.css"
 
 
 const HeroPage = (heroInfo) => {
+    console.log(heroInfo);
+
     return (
-        <div className="jumbotron">
+        <div>
+            <div className="jumbotron">
             <ImageBackground link={getImageURL(heroInfo.img)}>
                 <div className="hero-preview-padding">
                     <div className="row justify-content-center align-items-center">
@@ -34,6 +38,10 @@ const HeroPage = (heroInfo) => {
                     </div>
                 </div>
             </ImageBackground>
+            </div>
+            <div className="text-center">
+                <HeroDetailsTable {...heroInfo}/>
+            </div>
         </div>
     )
 };

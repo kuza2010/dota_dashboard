@@ -24,10 +24,8 @@ import "./hero-page.css"
 
 
 const HeroPage = (heroInfo) => {
-    console.log(heroInfo);
 
     return (
-        <div>
             <div className="jumbotron">
             <ImageBackground link={getImageURL(heroInfo.img)}>
                 <div className="hero-preview-padding">
@@ -38,11 +36,8 @@ const HeroPage = (heroInfo) => {
                     </div>
                 </div>
             </ImageBackground>
+            <HeroDetailsTable {...heroInfo}/>
             </div>
-            <div className="text-center">
-                <HeroDetailsTable {...heroInfo}/>
-            </div>
-        </div>
     )
 };
 

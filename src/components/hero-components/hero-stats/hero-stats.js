@@ -34,12 +34,12 @@ const Dot = styled.div`
 /**
  * Render base hero stats: strength, agility, intellect
  */
-const BaseStats = ({baseStrength, baseIntellect, baseAgility, strGain, intGain, agiGain}) => {
+const BaseStats = ({baseStraight, baseIntellect, baseAgility, strGain, intGain, agiGain}) => {
     return (
         <div>
             <div className="row-custom justify-content-center">
                 <div className="hero-base-stats-font margin-20">
-                    <Dot color={STRENGTH_COLOR}/> {baseStrength} + {strGain}
+                    <Dot color={STRENGTH_COLOR}/> {baseStraight} + {strGain}
                 </div>
                 <div className="hero-base-stats-font margin-20">
                     <Dot color={AGILITY_COLOR}/> {baseAgility} + {agiGain}

@@ -1,17 +1,25 @@
 import React, {useState} from "react";
 
 import './hero-details-table.css'
+import {
+    getAttackSpeed,
+    getBaseHeroHealth,
+    getBaseHeroMana,
+    getHealthRegeneration,
+    getHeroArmor,
+    getHeroDamage,
+    getManaRegeneration
+} from "../../../common/utils";
+
 
 const HeroDetailsTable = ({
                               baseAttackMax, baseAttackMin, attackRange, attackRate, projectileSpeed,
                               baseHealth, baseHealthRegen, baseMana, baseManaRegen, baseArmor,
-                              magicResistance, moveSpeed, turnRate, legs, cmEnabled
+                              baseMr, moveSpeed, turnRate, legs, cmEnabled, baseStraight,
+                              baseIntellect, baseAgility, primaryAttr, attackType
                           }) => {
-
-    const [isShown, setIsShown] = useState(true);
-    const toggleFieldset = () => setIsShown(!isShown);
-
     let buttonText = 'Show details';
+    const [isShown, setIsShown] = useState(true);
 
     if (!isShown) {
         buttonText = 'Hide details';
@@ -25,7 +33,10 @@ const HeroDetailsTable = ({
 
     return (
         <div className="text-center container">
-            <button className="hero-details-button btn btn-secondary" onClick={toggleFieldset}>
+            <button
+                className="hero-details-button btn btn-secondary"
+                onClick={() => setIsShown(!isShown)}
+            >
                 {buttonText}
             </button>
             {!isShown &&
@@ -34,53 +45,54 @@ const HeroDetailsTable = ({
                     <tbody>
                     <tr>
                         <td align="left">BASE ATTACK:</td>
-                        <td>{baseAttackMin} - {baseAttackMax}</td>
+                        <td>{getHeroDamage(baseAttackMin, baseAttackMax, primaryAttr)}</td>
                     </tr>
                     <tr>
                         <td align="left">ATTACK RANGE:</td>
                         <td>{attackRange}</td>
                     </tr>
                     <tr>
-                        <td align="left">ATTACK SPEED:</td>
-                        <td>{attackRate}</td>
+                        <td align="left">ATTACK/SEC:</td>
+                        <td>{getAttackSpeed(baseAgility, attackRate)}</td>
                     </tr>
-                    <tr>
-                        <td align="left">PROJECTILE SPEED:</td>
-                        <td>{projectileSpeed}</td>
-                    </tr>
+                    {
+                        projectileSpeed !== undefined && projectileSpeed > 0 &&
+                        <tr>
+                            <td align="left">PROJECTILE SPEED:</td>
+                            <td>{projectileSpeed}</td>
+                        </tr>
+                    }
                     </tbody>
                 </table>
-
                 <table className="hero-details-table-two table table-hover table-striped col-md-3">
                     <tbody>
                     <tr>
                         <td align="left">HEALTH:</td>
-                        <td>{baseHealth}</td>
+                        <td>{getBaseHeroHealth(baseHealth, baseStraight)}</td>
                     </tr>
                     <tr>
                         <td align="left">HEALTH REGEN:</td>
-                        <td>{Number(baseHealthRegen)}</td>
+                        <td>{getHealthRegeneration(baseStraight, baseHealthRegen)}</td>
                     </tr>
                     <tr>
                         <td align="left">MANA:</td>
-                        <td>{baseMana}</td>
+                        <td>{getBaseHeroMana(baseMana, baseIntellect)}</td>
                     </tr>
                     <tr>
                         <td align="left">MANA REGEN:</td>
-                        <td>{baseManaRegen}</td>
+                        <td>{getManaRegeneration(baseIntellect)}</td>
                     </tr>
                     </tbody>
                 </table>
-
                 <table className="hero-details-table-three table table-hover table-striped col-md-3">
                     <tbody>
                     <tr>
                         <td align="left">BASE ARMOR:</td>
-                        <td>{baseArmor}</td>
+                        <td>{getHeroArmor(baseArmor, baseAgility)}</td>
                     </tr>
                     <tr>
                         <td align="left">MAGIC RESISTANCE:</td>
-                        <td>{magicResistance}</td>
+                        <td>{baseMr}</td>
                     </tr>
                     <tr>
                         <td align="left">MOVE SPEED:</td>
@@ -92,7 +104,6 @@ const HeroDetailsTable = ({
                     </tr>
                     </tbody>
                 </table>
-
                 <table className="hero-details-table-four table table-hover table-striped col-md-3">
                     <tbody>
                     <tr>
@@ -110,5 +121,6 @@ const HeroDetailsTable = ({
         </div>
     )
 }
+
 
 export default HeroDetailsTable;

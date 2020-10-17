@@ -16,7 +16,7 @@ import HeroBasicInfo from "../../../components/hero-components/hero-basic-info";
 import HeroStats from "../../../components/hero-components/hero-stats";
 import HeroDetailsTable from "../../../components/hero-components/hero-details-table";
 
-import NotFoundException from "../../../common/error/not-found";
+import NotFoundException from "../../../common/exception/not-found-exception";
 
 import styled from 'styled-components';
 
@@ -92,7 +92,7 @@ const HeroContainer = ({hero, loading, error}) => {
                         isActive: false
                     },
                     {
-                        title: hero["localized_name"],
+                        title: hero.localizedName,
                         isActive: true
                     },
                 ]}/>
@@ -112,6 +112,8 @@ const HeroWrapper = (props) => {
     useEffect(() => dispatch(fetchHero(heroId, service)), [heroId])
 
     const selectedHero = useSelector(({heroes}) => heroes.selectedHero)
+
+    console.log(selectedHero.hero)
 
     return <HeroContainer {...selectedHero}/>
 };

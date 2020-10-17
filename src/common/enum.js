@@ -34,5 +34,14 @@ export const INTELLECT_COLOR = "#01a9f4"
 
 export const TRIGGER_SPELL_SIZE = 6
 
-export const defaultRoleValue = "N/A"
+// https://dota2.gamepedia.com/Health
+export const healthPerStraight = 20
+// https://dota2.gamepedia.com/Mana
+export const manaPerIntellect = 12
+// https://dota2.gamepedia.com/Mana#Version_history
+export const manaRegenerationCoefficient = 0.05
+// https://dota2.gamepedia.com/Armor#Main_armor
+export const armorCoefficient = 0.166666667
+
+export const NA = "N/A"
 export const baseApiURL = "https://api.opendota.com";

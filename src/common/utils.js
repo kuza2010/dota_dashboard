@@ -1,6 +1,16 @@
 import countryCodes from "../common/country-codes"
 import moment from "moment";
-import {baseApiURL, defaultRoleAssignment, defaultRoleValue, laneMapping, laneRoleMapping} from "./enum";
+import {
+    armorCoefficient,
+    baseApiURL,
+    defaultRoleAssignment,
+    healthPerStraight,
+    laneMapping,
+    laneRoleMapping,
+    manaPerIntellect,
+    manaRegenerationCoefficient,
+    NA
+} from "./enum";
 
 
 /**
@@ -102,7 +112,7 @@ const filterTeams = (teams = []) => {
 
 const _calcPercent = (part, total) => {
     if (part <= 0) {
-        return defaultRoleValue;
+        return NA;
     }
     return `${Math.round(part / total * 100)}%`;
 }
@@ -111,6 +121,34 @@ const getImageURL = (postfix) => {
     return `${baseApiURL}/${postfix.startsWith('/') ? postfix.slice(1, postfix.length) : postfix}`
 }
 
+/**
+ * Calculate some hero stats
+ */
+
+// ref link: https://dota2.gamepedia.com/Attack_damage
+const getHeroDamage = (minDamage, maxDamage, primaryAttributePoints) => (
+    `${minDamage + primaryAttributePoints} - ${maxDamage + primaryAttributePoints}`
+)
+
+// ref link: https://dota2.gamepedia.com/Attack_speed#Attack_speed_formula
+const getAttackSpeed = (baseAgility, attackRate) => (
+    (((100 + baseAgility) * 0.01) / attackRate).toFixed(2)
+)
+
+// ref link: https://dota2.gamepedia.com/Mana
+const getBaseHeroHealth = (baseHealth, baseStraight) => baseHealth + (baseStraight * healthPerStraight)
+
+// ref link: https://dota2.gamepedia.com/Health_regeneration
+const getHealthRegeneration = (baseStraight, baseHealthRegen) => baseHealthRegen + (baseStraight * 0.1)
+
+// ref link: https://dota2.gamepedia.com/Mana
+const getBaseHeroMana = (baseMana, baseIntellect) => baseMana + (baseIntellect * manaPerIntellect)
+
+// ref link: https://dota2.gamepedia.com/Mana#Version_history
+const getManaRegeneration = (baseIntellect) => baseIntellect * manaRegenerationCoefficient
+
+// ref link: https://dota2.gamepedia.com/Armor#Main_armor
+const getHeroArmor = (baseArmor, baseAgility) => (baseArmor + (baseAgility * armorCoefficient)).toFixed(2)
 
 export {
     zip,
@@ -120,5 +158,13 @@ export {
     filterPlugin,
     filterTeams,
     calculateRolesInPercent,
-    getImageURL
+    getImageURL,
+
+    getHeroDamage,
+    getAttackSpeed,
+    getBaseHeroHealth,
+    getHealthRegeneration,
+    getBaseHeroMana,
+    getManaRegeneration,
+    getHeroArmor,
 };

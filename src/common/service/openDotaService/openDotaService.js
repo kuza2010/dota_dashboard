@@ -11,7 +11,7 @@ import {
 import {proPlayersFieldsToFilter} from "./enums";
 import Cache from "../cache";
 
-import NotFoundException from "../../error/not-found";
+import NotFoundException from "../../exception/not-found-exception";
 
 
 class OpenDotaService {

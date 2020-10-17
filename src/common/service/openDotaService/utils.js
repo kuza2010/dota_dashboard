@@ -1,5 +1,5 @@
 import {baseApiURL} from "../../enum";
-import NotFoundException from "../../error/not-found";
+import NotFoundException from "../../exception/not-found-exception";
 
 // Pro Players
 const filterProPlayers = (players) => (...criteria) => {
@@ -185,7 +185,7 @@ const toHeroStatsDTO = (hero, abilitiesAndTalents) => {
         id: hero["id"],
         name: hero["name"],
         localizedName: hero["localized_name"],
-        primaryAttr: hero["primary_attr"],
+        primaryAttr: _primaryAttribute(hero),
         attackType: hero["attack_type"],
         roles: hero["roles"],
         img: hero["img"],
@@ -215,6 +215,19 @@ const toHeroStatsDTO = (hero, abilitiesAndTalents) => {
         proPick: hero["pro_pick"],
 
         abilitiesAndTalents,
+    }
+}
+
+const _primaryAttribute = (hero)=> {
+    switch (hero["primary_attr"]) {
+        case "str":
+            return hero["base_str"]
+        case "int":
+            return hero["base_int"]
+        case "agi":
+            return hero["base_agi"]
+        default:
+            return 0
     }
 }
 

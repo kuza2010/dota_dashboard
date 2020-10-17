@@ -2,7 +2,7 @@ import React from "react";
 
 import PropTypes from "prop-types"
 
-import NotFoundException from "../../common/error/not-found";
+import NotFoundException from "../../common/exception/not-found-exception";
 
 
 const PlayerNotFoundFallback = ({accountId, error}) => {

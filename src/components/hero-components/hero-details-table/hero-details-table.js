@@ -14,9 +14,8 @@ import {
 
 const HeroDetailsTable = ({
                               baseAttackMax, baseAttackMin, attackRange, attackRate, projectileSpeed,
-                              baseHealth, baseHealthRegen, baseMana, baseManaRegen, baseArmor,
-                              baseMr, moveSpeed, turnRate, legs, cmEnabled, baseStraight,
-                              baseIntellect, baseAgility, primaryAttr, attackType
+                              baseHealth, baseHealthRegen, baseMana, baseArmor, baseMr, moveSpeed, legs,
+                              turnRate, cmEnabled, baseStraight, baseIntellect, baseAgility, primaryAttr
                           }) => {
     let buttonText = 'Show details';
     const [isShown, setIsShown] = useState(true);

@@ -130,25 +130,53 @@ const getHeroDamage = (minDamage, maxDamage, primaryAttributePoints) => (
     `${minDamage + primaryAttributePoints} - ${maxDamage + primaryAttributePoints}`
 )
 
+const getAttackSpeed = (baseAgility, attackRate) =>
+    _humanReadableText(_getAttackSpeed)(baseAgility, attackRate)
+
+const getBaseHeroHealth = (baseHealth, baseStraight) =>
+    _humanReadableText(_getBaseHeroHealth, 0)(baseHealth, baseStraight)
+
+const getHealthRegeneration = (baseStraight, baseHealthRegen) =>
+    _humanReadableText(_getHealthRegeneration)(baseStraight, baseHealthRegen)
+
+const getBaseHeroMana = (baseMana, baseIntellect) =>
+    _humanReadableText(_getBaseHeroMana, 0)(baseMana, baseIntellect)
+
+const getManaRegeneration = (baseIntellect) =>
+    _humanReadableText(_getManaRegeneration)(baseIntellect)
+
+const getHeroArmor = (baseArmor, baseAgility) =>
+    _humanReadableText(_getHeroArmor)(baseArmor, baseAgility)
+
+
+/**
+ * Private method
+ */
+
 // ref link: https://dota2.gamepedia.com/Attack_speed#Attack_speed_formula
-const getAttackSpeed = (baseAgility, attackRate) => (
-    (((100 + baseAgility) * 0.01) / attackRate).toFixed(2)
-)
+const _getAttackSpeed = (baseAgility, attackRate) => ((100 + baseAgility) * 0.01) / attackRate
 
 // ref link: https://dota2.gamepedia.com/Mana
-const getBaseHeroHealth = (baseHealth, baseStraight) => baseHealth + (baseStraight * healthPerStraight)
+const _getBaseHeroHealth = (baseHealth, baseStraight) => baseHealth + (baseStraight * healthPerStraight)
 
 // ref link: https://dota2.gamepedia.com/Health_regeneration
-const getHealthRegeneration = (baseStraight, baseHealthRegen) => baseHealthRegen + (baseStraight * 0.1)
+const _getHealthRegeneration = (baseStraight, baseHealthRegen) => baseHealthRegen + (baseStraight * 0.1)
 
 // ref link: https://dota2.gamepedia.com/Mana
-const getBaseHeroMana = (baseMana, baseIntellect) => baseMana + (baseIntellect * manaPerIntellect)
+const _getBaseHeroMana = (baseMana, baseIntellect) => baseMana + (baseIntellect * manaPerIntellect)
 
 // ref link: https://dota2.gamepedia.com/Mana#Version_history
-const getManaRegeneration = (baseIntellect) => baseIntellect * manaRegenerationCoefficient
+const _getManaRegeneration = (baseIntellect) => baseIntellect * manaRegenerationCoefficient
 
 // ref link: https://dota2.gamepedia.com/Armor#Main_armor
-const getHeroArmor = (baseArmor, baseAgility) => (baseArmor + (baseAgility * armorCoefficient)).toFixed(2)
+const _getHeroArmor = (baseArmor, baseAgility) => baseArmor + (baseAgility * armorCoefficient)
+
+function _humanReadableText(getFunc, fractionDigits = 2) {
+    return function (...argv) {
+        return getFunc(...argv).toFixed(fractionDigits);
+    }
+}
+
 
 export {
     zip,

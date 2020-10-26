@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import {getImageURL} from "../../../common/utils";
 import {AGILITY_COLOR, INTELLECT_COLOR, STRENGTH_COLOR, TRIGGER_SPELL_SIZE} from "../../../common/enum";
 
+import SpellInfoPopup from "../popup/hero-spell";
+
 import "./hero-stats.css"
 
 
@@ -57,37 +59,44 @@ const BaseStats = ({baseStraight, baseIntellect, baseAgility, strGain, intGain, 
  * Make sure that mana const value is not 'null' and '>' than 0.
  */
 const SpellsAndTalents = ({abilitiesAndTalents, name}) => {
+    const {abilities, talents} = abilitiesAndTalents;
+    console.log(abilities);
+
     return (
-        <div>
-            <div className="row justify-content-center">
-                {
-                    abilitiesAndTalents.abilities.map(ability => {
-                        return (
-                            <div
-                                className="padding-3 position-relative"
-                                key={`${name}${ability.dname}${ability.img}`}
-                            >
-                                <img
-                                    className={`rounded-5 ${abilitiesAndTalents.abilities.length > TRIGGER_SPELL_SIZE ? "mini-spell-icon" : null}`}
-                                    src={getImageURL(ability.img)}
-                                    alt={ability.dname}
-                                />
-                                {
-                                    ability.mc
-                                        ? (
-                                            <div className="manacost">
-                                                {typeof ability.mc === "string"
-                                                    ? ability.mc > 0 ? ability.mc : null
-                                                    : ability.mc[0] > 0 ? ability.mc[0] : null}
-                                            </div>
-                                        )
-                                        : null
-                                }
+        <div className="row justify-content-center">
+            {
+                abilitiesAndTalents.abilities.map((ability, idx) => {
+                    return (
+                        <SpellInfoPopup
+                            popupDelay={200}
+                            ability={ability}
+                        >
+                            <div>
+                                <div
+                                    className="padding-3 position-relative"
+                                    key={`${name}${ability.dname}${ability.img}`}
+                                >
+                                    <img
+                                        className={`rounded-5 ${abilitiesAndTalents.abilities.length > TRIGGER_SPELL_SIZE ? "mini-spell-icon" : null}`}
+                                        src={getImageURL(ability.img)}
+                                        alt={ability.dname}
+                                    />
+                                    {
+                                        ability.mc
+                                            ? (
+                                                <div className="manacost">
+                                                    {typeof ability.mc === "string"
+                                                        ? ability.mc > 0 ? ability.mc : null
+                                                        : ability.mc[0] > 0 ? ability.mc[0] : null}
+                                                </div>
+                                            )
+                                            : null
+                                    }
+                                </div>
                             </div>
-                        )
-                    })
-                }
-            </div>
+                        </SpellInfoPopup>)
+                })
+            }
         </div>
     )
 }

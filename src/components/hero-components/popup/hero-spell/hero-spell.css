@@ -1,21 +1,13 @@
-.padding-5 {
+.padding_5 {
     padding: 5px;
 }
 
-.popup_header_padding_5{
-    padding: 3px;
+.mu{
+    overflow: hidden;
 }
 
-.popup_force_margin {
+.force_0_margin {
     margin: 0 !important;
-}
-
-.popup_title_margin {
-    left: 15px;
-    bottom: 1px;
-    height: 50px;
-    width: 220px;
-    font-size: 16px;
 }
 
 .popup_title_font {
@@ -26,4 +18,8 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     line-height: 50px;
+}
+
+.black_border{
+    border-top: 1px solid rgb(8, 13, 21);
 }

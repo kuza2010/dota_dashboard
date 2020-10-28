@@ -68,6 +68,7 @@ const SpellsAndTalents = ({abilitiesAndTalents, name}) => {
                 abilitiesAndTalents.abilities.map((ability, idx) => {
                     return (
                         <SpellInfoPopup
+                            key={`${ability}-${idx}`}
                             popupDelay={200}
                             ability={ability}
                         >

@@ -3,9 +3,10 @@ import PropTypes from "prop-types"
 
 import styled from 'styled-components';
 
-import {getImageURL} from "../../../../common/utils";
+import {getImageURL, getSpellDamageTypeColor, getSpellImmunityColor} from "../../../../common/utils";
 
 import Popup from "reactjs-popup";
+import Border from "../../../border";
 
 import "./hero-spell.css"
 
@@ -35,11 +36,12 @@ const SpellInfoPopup = ({abilityId, ability, popupDelay, children}) => {
             trigger={children}
         >
             <React.Fragment>
-                <_PopupHeaderBlurEffect link={getImageURL(ability.img)}/>
+                <PopupHeaderBlurEffect link={getImageURL(ability.img)}/>
                 <div className="align-items-center position-relative">
-                    <_PopupSpellHeader {...ability}/>
+                    <PopupSpellHeader {...ability}/>
                     <Border/>
-                    <_PopupSpellAttribute/>
+                    <PopupSpellAttribute {...ability}/>
+                    <Border/>
                 </div>
             </React.Fragment>
         </Popup>
@@ -56,7 +58,7 @@ SpellInfoPopup.defaultProps = {
 }
 
 
-const _PopupHeaderBlurEffect = styled.div`
+const PopupHeaderBlurEffect = styled.div`
         position: absolute;
         left: -10px;
         top: 50%;
@@ -68,7 +70,7 @@ const _PopupHeaderBlurEffect = styled.div`
         background-repeat: no-repeat;
     `
 
-const _PopupSpellHeader = ({dname: spellName, img}) => {
+const PopupSpellHeader = ({dname: spellName, img}) => {
     const imgLink = getImageURL(img);
 
     return (
@@ -87,18 +89,46 @@ const _PopupSpellHeader = ({dname: spellName, img}) => {
     )
 }
 
-const _PopupSpellAttribute = () => {
-    return (
-        <div>
+const PopupSpellAttribute = ({behavior, dmg_type, bkbpierce}) => {
+    const spellTarget = typeof behavior === "string"
+        ? behavior
+        : [...behavior].filter(value => !!value).join(" / ")
 
+    return (
+        <div className="padding_13">
+            <div>
+                <span className="popup_spell_target_label">TARGET:</span>
+                {' '}
+                <span className="font-weight-500">{`${spellTarget}`}</span>
+            </div>
+
+            {
+                dmg_type &&
+                <div>
+                    <span className="popup_spell_target_label">DAMAGE TYPE:</span>
+                    {' '}
+                    <span
+                        style={{color: `${getSpellDamageTypeColor(dmg_type)}`}}
+                        className="font-weight-500"
+                    >
+                        {`${dmg_type}`}
+                    </span>
+                </div>
+            }
+            {
+                bkbpierce &&
+                <div>
+                    <span className="popup_spell_target_label">PIERCES SPELL IMMUNITY:</span>
+                    {' '}
+                    <span
+                        style={{color: `${getSpellImmunityColor(bkbpierce)}`}}
+                        className="font-weight-500"
+                    >
+                        {`${bkbpierce}`}
+                    </span>
+                </div>
+            }
         </div>
-    )
-}
-
-
-const Border = () => {
-    return (
-        <div className="black_border"/>
     )
 }
 

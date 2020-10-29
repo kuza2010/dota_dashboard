@@ -28,9 +28,21 @@ export const laneRoleMapping = {
     supp2: 5,       //5 pos?
 };
 
+// colors for hero main attribute
 export const STRENGTH_COLOR = "#f4353c"
 export const AGILITY_COLOR = "#39d402"
 export const INTELLECT_COLOR = "#01a9f4"
+
+// colors for skills damage type
+export const DAMAGE_TYPE_PURE_COLOR = "#FC92BC"
+export const DAMAGE_TYPE_PHYSICAL_COLOR = "#AE2F28"
+export const DAMAGE_TYPE_MAGICAL_COLOR = "#01a9f4"
+export const DAMAGE_TYPE_DEFAULT_COLOR = "#fff"
+
+// colors for negative and positive decisions
+export const YES_COLOR = "#66BB6A"
+export const NO_COLOR = "#E74C3C"
+
 
 export const TRIGGER_SPELL_SIZE = 6
 

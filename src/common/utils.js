@@ -3,13 +3,17 @@ import moment from "moment";
 import {
     armorCoefficient,
     baseApiURL,
+    DAMAGE_TYPE_DEFAULT_COLOR,
+    DAMAGE_TYPE_MAGICAL_COLOR,
+    DAMAGE_TYPE_PHYSICAL_COLOR,
+    DAMAGE_TYPE_PURE_COLOR,
     defaultRoleAssignment,
     healthPerStraight,
     laneMapping,
     laneRoleMapping,
     manaPerIntellect,
     manaRegenerationCoefficient,
-    NA
+    NA, NO_COLOR, YES_COLOR
 } from "./enum";
 
 
@@ -121,6 +125,29 @@ const getImageURL = (postfix) => {
     return `${baseApiURL}/${postfix.startsWith('/') ? postfix.slice(1, postfix.length) : postfix}`
 }
 
+const getSpellDamageTypeColor = (type = "") => {
+    switch (type.trim().toLowerCase()) {
+        case "magic":
+        case "magical":
+            return DAMAGE_TYPE_MAGICAL_COLOR
+        case "pure":
+            return DAMAGE_TYPE_PURE_COLOR
+        case "physical":
+            return DAMAGE_TYPE_PHYSICAL_COLOR
+        default:
+            return DAMAGE_TYPE_DEFAULT_COLOR
+    }
+}
+
+const getSpellImmunityColor = (yesOrNo = "no") => {
+    switch (yesOrNo.trim().toLowerCase()) {
+        case "yes":
+            return YES_COLOR
+        default:
+            return NO_COLOR
+    }
+}
+
 /**
  * Calculate some hero stats
  */
@@ -187,6 +214,9 @@ export {
     filterTeams,
     calculateRolesInPercent,
     getImageURL,
+
+    getSpellDamageTypeColor,
+    getSpellImmunityColor,
 
     getHeroDamage,
     getAttackSpeed,

@@ -42,6 +42,9 @@ const SpellInfoPopup = ({abilityId, ability, popupDelay, children}) => {
                     <Border/>
                     <PopupSpellAttribute {...ability}/>
                     <Border/>
+                    <PopupSpellDescription {...ability}/>
+                    <Border/>
+                    <PopupSpellInfo {...ability} />
                 </div>
             </React.Fragment>
         </Popup>
@@ -60,9 +63,7 @@ SpellInfoPopup.defaultProps = {
 
 const PopupHeaderBlurEffect = styled.div`
         position: absolute;
-        left: -10px;
-        top: 50%;
-        height: 100%;
+        height: 20%;
         width: 20%;
         transform: scale(4);
         filter: blur(15px);
@@ -95,9 +96,9 @@ const PopupSpellAttribute = ({behavior, dmg_type, bkbpierce}) => {
         : [...behavior].filter(value => !!value).join(" / ")
 
     return (
-        <div className="padding_13">
+        <div className="padding_13 text_medium">
             <div>
-                <span className="popup_spell_target_label">TARGET:</span>
+                <span className="color_dark_white">TARGET:</span>
                 {' '}
                 <span className="font-weight-500">{`${spellTarget}`}</span>
             </div>
@@ -105,7 +106,7 @@ const PopupSpellAttribute = ({behavior, dmg_type, bkbpierce}) => {
             {
                 dmg_type &&
                 <div>
-                    <span className="popup_spell_target_label">DAMAGE TYPE:</span>
+                    <span className="color_dark_white">DAMAGE TYPE:</span>
                     {' '}
                     <span
                         style={{color: `${getSpellDamageTypeColor(dmg_type)}`}}
@@ -118,7 +119,7 @@ const PopupSpellAttribute = ({behavior, dmg_type, bkbpierce}) => {
             {
                 bkbpierce &&
                 <div>
-                    <span className="popup_spell_target_label">PIERCES SPELL IMMUNITY:</span>
+                    <span className="color_dark_white">PIERCES SPELL IMMUNITY:</span>
                     {' '}
                     <span
                         style={{color: `${getSpellImmunityColor(bkbpierce)}`}}
@@ -127,6 +128,39 @@ const PopupSpellAttribute = ({behavior, dmg_type, bkbpierce}) => {
                         {`${bkbpierce}`}
                     </span>
                 </div>
+            }
+        </div>
+    )
+}
+
+const PopupSpellDescription = ({desc}) => {
+    return (
+        <div className="padding_13">
+            <p className="force_0_margin color_dark_white text-justify text_medium">{desc}</p>
+        </div>
+    )
+}
+
+const PopupSpellInfo = ({attrib}) => {
+    return (
+        <div className="padding_13 text_medium">
+            {
+                attrib.map(pAttr => {
+                    const values = typeof pAttr.value === "string"
+                        ? pAttr.value
+                        : pAttr.value.join(" / ")
+
+                    // there are can be broken data
+                    const header = pAttr.header.trim().replace(/\s*\\n\s*/g,"")
+
+                    return (
+                        <div key={pAttr.header}>
+                            <span className="color_dark_white">{header}</span>
+                            {' '}
+                            <span className="font-weight-500 text-white">{values}</span>
+                        </div>
+                    )
+                })
             }
         </div>
     )

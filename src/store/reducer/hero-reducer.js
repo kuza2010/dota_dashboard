@@ -1,4 +1,7 @@
 import {
+    HERO_BENCHMARKS_ERROR,
+    HERO_BENCHMARKS_LOADED,
+    HERO_BENCHMARKS_REQUESTED,
     HERO_INFO_LOADED,
     HERO_INFO_NOTFOUND,
     HERO_INFO_REQUESTED,
@@ -12,11 +15,12 @@ const allHeroesInitialState = {
     loading: true,
     error: null,
 }
-
 const selectedHero = {
     hero: null,
     loading: true,
     error: null,
+    benchmarks: null,
+    benchmarkError: null,
 }
 
 const initialState = {
@@ -53,6 +57,7 @@ const heroReducer = (state = initialState, action) => {
             return {
                 ...state,
                 selectedHero: {
+                    benchmarks: state.selectedHero.benchmarks,
                     hero: null,
                     loading: true,
                     error: null,
@@ -62,6 +67,7 @@ const heroReducer = (state = initialState, action) => {
             return {
                 ...state,
                 selectedHero: {
+                    benchmarks: state.selectedHero.benchmarks,
                     hero: action.payload,
                     loading: false,
                     error: null,
@@ -71,11 +77,42 @@ const heroReducer = (state = initialState, action) => {
             return {
                 ...state,
                 selectedHero: {
+                    benchmarks: state.selectedHero.benchmarks,
                     hero: null,
                     loading: false,
                     error: action.payload,
                 }
             }
+        case HERO_BENCHMARKS_LOADED: {
+            return {
+                ...state,
+                selectedHero: {
+                    ...state.selectedHero,
+                    benchmarks: action.payload,
+                    benchmarkError: null
+                }
+            }
+        }
+        case HERO_BENCHMARKS_ERROR: {
+            return {
+                ...state,
+                selectedHero: {
+                    ...state.selectedHero,
+                    benchmarks: null,
+                    benchmarkError: action.payload
+                }
+            }
+        }
+        case HERO_BENCHMARKS_REQUESTED: {
+            return {
+                ...state,
+                selectedHero: {
+                    ...state.selectedHero,
+                    benchmarks: null,
+                    benchmarkError: null,
+                }
+            }
+        }
         default:
             return state;
     }

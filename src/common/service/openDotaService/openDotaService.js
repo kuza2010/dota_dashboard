@@ -2,6 +2,7 @@ import {
     filterProPlayers,
     getHeroInfo,
     toCommonMatchesStatsDTO,
+    toHeroBenchmarksDTO,
     toMatchDTO,
     toPlayerDTO,
     toProPlayerDTO,
@@ -205,6 +206,18 @@ class OpenDotaService {
         return await Promise.all([
             ...matchesIds.map(matchId => this._getMatchStat(matchId, accountId)),
         ]);
+    }
+
+    getBenchmarks = async (heroId) => {
+        if (typeof heroId !== 'number') {
+            if (!parseInt(heroId, 10)) {
+                console.error(`getBenchmarks (${heroId}), hero id must be number, provided: ${typeof heroId}, value is: ${heroId}`);
+                throw new Error(`Hero id must be number, provided: ${typeof heroId}, value is: ${heroId}`);
+            }
+        }
+
+        const benchmarks = await this._getResources(`/benchmarks?hero_id=${heroId}`)
+        return toHeroBenchmarksDTO(benchmarks)
     }
 }
 

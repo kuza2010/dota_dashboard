@@ -43,6 +43,13 @@ export const DAMAGE_TYPE_DEFAULT_COLOR = "#fff"
 export const YES_COLOR = "#66BB6A"
 export const NO_COLOR = "#E74C3C"
 
+// Tabs on hero page
+export const heroPageTabs = {
+    heroBenchmarks: 0,
+    herDuration: 1,
+}
+
+
 
 export const TRIGGER_SPELL_SIZE = 6
 

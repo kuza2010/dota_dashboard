@@ -218,7 +218,7 @@ const toHeroStatsDTO = (hero, abilitiesAndTalents) => {
     }
 }
 
-const _primaryAttribute = (hero)=> {
+const _primaryAttribute = (hero) => {
     switch (hero["primary_attr"]) {
         case "str":
             return hero["base_str"]
@@ -228,6 +228,25 @@ const _primaryAttribute = (hero)=> {
             return hero["base_agi"]
         default:
             return 0
+    }
+}
+
+// Benchmarks
+const toHeroBenchmarksDTO = (benchmarks) => {
+    if (undefined === benchmarks || undefined === benchmarks.result) {
+        return {}
+    }
+    const {result} = benchmarks
+
+    return {
+        goldPerMin: result["gold_per_min"],
+        xpPerMin: result["xp_per_min"],
+        heroDamagePerMin: result["hero_damage_per_min"],
+        heroHealingPerMin: result["hero_healing_per_min"],
+        towerDamage: result["tower_damage"],
+        killsPerMin: result["kills_per_min"],
+        lastHitsPerMin: result["last_hits_per_min"],
+        stunsPerMin: result["stuns_per_min"],
     }
 }
 
@@ -241,4 +260,5 @@ export {
     toMatchDTO,
     toTeamsDTO,
     getHeroInfo,
+    toHeroBenchmarksDTO
 }

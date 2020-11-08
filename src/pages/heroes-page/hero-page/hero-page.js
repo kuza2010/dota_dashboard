@@ -15,6 +15,7 @@ import HeroAvatar from "../../../components/hero-components/hero-avatar";
 import HeroBasicInfo from "../../../components/hero-components/hero-basic-info";
 import HeroStats from "../../../components/hero-components/hero-stats";
 import HeroDetailsTable from "../../../components/hero-components/hero-details-table";
+import HeroPageTabs from "../../../components/hero-components/hero-page-tabs";
 
 import NotFoundException from "../../../common/exception/not-found-exception";
 
@@ -26,7 +27,7 @@ import "./hero-page.css"
 const HeroPage = (heroInfo) => {
 
     return (
-            <div className="jumbotron">
+        <div className="jumbotron">
             <ImageBackground link={getImageURL(heroInfo.img)}>
                 <div className="hero-preview-padding">
                     <div className="row justify-content-center align-items-center">
@@ -37,7 +38,8 @@ const HeroPage = (heroInfo) => {
                 </div>
             </ImageBackground>
             <HeroDetailsTable {...heroInfo}/>
-            </div>
+            <HeroPageTabs heroId={heroInfo.id}/>
+        </div>
     )
 };
 

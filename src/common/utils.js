@@ -205,6 +205,113 @@ function _humanReadableText(getFunc, fractionDigits = 2) {
 }
 
 
+// data should be sorted !
+const _prepareDataForHeroBenchmarks = (benchmarks) => {
+    let result = {};
+
+    for (const [key, value] of Object.entries(benchmarks)) {
+        switch (key) {
+            case "goldPerMin": {
+                result["goldPerMin"] = {
+                    label: "GOLD FARMED PER MINUTE",
+                    data: [...value]
+                }
+                break;
+            }
+            case "heroDamagePerMin": {
+                result["heroDamagePerMin"] = {
+                    label: "HERO DAMAGE PER MINUTE",
+                    data: [...value]
+                }
+                break;
+            }
+            case "heroHealingPerMin": {
+                result["heroHealingPerMin"] = {
+                    label: "HERO HEALING PER MINUTE",
+                    data: [...value]
+                }
+                break;
+            }
+            case "killsPerMin": {
+                result["killsPerMin"] = {
+                    label: "KILLS PER MINUTE",
+                    data: [...value]
+                }
+                break;
+            }
+            case "lastHitsPerMin": {
+                result["lastHitsPerMin"] = {
+                    label: "LAST HITS PER MINUTE",
+                    data: [...value]
+                }
+                break;
+            }
+            case "stunsPerMin": {
+                result["stunsPerMin"] = {
+                    label: "SECONDS OF HERO STUNS PER MINUTE",
+                    data: [...value]
+                }
+                break;
+            }
+            case "towerDamage": {
+                result["towerDamage"] = {
+                    label: "TOWER DAMAGE PER MINUTE",
+                    data: [...value]
+                }
+                break;
+            }
+            case "xpPerMin": {
+                result["xpPerMin"] = {
+                    label: "EXPERIENCE GAINED PER MINUTE",
+                    data: [...value]
+                }
+                break;
+            }
+            default:
+                console.error(`prepareDateForHeroBenchmarks(): unexpected key ${key}, skip it...`)
+        }
+    }
+
+    return result;
+}
+
+// ref: https://react-charts.tanstack.com/docs/api#data-model
+const prepareDataForHeroBenchmarksChart = (benchmarks) => {
+    const preparedDate = _prepareDataForHeroBenchmarks(benchmarks);
+    let result = [];
+
+    for (const {label, data} of Object.values(preparedDate)) {
+        result.push(
+            {
+                label,
+                data: data.map(({percentile, value}) => {
+                    return {
+                        primary: percentile,
+                        secondary: value
+                    }
+                })
+            }
+        )
+    }
+
+    return result;
+}
+
+// thanks: https://medium.com/@Dragonza/four-ways-to-chunk-an-array-e19c889eac4
+function chunk(array, size) {
+    const chunked_arr = [];
+    for (let i = 0; i < array.length; i++) {
+        const last = chunked_arr[chunked_arr.length - 1];
+        if (!last || last.length === size) {
+            chunked_arr.push([array[i]]);
+        } else {
+            last.push(array[i]);
+        }
+    }
+    return chunked_arr;
+}
+
+
 export {
     zip,
     stringCompare,
@@ -225,4 +332,8 @@ export {
     getBaseHeroMana,
     getManaRegeneration,
     getHeroArmor,
+
+    prepareDataForHeroBenchmarksChart,
+
+    chunk,
 };

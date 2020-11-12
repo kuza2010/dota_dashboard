@@ -59,9 +59,6 @@ const BaseStats = ({baseStraight, baseIntellect, baseAgility, strGain, intGain, 
  * Make sure that mana const value is not 'null' and '>' than 0.
  */
 const SpellsAndTalents = ({abilitiesAndTalents, name}) => {
-    const {abilities, talents} = abilitiesAndTalents;
-    console.log(abilities);
-
     return (
         <div className="row justify-content-center">
             {

@@ -115,8 +115,6 @@ const HeroWrapper = (props) => {
 
     const selectedHero = useSelector(({heroes}) => heroes.selectedHero)
 
-    console.log(selectedHero.hero)
-
     return <HeroContainer {...selectedHero}/>
 };
 

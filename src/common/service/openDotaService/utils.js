@@ -144,7 +144,7 @@ const toTeamsDTO = (...teams) => {
 //Hero
 const getHeroInfo = (heroId, heroes, abilitiesAndTalents, description) => {
     const hero = heroes.find(hero => +hero.id === +heroId)
-    console.log(hero)
+
     if (hero === undefined) {
         throw new NotFoundException(`No hero with id: ${heroId}`, heroId)
     }

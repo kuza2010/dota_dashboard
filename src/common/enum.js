@@ -50,7 +50,6 @@ export const heroPageTabs = {
 }
 
 
-
 export const TRIGGER_SPELL_SIZE = 6
 
 // https://dota2.gamepedia.com/Health
@@ -64,3 +63,16 @@ export const armorCoefficient = 0.166666667
 
 export const NA = "N/A"
 export const baseApiURL = "https://api.opendota.com";
+
+
+// charts color
+export const chartColor = {
+    VIOLET: "violet",
+    GREEN: "green",
+    TOXIC: "toxic",
+    GOLD: "gold",
+    BLUE: "blue",
+    SEA: "sea",
+    RED: "red",
+    DEFAULT: "default",
+}

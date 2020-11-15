@@ -35,7 +35,7 @@ const HeroPageTabs = ({heroId, activeTabIndex = heroPageTabs.heroBenchmarks}) =>
                     }
                 </TabList>
 
-                <TabPanel>
+                <TabPanel className="tab-panel-margin">
                     <HeroBenchmarks heroId={heroId}/>
                 </TabPanel>
                 <TabPanel>

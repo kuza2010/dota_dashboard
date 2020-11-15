@@ -2,7 +2,7 @@ import countryCodes from "../common/country-codes"
 import moment from "moment";
 import {
     armorCoefficient,
-    baseApiURL,
+    baseApiURL, chartColor,
     DAMAGE_TYPE_DEFAULT_COLOR,
     DAMAGE_TYPE_MAGICAL_COLOR,
     DAMAGE_TYPE_PHYSICAL_COLOR,
@@ -205,6 +205,10 @@ function _humanReadableText(getFunc, fractionDigits = 2) {
 }
 
 
+/**
+ * Hero benchmarks
+ */
+
 // data should be sorted !
 const _prepareDataForHeroBenchmarks = (benchmarks) => {
     let result = {};
@@ -213,6 +217,7 @@ const _prepareDataForHeroBenchmarks = (benchmarks) => {
         switch (key) {
             case "goldPerMin": {
                 result["goldPerMin"] = {
+                    chartColor: getChartColorsByName(chartColor.GOLD),
                     label: "GOLD FARMED PER MINUTE",
                     data: [...value]
                 }
@@ -220,6 +225,7 @@ const _prepareDataForHeroBenchmarks = (benchmarks) => {
             }
             case "heroDamagePerMin": {
                 result["heroDamagePerMin"] = {
+                    chartColor: getChartColorsByName(chartColor.RED),
                     label: "HERO DAMAGE PER MINUTE",
                     data: [...value]
                 }
@@ -227,6 +233,7 @@ const _prepareDataForHeroBenchmarks = (benchmarks) => {
             }
             case "heroHealingPerMin": {
                 result["heroHealingPerMin"] = {
+                    chartColor: getChartColorsByName(chartColor.GREEN),
                     label: "HERO HEALING PER MINUTE",
                     data: [...value]
                 }
@@ -234,6 +241,7 @@ const _prepareDataForHeroBenchmarks = (benchmarks) => {
             }
             case "killsPerMin": {
                 result["killsPerMin"] = {
+                    chartColor: getChartColorsByName(chartColor.SEA),
                     label: "KILLS PER MINUTE",
                     data: [...value]
                 }
@@ -241,6 +249,7 @@ const _prepareDataForHeroBenchmarks = (benchmarks) => {
             }
             case "lastHitsPerMin": {
                 result["lastHitsPerMin"] = {
+                    chartColor: getChartColorsByName(chartColor.VIOLET),
                     label: "LAST HITS PER MINUTE",
                     data: [...value]
                 }
@@ -248,6 +257,7 @@ const _prepareDataForHeroBenchmarks = (benchmarks) => {
             }
             case "stunsPerMin": {
                 result["stunsPerMin"] = {
+                    chartColor: getChartColorsByName(chartColor.TOXIC),
                     label: "SECONDS OF HERO STUNS PER MINUTE",
                     data: [...value]
                 }
@@ -255,6 +265,7 @@ const _prepareDataForHeroBenchmarks = (benchmarks) => {
             }
             case "towerDamage": {
                 result["towerDamage"] = {
+                    chartColor: getChartColorsByName(chartColor.BLUE),
                     label: "TOWER DAMAGE PER MINUTE",
                     data: [...value]
                 }
@@ -262,6 +273,7 @@ const _prepareDataForHeroBenchmarks = (benchmarks) => {
             }
             case "xpPerMin": {
                 result["xpPerMin"] = {
+                    chartColor: getChartColorsByName(chartColor.DEFAULT),
                     label: "EXPERIENCE GAINED PER MINUTE",
                     data: [...value]
                 }
@@ -280,14 +292,15 @@ const prepareDataForHeroBenchmarksChart = (benchmarks) => {
     const preparedDate = _prepareDataForHeroBenchmarks(benchmarks);
     let result = [];
 
-    for (const {label, data} of Object.values(preparedDate)) {
+    for (const {label, data, chartColor} of Object.values(preparedDate)) {
         result.push(
             {
                 label,
+                chartColor,
                 data: data.map(({percentile, value}) => {
                     return {
-                        primary: percentile,
-                        secondary: value
+                        name: percentile * 100,
+                        value
                     }
                 })
             }
@@ -298,7 +311,7 @@ const prepareDataForHeroBenchmarksChart = (benchmarks) => {
 }
 
 // thanks: https://medium.com/@Dragonza/four-ways-to-chunk-an-array-e19c889eac4
-function chunk(array, size) {
+function chunkArray(array, size) {
     const chunked_arr = [];
     for (let i = 0; i < array.length; i++) {
         const last = chunked_arr[chunked_arr.length - 1];
@@ -309,6 +322,59 @@ function chunk(array, size) {
         }
     }
     return chunked_arr;
+}
+
+const getChartColorsByName = (colorName) => {
+    switch (colorName) {
+        case chartColor.VIOLET:
+            return {
+                name: "violet-gradient",
+                stroke: "#E433FF",
+                gradient: "#b836ff"
+            }
+        case chartColor.GREEN:
+            return {
+                name: "green-gradient",
+                stroke: "#7FE010",
+                gradient: "#19B510"
+            }
+        case chartColor.TOXIC:
+            return {
+                name: "toxic-gradient",
+                stroke: "#FFFF00",
+                gradient: "#CDFF05"
+            }
+        case chartColor.BLUE:
+            return {
+                name: "blue-gradient",
+                stroke: "#382EFF",
+                gradient: "#534AFF"
+            }
+        case chartColor.GOLD:
+            return {
+                name: "gold-gradient",
+                stroke: "#FF9B05",
+                gradient: "#FFB31C"
+            }
+        case chartColor.RED:
+            return {
+                name: "red-gradient",
+                stroke: "#FF1C1C",
+                gradient: "#FF5454"
+            }
+        case chartColor.SEA:
+            return {
+                name: "sea-gradient",
+                stroke: "#36FFFC",
+                gradient: "#5CB6FF"
+            }
+        default:
+            return {
+                name: "default-gradient",
+                stroke: "#FF9CFF",
+                gradient: "#F673FF"
+            }
+    }
 }
 
 
@@ -334,6 +400,6 @@ export {
     getHeroArmor,
 
     prepareDataForHeroBenchmarksChart,
-
-    chunk,
+    chunkArray,
+    getChartColorsByName
 };

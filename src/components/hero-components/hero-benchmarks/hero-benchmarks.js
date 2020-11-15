@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext, useEffect, useMemo} from "react";
 import PropTypes from "prop-types"
 import {fetchHeroBenchmarks} from "../../../store/action-creators/hero-actions";
 import {useDispatch, useSelector} from "react-redux";
@@ -13,21 +13,17 @@ import OpenDotaServiceContext from "../../context/openDotaContext";
 import {selectedHeroSelectors} from "../../../store/selectors";
 
 import "./hero-benchmarks.css"
-import {chunk, prepareDataForHeroBenchmarks, prepareDataForHeroBenchmarksChart} from "../../../common/utils";
+import {chunkArray, prepareDataForHeroBenchmarks, prepareDataForHeroBenchmarksChart} from "../../../common/utils";
 
 
 const HeroBenchmarks = ({benchmark, chartSetting}) => {
-    const chunkedChartsData = prepareDataForHeroBenchmarksChart(benchmark);
+    const {chartInOneLine, height} = chartSetting
 
-    const axes = React.useMemo(() => [
-        {primary: true, type: 'linear', position: 'bottom'},
-        {type: 'linear', position: 'left'},
-    ], []);
-    const memoizedChunkedChartsData = React.useMemo(() =>
-        chunk(chunkedChartsData, chartSetting.chartInOneLine), [])
+    const chunkedChartsData = prepareDataForHeroBenchmarksChart(benchmark);
+    const memoizedChunkedChartsData = useMemo(() => chunkArray(chunkedChartsData, chartInOneLine), [])
 
     return (
-        <div>
+        <React.Fragment>
             {
                 memoizedChunkedChartsData.map((dataChunk, idx) => {
                     return (
@@ -36,22 +32,21 @@ const HeroBenchmarks = ({benchmark, chartSetting}) => {
                             className="row text-center"
                         >
                             {
-                                dataChunk.map(data => {
-                                    // we need wrap it into array for correct work
+                                dataChunk.map(chunk => {
                                     return (
                                         <div
-                                            className="col-lg col-md-6"
-                                            key={data.label.toLowerCase()}
+                                            className="col-lg col-md-6 padding-8"
+                                            key={chunk.label.toLowerCase()}
                                         >
-                                            <Chart data={[data]} axes={axes}
-                                                   style={{
-                                                       width: "100%",
-                                                       height: `${chartSetting.height}px`
-                                                   }}
+                                            <Chart data={chunk.data}
+                                                   style={{width: "100%", height: height}}
+                                                   chartColors={chunk.chartColor}
                                             />
                                             <span className="float-right text-warning">
-                                    <p className="hero-benchmark-chart-sign-text">{data.label}</p>
-                                </span>
+                                                <p className="hero-benchmark-chart-sign-text">
+                                                    {chunk.label}
+                                                </p>
+                                            </span>
                                         </div>
                                     )
                                 })
@@ -60,7 +55,7 @@ const HeroBenchmarks = ({benchmark, chartSetting}) => {
                     )
                 })
             }
-        </div>
+        </React.Fragment>
     )
 }
 
@@ -71,7 +66,7 @@ HeroBenchmarks.propType = {
 
 HeroBenchmarks.defaultProps = {
     chartSetting: {
-        chartInOneLine: 3,
+        chartInOneLine: 2,
         height: 250,
     },
 }

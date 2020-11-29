@@ -8,11 +8,8 @@ import {heroPageTabs} from "../../../common/enum";
 import "./hero-page-tabs.css"
 
 
-const navLinksText = ["Benchmarks", "Durations"]
-
-const HeroPageTabs = ({heroId, activeTabIndex = heroPageTabs.heroBenchmarks}) => {
+const HeroPageTabs = ({heroId, activeTabIndex = heroPageTabs.heroBenchmarks.value}) => {
     const [tabIndex, setTabIndex] = useState(activeTabIndex);
-
     return (
         <div className="margin_top_10">
             <Tabs
@@ -21,14 +18,14 @@ const HeroPageTabs = ({heroId, activeTabIndex = heroPageTabs.heroBenchmarks}) =>
             >
                 <TabList className="nav justify-content-center pills-border">
                     {
-                        navLinksText.map((text, idx) => {
+                        Object.values(heroPageTabs).map(({name}, idx) => {
                             const activeStyle = idx === tabIndex ? "active-tab" : ""
                             return (
                                 <Tab
-                                    key={text}
+                                    key={name}
                                     className={`pointer nav-link ${activeStyle}`}
                                 >
-                                    {text}
+                                    {name}
                                 </Tab>
                             )
                         })

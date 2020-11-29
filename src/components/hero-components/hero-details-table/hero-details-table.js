@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 
-import './hero-details-table.css'
 import {
     getAttackSpeed,
     getBaseHeroHealth,
@@ -10,6 +9,8 @@ import {
     getHeroDamage,
     getManaRegeneration
 } from "../../../common/utils";
+
+import './hero-details-table.css'
 
 
 const HeroDetailsTable = ({

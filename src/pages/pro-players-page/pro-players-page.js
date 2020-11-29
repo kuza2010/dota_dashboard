@@ -1,10 +1,8 @@
-import React, {useContext, useEffect} from "react";
+import React, {useEffect} from "react";
 
 import {useDispatch, useSelector} from "react-redux";
 
 import PropTypes from 'prop-types';
-
-import OpenDotaServiceContext from "../../components/context/openDotaContext";
 
 import Breadcrumbs from "../../components/breadcrumbs";
 import Loading from "../../components/loading";
@@ -20,6 +18,7 @@ import Shapes from "../../common/shape"
 import "./pro-players-page.css"
 import Flag from "../../components/flag";
 import {Link} from "react-router-dom";
+import useOpenDotaService from "../../components/hoc/service-hoc";
 
 
 const PlayersPage = ({players, loading, error}) => {
@@ -43,7 +42,7 @@ const PlayersPage = ({players, loading, error}) => {
         {
             Header: "Last game",
             accessor: "last_match_time",
-            Cell: ({row}) => (getTimeFromNow(row.original["last_match_time"],"YYYY-MM-DDTHH:mm")),
+            Cell: ({row}) => (getTimeFromNow(row.original["last_match_time"], "YYYY-MM-DDTHH:mm")),
         },
         {
             Header: "Team",
@@ -110,7 +109,7 @@ PlayersPage.propTypes = {
  */
 const PlayersPageContainer = () => {
 
-    const openDotaService = useContext(OpenDotaServiceContext);
+    const service = useOpenDotaService()
     const dispatch = useDispatch();
 
     const players = useSelector(state => state.players.players);
@@ -118,7 +117,7 @@ const PlayersPageContainer = () => {
     const loading = useSelector(state => state.players.loading);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => fetchPlayers(openDotaService, dispatch), []);
+    useEffect(() => fetchPlayers(service, dispatch), []);
 
     return (
         <PlayersPage

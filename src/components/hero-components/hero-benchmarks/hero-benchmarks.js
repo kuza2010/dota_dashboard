@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useMemo} from "react";
+import React, {useEffect, useMemo} from "react";
 
 import {fetchHeroBenchmarks} from "../../../store/action-creators/hero-actions";
 import {useDispatch, useSelector} from "react-redux";
@@ -10,12 +10,11 @@ import ConditionalDisplay from "../../conditional-display/conditional-display";
 import Loading from "../../loading";
 import BenchmarkChart from "../../charts/benchmark-chart";
 import {CommonFallback} from "../../fallback";
-
-import OpenDotaServiceContext from "../../context/openDotaContext";
 import {selectedHeroSelectors as selector} from "../../../store/selectors";
 import {chunkArray, prepareDataForHeroBenchmarksChart} from "../../../common/utils";
 
 import "./hero-benchmarks.css"
+import useOpenDotaService from "../../hoc/service-hoc";
 
 
 const HeroBenchmarks = ({benchmark, chartSetting}) => {
@@ -106,7 +105,7 @@ const HeroBenchmarksContainer = ({benchmark, error}) => {
 }
 
 const HeroBenchmarksWrapper = ({heroId}) => {
-    const service = useContext(OpenDotaServiceContext)
+    const service = useOpenDotaService()
     const dispatch = useDispatch();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

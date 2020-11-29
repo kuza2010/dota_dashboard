@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import React, {useEffect} from "react";
 
 import {useDispatch, useSelector} from "react-redux";
 import {fetchHeroes} from "../../../store/action-creators/hero-actions";
@@ -7,12 +7,11 @@ import HeroGrid from "../../../components/hero-components/hero-grid";
 import Loading from "../../../components/loading";
 import Breadcrumbs from "../../../components/breadcrumbs";
 
-import OpenDotaServiceContext from "../../../components/context/openDotaContext";
-
 import PropTypes from 'prop-types';
 import Shapes from "../../../common/shape"
 
 import "./heroes-page.css"
+import useOpenDotaService from "../../../components/hoc/service-hoc";
 
 
 const HeroesPage = ({heroes, loading, error}) => {
@@ -51,11 +50,11 @@ HeroesPage.defaultProps = {
  */
 const HeroPageContainer = () => {
 
-    const openDotaService = useContext(OpenDotaServiceContext);
+    const service = useOpenDotaService()
     const dispatch = useDispatch();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => dispatch(fetchHeroes(openDotaService)), []);
+    useEffect(() => dispatch(fetchHeroes(service)), []);
 
     const heroes = useSelector(state => state.heroes.allHeroes.heroes);
     const loading = useSelector(state => state.heroes.allHeroes.loading);

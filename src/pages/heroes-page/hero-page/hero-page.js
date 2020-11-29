@@ -1,8 +1,6 @@
-import React, {useContext, useEffect} from "react";
+import React, {useEffect} from "react";
 
 import {useDispatch, useSelector} from "react-redux";
-
-import OpenDotaServiceContext from "../../../components/context/openDotaContext";
 import {fetchHero} from "../../../store/action-creators/hero-actions";
 import {getImageURL} from "../../../common/utils";
 
@@ -19,7 +17,11 @@ import HeroPageTabs from "../../../components/hero-components/hero-page-tabs";
 
 import NotFoundException from "../../../common/exception/not-found-exception";
 
+import {selectedHeroSelectors as selector} from "../../../store/selectors";
+
 import styled from 'styled-components';
+
+import useOpenDotaService from "../../../components/hoc/service-hoc";
 
 import "./hero-page.css"
 
@@ -108,14 +110,13 @@ const HeroWrapper = (props) => {
 
     const {heroId} = props.match.params;
 
-    const service = useContext(OpenDotaServiceContext)
+    const service = useOpenDotaService()
     const dispatch = useDispatch();
 
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => dispatch(fetchHero(heroId, service)), [heroId])
+    useEffect(() => dispatch(fetchHero(heroId)(service)), [heroId])
 
-    const selectedHero = useSelector(({heroes}) => heroes.selectedHero)
+    const selectedHero = useSelector(selector.GET_SELECTED_HERO)
 
     return <HeroContainer {...selectedHero}/>
 };

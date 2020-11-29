@@ -78,7 +78,7 @@ const fetchHeroes = (openDotaService) => (dispatch) => {
         .catch(error => dispatch(heroesError(error)));
 }
 
-const fetchHero = (heroId, openDotaService) => (dispatch) => {
+const fetchHero = (heroId) => (openDotaService) => (dispatch) => {
     dispatch(heroInfoRequested())
     openDotaService.getHero(heroId)
         .then(heroInfo => dispatch(heroInfoLoaded(heroInfo)))

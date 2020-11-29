@@ -45,8 +45,14 @@ export const NO_COLOR = "#E74C3C"
 
 // Tabs on hero page
 export const heroPageTabs = {
-    heroBenchmarks: 0,
-    herDuration: 1,
+    heroBenchmarks: {
+        value: 0,
+        name: "Benchmarks",
+    },
+    heroDuration: {
+        value: 1,
+        name: "Durations",
+    },
 }
 
 

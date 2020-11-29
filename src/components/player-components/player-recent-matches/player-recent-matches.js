@@ -1,9 +1,7 @@
-import React, {useContext, useEffect} from "react";
+import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
 import PropTypes from "prop-types";
-
-import OpenDotaServiceContext from "../../context/openDotaContext";
 import {fetchFullStats} from "../../../store/action-creators/player-stats";
 
 import TableWrapper from "../../table";
@@ -15,6 +13,7 @@ import {CommonFallback} from "../../fallback";
 import {getTimeFromNow} from "../../../common/utils";
 
 import "./player-recent-matches.css"
+import useOpenDotaService from "../../hoc/service-hoc";
 
 
 const PlayerRecentMatches = ({matches}) => {
@@ -189,11 +188,11 @@ const PlayerRecentMatchesContainer = (props) => {
 
 const PlayerRecentMatchesWrapper = ({matchIdsArray, accountId}) => {
 
-    const openDotaService = useContext(OpenDotaServiceContext);
+    const service = useOpenDotaService()
     const dispatch = useDispatch();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => fetchFullStats(matchIdsArray, accountId)(openDotaService, dispatch), []);
+    useEffect(() => fetchFullStats(matchIdsArray, accountId)(service, dispatch), []);
 
     const fullStat = useSelector(({playerStats}) => playerStats.fullStat);
 

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import Shape from "../../common/shape"
 
@@ -7,8 +7,6 @@ import ConditionalDisplay from "../../components/conditional-display/conditional
 import TableWrapper from "../../components/table";
 import Loading from "../../components/loading";
 import {CommonFallback} from "../../components/fallback";
-
-import OpenDotaServiceContext from "../../components/context/openDotaContext";
 import {fetchTeams} from "../../store/action-creators/teams-actions";
 
 import matchSorter from "match-sorter"
@@ -16,6 +14,7 @@ import matchSorter from "match-sorter"
 import {colForTeamsTable} from "./team-page-helper";
 
 import "./teams-page.css"
+import useOpenDotaService from "../../components/hoc/service-hoc";
 
 
 const TeamsPage = ({teams}) => {
@@ -90,11 +89,11 @@ const TeamContainer = (props) => {
 
 const TeamWrapper = () => {
 
-    const openDotaService = useContext(OpenDotaServiceContext);
+    const service = useOpenDotaService()
     const dispatch = useDispatch();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => dispatch(fetchTeams(openDotaService)), []);
+    useEffect(() => dispatch(fetchTeams(service)), []);
 
     const teams = useSelector(({teams}) => teams.allTeams);
 

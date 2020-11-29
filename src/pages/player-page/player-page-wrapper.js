@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import React, {useEffect} from "react";
 
 import PropTypes from 'prop-types';
 
@@ -12,13 +12,12 @@ import {PlayerNotFoundFallback} from "../../components/fallback";
 
 import {fetchPlayer} from "../../store/action-creators/player-actions";
 
-import OpenDotaServiceContext from "../../components/context/openDotaContext";
-
 import {playerShape} from "../../common/shape/shape";
 
 import {playerStatsCleanup} from "../../store/action-creators/player-stats";
 
 import "./player-page.css"
+import useOpenDotaService from "../../components/hoc/service-hoc";
 
 
 const PlayerPage = ({player, error, accountId}) => {
@@ -75,11 +74,11 @@ const PlayerPageWrapper = (props) => {
 
     const {match: {params: {accountId}}} = props;
 
-    const openDotaService = useContext(OpenDotaServiceContext);
+    const service = useOpenDotaService()
     const dispatch = useDispatch();
 
     useEffect(() => {
-        fetchPlayer(accountId)(openDotaService, dispatch)
+        fetchPlayer(accountId)(service, dispatch)
         return () => dispatch(playerStatsCleanup());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [accountId]);

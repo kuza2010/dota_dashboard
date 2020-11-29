@@ -19,10 +19,10 @@ const HeroPageTabs = ({heroId, activeTabIndex = heroPageTabs.heroBenchmarks}) =>
                 selectedIndex={tabIndex}
                 onSelect={index => setTabIndex(index)}
             >
-                <TabList className="nav nav-pills justify-content-center pills-border">
+                <TabList className="nav justify-content-center pills-border">
                     {
                         navLinksText.map((text, idx) => {
-                            const activeStyle = idx === tabIndex ? "active" : ""
+                            const activeStyle = idx === tabIndex ? "active-tab" : ""
                             return (
                                 <Tab
                                     key={text}

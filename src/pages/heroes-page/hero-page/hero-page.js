@@ -111,6 +111,8 @@ const HeroWrapper = (props) => {
     const service = useContext(OpenDotaServiceContext)
     const dispatch = useDispatch();
 
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => dispatch(fetchHero(heroId, service)), [heroId])
 
     const selectedHero = useSelector(({heroes}) => heroes.selectedHero)

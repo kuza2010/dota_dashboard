@@ -1,26 +1,32 @@
 import React, {useContext, useEffect, useMemo} from "react";
-import PropTypes from "prop-types"
+
 import {fetchHeroBenchmarks} from "../../../store/action-creators/hero-actions";
 import {useDispatch, useSelector} from "react-redux";
 
+import PropTypes from "prop-types"
+import Shapes from "../../../common/shape";
+
 import ConditionalDisplay from "../../conditional-display/conditional-display";
 import Loading from "../../loading";
-import Chart from "../../chart/chart";
+import BenchmarkChart from "../../charts/benchmark-chart";
 import {CommonFallback} from "../../fallback";
 
 import OpenDotaServiceContext from "../../context/openDotaContext";
-
-import {selectedHeroSelectors} from "../../../store/selectors";
+import {selectedHeroSelectors as selector} from "../../../store/selectors";
+import {chunkArray, prepareDataForHeroBenchmarksChart} from "../../../common/utils";
 
 import "./hero-benchmarks.css"
-import {chunkArray, prepareDataForHeroBenchmarks, prepareDataForHeroBenchmarksChart} from "../../../common/utils";
 
 
 const HeroBenchmarks = ({benchmark, chartSetting}) => {
     const {chartInOneLine, height} = chartSetting
 
-    const chunkedChartsData = prepareDataForHeroBenchmarksChart(benchmark);
-    const memoizedChunkedChartsData = useMemo(() => chunkArray(chunkedChartsData, chartInOneLine), [])
+    const memoizedChunkedChartsData = useMemo(() => {
+            const chunkedChartsData = prepareDataForHeroBenchmarksChart(benchmark);
+            return chunkArray(chunkedChartsData, chartInOneLine)
+        },
+        [benchmark, chartInOneLine]
+    )
 
     return (
         <React.Fragment>
@@ -38,9 +44,10 @@ const HeroBenchmarks = ({benchmark, chartSetting}) => {
                                             className="col-lg col-md-6 padding-8"
                                             key={chunk.label.toLowerCase()}
                                         >
-                                            <Chart data={chunk.data}
-                                                   style={{width: "100%", height: height}}
-                                                   chartColors={chunk.chartColor}
+                                            <BenchmarkChart
+                                                data={chunk.data}
+                                                style={{width: "100%", height: height}}
+                                                chartColors={chunk.chartColor}
                                             />
                                             <span className="float-right text-warning">
                                                 <p className="hero-benchmark-chart-sign-text">
@@ -60,8 +67,9 @@ const HeroBenchmarks = ({benchmark, chartSetting}) => {
 }
 
 HeroBenchmarks.propType = {
-    benchmark: PropTypes.object.isRequired,
-    chartSetting: PropTypes.object,
+    // PropTypes.object.isRequired
+    benchmark: Shapes.heroBenchmarksShape.isRequired,
+    chartSetting: Shapes.chartSettingsShape,
 }
 
 HeroBenchmarks.defaultProps = {
@@ -101,10 +109,11 @@ const HeroBenchmarksWrapper = ({heroId}) => {
     const service = useContext(OpenDotaServiceContext)
     const dispatch = useDispatch();
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => dispatch(fetchHeroBenchmarks(heroId, service)), [heroId])
 
-    const heroBenchmarks = useSelector(selectedHeroSelectors.GET_BENCHMARKS)
-    const error = useSelector(selectedHeroSelectors.GET_BENCHMARKS_ERROR)
+    const heroBenchmarks = useSelector(selector.GET_BENCHMARKS)
+    const error = useSelector(selector.GET_BENCHMARK_ERROR)
 
     return <HeroBenchmarksContainer benchmark={heroBenchmarks} error={error}/>
 }

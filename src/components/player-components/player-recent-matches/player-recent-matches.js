@@ -192,6 +192,7 @@ const PlayerRecentMatchesWrapper = ({matchIdsArray, accountId}) => {
     const openDotaService = useContext(OpenDotaServiceContext);
     const dispatch = useDispatch();
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => fetchFullStats(matchIdsArray, accountId)(openDotaService, dispatch), []);
 
     const fullStat = useSelector(({playerStats}) => playerStats.fullStat);

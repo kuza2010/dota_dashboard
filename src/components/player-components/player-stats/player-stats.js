@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from "react";
-import {useDispatch, useSelector, shallowEqual} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import PropTypes from "prop-types";
 
@@ -50,6 +50,7 @@ const PlayerStatsWrapper = ({accountId}) => {
     const openDotaService = useContext(OpenDotaServiceContext);
     const dispatch = useDispatch();
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => fetchRecentPlayerMatchesStats(accountId)(openDotaService, dispatch), []);
 
     const playerStats = useSelector(({playerStats}) => playerStats);

@@ -93,6 +93,7 @@ const TeamWrapper = () => {
     const openDotaService = useContext(OpenDotaServiceContext);
     const dispatch = useDispatch();
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => dispatch(fetchTeams(openDotaService)), []);
 
     const teams = useSelector(({teams}) => teams.allTeams);

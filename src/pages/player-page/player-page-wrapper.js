@@ -81,6 +81,7 @@ const PlayerPageWrapper = (props) => {
     useEffect(() => {
         fetchPlayer(accountId)(openDotaService, dispatch)
         return () => dispatch(playerStatsCleanup());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [accountId]);
 
     const player = useSelector(({player}) => player.player);

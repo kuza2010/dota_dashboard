@@ -160,6 +160,30 @@ export const heroStatShape = PropTypes.shape({
     legs: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     pro_ban: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     hero_id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-})
+});
 
-export const heroStatsShape = PropTypes.arrayOf(heroStatShape).isRequired
+export const heroStatsShape = PropTypes.arrayOf(heroStatShape).isRequired;
+
+/**
+ * Describe hero-benchmarks shape. It used on Hero page tabs.
+ */
+const _benchmarkData = PropTypes.shape({
+    percentile: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+});
+
+export const heroBenchmarksShape = PropTypes.shape({
+    goldPerMin: PropTypes.arrayOf(_benchmarkData).isRequired,
+    xpPerMin: PropTypes.arrayOf(_benchmarkData).isRequired,
+    heroDamagePerMin: PropTypes.arrayOf(_benchmarkData).isRequired,
+    heroHealingPerMin: PropTypes.arrayOf(_benchmarkData).isRequired,
+    towerDamage: PropTypes.arrayOf(_benchmarkData).isRequired,
+    killsPerMin: PropTypes.arrayOf(_benchmarkData).isRequired,
+    lastHitsPerMin: PropTypes.arrayOf(_benchmarkData).isRequired,
+    stunsPerMin: PropTypes.arrayOf(_benchmarkData).isRequired,
+});
+
+export const chartSettingsShape = PropTypes.shape({
+    chartInOneLine: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+});

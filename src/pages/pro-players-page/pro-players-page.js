@@ -117,6 +117,7 @@ const PlayersPageContainer = () => {
     const error = useSelector(state => state.players.error);
     const loading = useSelector(state => state.players.loading);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => fetchPlayers(openDotaService, dispatch), []);
 
     return (

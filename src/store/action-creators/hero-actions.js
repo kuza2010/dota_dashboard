@@ -9,7 +9,6 @@ import {
     HEROES_FETCH_SUCCESSFUL,
     HEROES_REQUESTED
 } from "../actions/hero-actions";
-import NotFoundException from "../../common/exception/not-found-exception";
 
 
 const heroesRequested = () => {

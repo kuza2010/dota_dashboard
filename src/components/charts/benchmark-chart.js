@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types"
 
-import {Area, AreaChart, CartesianGrid, Tooltip, XAxis, YAxis} from "recharts";
+import {Area, AreaChart, CartesianGrid, XAxis, YAxis} from "recharts";
 import {getChartColorsByName} from "../../common/utils";
 
 import {withResizeDetector} from "react-resize-detector";
@@ -33,7 +33,7 @@ const BenchmarkChart = ({
 }
 
 BenchmarkChart.propTypes = {
-    data: PropTypes.object.isRequired,
+    data: PropTypes.array.isRequired,
     style: PropTypes.object,
     chartColors: PropTypes.object
 }

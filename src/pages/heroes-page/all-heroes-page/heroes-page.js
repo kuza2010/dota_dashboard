@@ -54,6 +54,7 @@ const HeroPageContainer = () => {
     const openDotaService = useContext(OpenDotaServiceContext);
     const dispatch = useDispatch();
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => dispatch(fetchHeroes(openDotaService)), []);
 
     const heroes = useSelector(state => state.heroes.allHeroes.heroes);

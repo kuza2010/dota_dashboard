@@ -12,9 +12,11 @@ import {fetchTeams} from "../../store/action-creators/teams-actions";
 import matchSorter from "match-sorter"
 
 import {colForTeamsTable} from "./team-page-helper";
+import {teamSelectors} from "../../store/selectors";
+
+import useOpenDotaService from "../../components/hoc/service-hoc";
 
 import "./teams-page.css"
-import useOpenDotaService from "../../components/hoc/service-hoc";
 
 
 const TeamsPage = ({teams}) => {
@@ -95,7 +97,7 @@ const TeamWrapper = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => dispatch(fetchTeams(service)), []);
 
-    const teams = useSelector(({teams}) => teams.allTeams);
+    const teams = useSelector(teamSelectors.GET_ALL_TEAMS);
 
     return TeamContainer({...teams})
 }

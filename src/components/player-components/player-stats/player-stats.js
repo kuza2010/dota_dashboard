@@ -12,8 +12,11 @@ import Loading from "../../loading";
 
 import Shape from "../../../common/shape";
 
-import "./player-stats.css"
 import useOpenDotaService from "../../hoc/service-hoc";
+
+import {playerStatsSelector} from "../../../store/selectors";
+
+import "./player-stats.css"
 
 
 const PlayerStats = ({recentMatches, accountId}) => {
@@ -52,7 +55,7 @@ const PlayerStatsWrapper = ({accountId}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => fetchRecentPlayerMatchesStats(accountId)(service, dispatch), []);
 
-    const playerStats = useSelector(({playerStats}) => playerStats);
+    const playerStats = useSelector(playerStatsSelector.GET_PLAYER_STATS);
 
     return (
         <PlayerStats recentMatches={playerStats.recentMatches} accountId={accountId}/>

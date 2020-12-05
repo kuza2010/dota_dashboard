@@ -10,8 +10,11 @@ import Breadcrumbs from "../../../components/breadcrumbs";
 import PropTypes from 'prop-types';
 import Shapes from "../../../common/shape"
 
-import "./heroes-page.css"
 import useOpenDotaService from "../../../components/hoc/service-hoc";
+
+import {heroSelectors} from "../../../store/selectors";
+
+import "./heroes-page.css"
 
 
 const HeroesPage = ({heroes, loading, error}) => {
@@ -56,9 +59,9 @@ const HeroPageContainer = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => dispatch(fetchHeroes(service)), []);
 
-    const heroes = useSelector(state => state.heroes.allHeroes.heroes);
-    const loading = useSelector(state => state.heroes.allHeroes.loading);
-    const error = useSelector(state => state.heroes.allHeroes.error);
+    const heroes = useSelector(heroSelectors.GET_ALL_HEROES);
+    const loading = useSelector(heroSelectors.GET_ALL_HEROES_LOADING);
+    const error = useSelector(heroSelectors.GET_ALL_HEROES_ERROR);
 
     return (
         <HeroesPage

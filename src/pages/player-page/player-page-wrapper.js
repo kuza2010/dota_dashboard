@@ -16,8 +16,11 @@ import {playerShape} from "../../common/shape/shape";
 
 import {playerStatsCleanup} from "../../store/action-creators/player-stats";
 
-import "./player-page.css"
 import useOpenDotaService from "../../components/hoc/service-hoc";
+
+import {playerSelectors} from "../../store/selectors";
+
+import "./player-page.css"
 
 
 const PlayerPage = ({player, error, accountId}) => {
@@ -83,9 +86,9 @@ const PlayerPageWrapper = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [accountId]);
 
-    const player = useSelector(({player}) => player.player);
-    const error = useSelector(({player}) => player.error);
-    const loading = useSelector(({player}) => player.loading);
+    const player = useSelector(playerSelectors.GET_PLAYER);
+    const error = useSelector(playerSelectors.GET_PLAYER_ERROR);
+    const loading = useSelector(playerSelectors.GET_PLAYER_LOADING);
 
     return (
         loading

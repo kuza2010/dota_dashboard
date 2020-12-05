@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-
+import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 
 import PropTypes from 'prop-types';
@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import Breadcrumbs from "../../components/breadcrumbs";
 import Loading from "../../components/loading";
 import Table from "../../components/table";
+import Flag from "../../components/flag";
 
 import {fetchPlayers} from "../../store/action-creators/pro-player-actions";
 
@@ -15,10 +16,11 @@ import matchSorter from "match-sorter"
 import {getTimeFromNow} from "../../common/utils";
 import Shapes from "../../common/shape"
 
-import "./pro-players-page.css"
-import Flag from "../../components/flag";
-import {Link} from "react-router-dom";
 import useOpenDotaService from "../../components/hoc/service-hoc";
+
+import {playerSelectors} from "../../store/selectors";
+
+import "./pro-players-page.css"
 
 
 const PlayersPage = ({players, loading, error}) => {
@@ -112,9 +114,9 @@ const PlayersPageContainer = () => {
     const service = useOpenDotaService()
     const dispatch = useDispatch();
 
-    const players = useSelector(state => state.players.players);
-    const error = useSelector(state => state.players.error);
-    const loading = useSelector(state => state.players.loading);
+    const players = useSelector(playerSelectors.GET_ALL_PLAYERS);
+    const error = useSelector(playerSelectors.GET_PLAYERS_ERROR);
+    const loading = useSelector(playerSelectors.GET_PLAYERS_LOADING);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => fetchPlayers(service, dispatch), []);

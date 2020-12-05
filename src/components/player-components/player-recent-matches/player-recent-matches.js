@@ -12,8 +12,11 @@ import {CommonFallback} from "../../fallback";
 
 import {getTimeFromNow} from "../../../common/utils";
 
-import "./player-recent-matches.css"
 import useOpenDotaService from "../../hoc/service-hoc";
+
+import {playerStatsSelector} from "../../../store/selectors";
+
+import "./player-recent-matches.css"
 
 
 const PlayerRecentMatches = ({matches}) => {
@@ -194,7 +197,7 @@ const PlayerRecentMatchesWrapper = ({matchIdsArray, accountId}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => fetchFullStats(matchIdsArray, accountId)(service, dispatch), []);
 
-    const fullStat = useSelector(({playerStats}) => playerStats.fullStat);
+    const fullStat = useSelector(playerStatsSelector.GET_PLAYER_FULL_STATS);
 
     return <PlayerRecentMatchesContainer {...fullStat}/>
 }

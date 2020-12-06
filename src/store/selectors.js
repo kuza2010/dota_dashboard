@@ -6,8 +6,8 @@ export const selectedHeroSelectors = {
 
 export const heroSelectors = {
     GET_ALL_HEROES: (state) => state.heroes.allHeroes.heroes,
-    GET_ALL_HEROES_LOADING: (state) => state.heroes.selectedHero.benchmarks,
-    GET_ALL_HEROES_ERROR: (state) => state.heroes.selectedHero.benchmarkError,
+    GET_ALL_HEROES_LOADING: (state) => state.heroes.allHeroes.loading,
+    GET_ALL_HEROES_ERROR: (state) => state.heroes.allHeroes.error,
 }
 
 export const teamSelectors = {

@@ -1,6 +1,8 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
+import {Link} from "react-router-dom";
+
 import PropTypes from "prop-types";
 import {fetchFullStats} from "../../../store/action-creators/player-stats";
 
@@ -17,7 +19,6 @@ import useOpenDotaService from "../../hoc/service-hoc";
 import {playerStatsSelector} from "../../../store/selectors";
 
 import "./player-recent-matches.css"
-import {Link} from "react-router-dom";
 
 
 const PlayerRecentMatches = ({matches}) => {

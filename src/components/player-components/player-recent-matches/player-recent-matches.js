@@ -17,6 +17,7 @@ import useOpenDotaService from "../../hoc/service-hoc";
 import {playerStatsSelector} from "../../../store/selectors";
 
 import "./player-recent-matches.css"
+import {Link} from "react-router-dom";
 
 
 const PlayerRecentMatches = ({matches}) => {
@@ -27,6 +28,8 @@ const PlayerRecentMatches = ({matches}) => {
             accessor: (originalRow, rowIndex) => {
                 const {player} = originalRow;
 
+                console.log(originalRow)
+
                 return (
                     <Popup
                         contentStyle={{background: "", border: "", boxShadow: ""}}
@@ -35,11 +38,14 @@ const PlayerRecentMatches = ({matches}) => {
                         position="right center"
                         on="hover"
                         trigger={(
-                            <img
-                                className="player-match-hero-icon"
-                                src={player.heroImage}
-                                alt={`${player.heroName}_icon`}
-                            />)}
+                            <Link to={`/heroes/${player.heroId}`}>
+                                <img
+                                    className="player-match-hero-icon"
+                                    src={player.heroImage}
+                                    alt={`${player.heroName}_icon`}
+                                />
+                            </Link>
+                        )}
                     >
                         <div className="alert alert-primary">
                             Hero: {player.heroName}

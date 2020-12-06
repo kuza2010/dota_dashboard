@@ -1,7 +1,7 @@
 import {
     filterProPlayers,
     getHeroInfo,
-    toCommonMatchesStatsDTO,
+    toCommonMatchesStatsDTO, toGameDurationDTO,
     toHeroBenchmarksDTO,
     toMatchDTO,
     toPlayerDTO,
@@ -216,8 +216,21 @@ class OpenDotaService {
             }
         }
 
-        const benchmarks = await this._getResources(`/benchmarks?hero_id=${heroId}`)
-        return toHeroBenchmarksDTO(benchmarks)
+        const benchmarks = await this._getResources(`/benchmarks?hero_id=${heroId}`);
+        return toHeroBenchmarksDTO(benchmarks);
+    }
+
+
+    getGameDuration = async (heroId) => {
+        if (typeof heroId !== 'number') {
+            if (!parseInt(heroId, 10)) {
+                console.error(`getGameDuration (${heroId}), hero id must be number, provided: ${typeof heroId}, value is: ${heroId}`);
+                throw new Error(`Hero id must be number, provided: ${typeof heroId}, value is: ${heroId}`);
+            }
+        }
+
+        const durationStat = await this._getResources(`/heroes/${heroId}/durations?`);
+        return toGameDurationDTO(durationStat);
     }
 }
 

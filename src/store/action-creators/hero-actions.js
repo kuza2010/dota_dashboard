@@ -16,14 +16,12 @@ const heroesRequested = () => {
         type: HEROES_REQUESTED,
     }
 }
-
 const heroesLoaded = (heroes) => {
     return {
         type: HEROES_FETCH_SUCCESSFUL,
         payload: heroes,
     }
 }
-
 const heroesError = (error) => {
     return {
         type: HEROES_FETCH_FAILURE,
@@ -36,14 +34,12 @@ const heroInfoRequested = () => {
         type: HERO_INFO_REQUESTED,
     }
 }
-
 const heroInfoLoaded = (heroInfo) => {
     return {
         type: HERO_INFO_LOADED,
         payload: heroInfo,
     }
 }
-
 const heroInfoError = (error) => {
     return {
         type: HERO_INFO_NOTFOUND,
@@ -56,20 +52,19 @@ const benchmarksRequested = () => {
         type: HERO_BENCHMARKS_REQUESTED,
     }
 }
-
 const benchmarksLoadError = (error) => {
     return {
         type: HERO_BENCHMARKS_ERROR,
         payload: error
     }
 }
-
 const benchmarksLoaded = (benchmarks) => {
     return {
         type: HERO_BENCHMARKS_LOADED,
         payload: benchmarks
     }
 }
+
 
 const fetchHeroes = (openDotaService) => (dispatch) => {
     dispatch(heroesRequested());
@@ -92,9 +87,16 @@ const fetchHeroBenchmarks = (heroId, openDotaService) => (dispatch) => {
         .catch(error => dispatch(benchmarksLoadError(error)))
 }
 
+const fetchHeroGameDuration = (heroId, openDotaService) => (dispatch) => {
+    openDotaService.getGameDuration(heroId)
+        .then(gameDuration => console.log(gameDuration))
+        .catch(error => dispatch(benchmarksLoadError(error)))
+}
+
 
 export {
     fetchHeroes,
     fetchHero,
-    fetchHeroBenchmarks
+    fetchHeroBenchmarks,
+    fetchHeroGameDuration
 };

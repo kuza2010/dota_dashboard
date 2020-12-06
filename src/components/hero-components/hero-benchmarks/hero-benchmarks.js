@@ -80,6 +80,7 @@ HeroBenchmarks.defaultProps = {
 
 
 const HeroBenchmarksContainer = ({benchmark, error}) => {
+
     return (
         <ConditionalDisplay
             fallbackCondition={error}

@@ -29,8 +29,6 @@ const PlayerRecentMatches = ({matches}) => {
             accessor: (originalRow, rowIndex) => {
                 const {player} = originalRow;
 
-                console.log(originalRow)
-
                 return (
                     <Popup
                         contentStyle={{background: "", border: "", boxShadow: ""}}

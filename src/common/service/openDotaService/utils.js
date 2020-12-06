@@ -250,6 +250,24 @@ const toHeroBenchmarksDTO = (benchmarks) => {
     }
 }
 
+// Game duration
+const toGameDurationDTO = (durationArray) => {
+    const result = [];
+
+    durationArray
+        .sort((a, b) => a["duration_bin"] - b["duration_bin"])
+        .forEach(item => {
+            result.push({
+                duration: Math.round(item["duration_bin"] / 60),
+                games: item["games_played"],
+                wins: item["wins"],
+                winRate: (item["wins"] / item["games_played"] * 100).toFixed(2),
+            })
+        });
+
+    return result;
+}
+
 
 export {
     filterProPlayers,
@@ -260,5 +278,6 @@ export {
     toMatchDTO,
     toTeamsDTO,
     getHeroInfo,
-    toHeroBenchmarksDTO
+    toHeroBenchmarksDTO,
+    toGameDurationDTO,
 }

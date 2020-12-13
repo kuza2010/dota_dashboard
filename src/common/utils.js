@@ -1,6 +1,7 @@
 import countryCodes from "../common/country-codes"
 import moment from "moment";
 import {
+    AGILITY_COLOR,
     armorCoefficient,
     baseApiURL, chartColor,
     DAMAGE_TYPE_DEFAULT_COLOR,
@@ -13,7 +14,7 @@ import {
     laneRoleMapping,
     manaPerIntellect,
     manaRegenerationCoefficient,
-    NA, NO_COLOR, YES_COLOR
+    NA, NO_COLOR, STRENGTH_COLOR, YES_COLOR
 } from "./enum";
 
 
@@ -367,6 +368,18 @@ const getChartColorsByName = (colorName) => {
                 name: "sea-gradient",
                 stroke: "#36FFFC",
                 gradient: "#5CB6FF"
+            }
+        case chartColor.POSITIVE:
+            return {
+                name: "positive-gradient",
+                stroke: AGILITY_COLOR,
+                gradient: "rgba(102, 187, 106, 0.4)"   // YES_COLOR
+            }
+        case chartColor.NEGATIVE:
+            return {
+                name: "negative-gradient",
+                stroke: STRENGTH_COLOR,
+                gradient: "rgba(231, 76, 60, 0.4)"     //NO_COLOR
             }
         default:
             return {

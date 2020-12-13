@@ -1,4 +1,6 @@
 import {
+    GAME_DURATION_ERROR, GAME_DURATION_LOADED,
+    GAME_DURATION_REQUESTED,
     HERO_BENCHMARKS_ERROR,
     HERO_BENCHMARKS_LOADED,
     HERO_BENCHMARKS_REQUESTED,
@@ -21,6 +23,8 @@ const selectedHero = {
     error: null,
     benchmarks: null,
     benchmarkError: null,
+    gameDurations: null,
+    gameDurationsError: null,
 }
 
 const initialState = {
@@ -113,6 +117,34 @@ const heroReducer = (state = initialState, action) => {
                 }
             }
         }
+        case GAME_DURATION_REQUESTED:
+            return {
+                ...state,
+                selectedHero: {
+                    ...state.selectedHero,
+                    gameDurations: null,
+                    gameDurationsError: null,
+                }
+            }
+        case GAME_DURATION_ERROR:
+            return {
+                ...state,
+                selectedHero: {
+                    ...state.selectedHero,
+                    gameDurations: null,
+                    gameDurationsError: action.payload
+                }
+            }
+        case GAME_DURATION_LOADED:
+            return {
+                ...state,
+                selectedHero: {
+                    ...state.selectedHero,
+                    gameDurations: action.payload,
+                    gameDurationsError: null
+                }
+            }
+
         default:
             return state;
     }

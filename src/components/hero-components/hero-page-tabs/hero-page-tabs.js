@@ -5,11 +5,12 @@ import HeroBenchmarks from "../hero-benchmarks";
 
 import {heroPageTabs} from "../../../common/enum";
 
+import GameDuration from "../game-duration/game-duration";
+
 import "./hero-page-tabs.css"
-import GameDurationWrapper from "../game-duration/game-duration";
 
 
-const HeroPageTabs = ({heroId, activeTabIndex = heroPageTabs.heroBenchmarks.value}) => {
+const HeroPageTabs = ({heroId, activeTabIndex = heroPageTabs.heroDuration.value}) => {
     const [tabIndex, setTabIndex] = useState(activeTabIndex);
     return (
         <div className="margin_top_10">
@@ -37,7 +38,7 @@ const HeroPageTabs = ({heroId, activeTabIndex = heroPageTabs.heroBenchmarks.valu
                     <HeroBenchmarks heroId={heroId}/>
                 </TabPanel>
                 <TabPanel>
-                    <GameDurationWrapper heroId={heroId}/>
+                    <GameDuration heroId={heroId}/>
                 </TabPanel>
             </Tabs>
         </div>

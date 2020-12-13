@@ -80,5 +80,9 @@ export const chartColor = {
     BLUE: "blue",
     SEA: "sea",
     RED: "red",
+    POSITIVE: "positive",
+    NEGATIVE: "negative",
     DEFAULT: "default",
 }
+
+export const gridStrokeColor = "#444"

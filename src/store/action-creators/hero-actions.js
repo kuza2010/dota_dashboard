@@ -1,4 +1,7 @@
 import {
+    GAME_DURATION_ERROR,
+    GAME_DURATION_LOADED,
+    GAME_DURATION_REQUESTED,
     HERO_BENCHMARKS_ERROR,
     HERO_BENCHMARKS_LOADED,
     HERO_BENCHMARKS_REQUESTED,
@@ -65,6 +68,24 @@ const benchmarksLoaded = (benchmarks) => {
     }
 }
 
+const gameDurationRequested = () => {
+    return {
+        type: GAME_DURATION_REQUESTED,
+    }
+}
+const gameDurationLoadError = (error) => {
+    return {
+        type: GAME_DURATION_ERROR,
+        payload: error
+    }
+}
+const gameDurationLoaded = (gameDuration) => {
+    return {
+        type: GAME_DURATION_LOADED,
+        payload: gameDuration
+    }
+}
+
 
 const fetchHeroes = (openDotaService) => (dispatch) => {
     dispatch(heroesRequested());
@@ -88,9 +109,10 @@ const fetchHeroBenchmarks = (heroId, openDotaService) => (dispatch) => {
 }
 
 const fetchHeroGameDuration = (heroId, openDotaService) => (dispatch) => {
+    dispatch(gameDurationRequested())
     openDotaService.getGameDuration(heroId)
-        .then(gameDuration => console.log(gameDuration))
-        .catch(error => dispatch(benchmarksLoadError(error)))
+        .then(gameDuration => dispatch(gameDurationLoaded(gameDuration)))
+        .catch(error => dispatch(gameDurationLoadError(error)))
 }
 
 

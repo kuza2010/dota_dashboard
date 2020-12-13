@@ -261,7 +261,7 @@ const toGameDurationDTO = (durationArray) => {
                 duration: Math.round(item["duration_bin"] / 60),
                 games: item["games_played"],
                 wins: item["wins"],
-                winRate: (item["wins"] / item["games_played"] * 100).toFixed(2),
+                winRate: parseFloat((item["wins"] / item["games_played"] * 100).toFixed(2)),
             })
         });
 

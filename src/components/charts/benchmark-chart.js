@@ -5,6 +5,7 @@ import {Area, AreaChart, CartesianGrid, XAxis, YAxis} from "recharts";
 import {getChartColorsByName} from "../../common/utils";
 
 import {withResizeDetector} from "react-resize-detector";
+import {gridStrokeColor} from "../../common/enum";
 
 
 const BenchmarkChart = ({
@@ -26,7 +27,7 @@ const BenchmarkChart = ({
                 <Area type='monotone' dataKey='value' stroke={stroke} strokeWidth={2} fill={`url(#${name})`}/>
                 <XAxis dataKey="name" minTickGap={20}/>
                 <YAxis/>
-                <CartesianGrid strokeDasharray="1 1" stroke='#444'/>
+                <CartesianGrid strokeDasharray="1 1" stroke={gridStrokeColor}/>
             </AreaChart>
         </div>
     )

@@ -1,7 +1,11 @@
 export const selectedHeroSelectors = {
     GET_SELECTED_HERO: (state) => state.heroes.selectedHero,
+
     GET_BENCHMARKS: (state) => state.heroes.selectedHero.benchmarks,
     GET_BENCHMARK_ERROR: (state) => state.heroes.selectedHero.benchmarkError,
+
+    GET_GAME_DURATION: (state) => state.heroes.selectedHero.gameDurations,
+    GET_GAME_DURATION_ERROR: (state) => state.heroes.selectedHero.gameDurationsError,
 }
 
 export const heroSelectors = {

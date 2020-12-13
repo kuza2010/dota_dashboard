@@ -10,6 +10,10 @@ const HERO_BENCHMARKS_REQUESTED = "hero.benchmarks.requested"
 const HERO_BENCHMARKS_ERROR = "hero.benchmarks.error"
 const HERO_BENCHMARKS_LOADED = "hero.benchmarks.loaded"
 
+const GAME_DURATION_REQUESTED = "game.duration.requested"
+const GAME_DURATION_ERROR = "game.duration.error"
+const GAME_DURATION_LOADED = "game.duration.loaded"
+
 
 export {
     HEROES_REQUESTED,
@@ -21,5 +25,8 @@ export {
     HERO_BENCHMARKS_REQUESTED,
     HERO_BENCHMARKS_ERROR,
     HERO_BENCHMARKS_LOADED,
+    GAME_DURATION_REQUESTED,
+    GAME_DURATION_ERROR,
+    GAME_DURATION_LOADED,
 }
 

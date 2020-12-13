@@ -2,7 +2,7 @@ import React from "react";
 
 import "./game-duration-tooltip.css"
 
-const GameDurationToolTip = ({active, payload}) => {
+const GameDurationTooltip = ({active, payload}) => {
     if (active) {
         if (Array.isArray(payload) && payload.length > 0) {
             const {duration, winRate, games} = payload[0].payload
@@ -25,4 +25,4 @@ const GameDurationToolTip = ({active, payload}) => {
     return null
 }
 
-export default GameDurationToolTip;
+export default GameDurationTooltip;

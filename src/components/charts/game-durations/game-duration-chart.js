@@ -6,7 +6,7 @@ import {getChartColorsByName} from "../../../common/utils";
 import {chartColor, gridStrokeColor} from "../../../common/enum";
 
 import {withResizeDetector} from "react-resize-detector";
-import GameDurationToolTip from "./tooltip/game-duration-tooltip";
+import GameDurationTooltip from "./tooltip/game-duration-tooltip";
 
 import "./game-duration-chart.css"
 
@@ -23,7 +23,7 @@ const GameDurationChart = ({data, width, height}) => {
                 <XAxis dataKey="duration" interval={1}/>
                 <YAxis/>
                 <Tooltip
-                    content={<GameDurationToolTip/>}
+                    content={<GameDurationTooltip/>}
                     cursor={{fill: "rgba(136, 136, 136, 0.5)"}}
                 />
                 <Bar dataKey="games">

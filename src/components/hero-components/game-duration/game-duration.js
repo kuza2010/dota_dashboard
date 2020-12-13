@@ -20,7 +20,7 @@ const GameDuration = ({duration}) => {
     return (
         <div className="row justify-content-center">
             <div className="col">
-                <span className="game-duration-info"> Durations</span> data from professional matches
+                <span className="game-duration-info"> Durations</span> data from professional matches:
                 <GameDurationChart data={duration}/>
             </div>
         </div>

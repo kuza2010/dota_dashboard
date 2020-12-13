@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from "prop-types"
 
 import {Area, AreaChart, CartesianGrid, XAxis, YAxis} from "recharts";
-import {getChartColorsByName} from "../../common/utils";
+import {getChartColorsByName} from "../../../common/utils";
 
 import {withResizeDetector} from "react-resize-detector";
-import {gridStrokeColor} from "../../common/enum";
+import {gridStrokeColor} from "../../../common/enum";
 
 
 const BenchmarkChart = ({

@@ -10,7 +10,7 @@ import GameDuration from "../game-duration/game-duration";
 import "./hero-page-tabs.css"
 
 
-const HeroPageTabs = ({heroId, activeTabIndex = heroPageTabs.heroDuration.value}) => {
+const HeroPageTabs = ({heroId, activeTabIndex = heroPageTabs.heroBenchmarks.value}) => {
     const [tabIndex, setTabIndex] = useState(activeTabIndex);
     return (
         <div className="margin_top_10">

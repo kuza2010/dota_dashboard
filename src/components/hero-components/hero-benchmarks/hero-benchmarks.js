@@ -8,7 +8,7 @@ import Shapes from "../../../common/shape";
 
 import ConditionalDisplay from "../../conditional-display/conditional-display";
 import Loading from "../../loading";
-import BenchmarkChart from "../../charts/benchmark-chart";
+import BenchmarkChart from "../../charts/benchmark-chart/benchmark-chart";
 import {CommonFallback} from "../../fallback";
 import {selectedHeroSelectors as selector} from "../../../store/selectors";
 import {chunkArray, prepareDataForHeroBenchmarksChart} from "../../../common/utils";

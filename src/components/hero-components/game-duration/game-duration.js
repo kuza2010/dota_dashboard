@@ -11,7 +11,7 @@ import useOpenDotaService from "../../hoc/service-hoc";
 
 import {selectedHeroSelectors} from "../../../store/selectors";
 
-import GameDurationChart from "../../charts/game-duration-chart";
+import GameDurationChart from "../../charts/game-durations/game-duration-chart";
 
 import "./game-duration.css"
 
@@ -20,7 +20,7 @@ const GameDuration = ({duration}) => {
     return (
         <div className="row justify-content-center">
             <div className="col">
-                DurationsData from professional matches
+                <span className="game-duration-info"> Durations</span> data from professional matches
                 <GameDurationChart data={duration}/>
             </div>
         </div>

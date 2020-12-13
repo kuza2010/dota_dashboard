@@ -1,15 +1,19 @@
 import React from "react";
 
-import {Bar, BarChart, CartesianGrid, Cell, XAxis, YAxis} from "recharts";
+import {Bar, BarChart, CartesianGrid, Cell, Legend, Tooltip, XAxis, YAxis} from "recharts";
 
-import {getChartColorsByName} from "../../common/utils";
-import {chartColor, gridStrokeColor} from "../../common/enum";
+import {getChartColorsByName} from "../../../common/utils";
+import {chartColor, gridStrokeColor} from "../../../common/enum";
 
 import {withResizeDetector} from "react-resize-detector";
+import GameDurationToolTip from "./tooltip/game-duration-tooltip";
+
+import "./game-duration-chart.css"
+
 
 const GameDurationChart = ({data, width, height}) => {
     return (
-        <div>
+        <div className="game-duration-margin">
             <BarChart
                 width={width}
                 height={400}
@@ -18,6 +22,10 @@ const GameDurationChart = ({data, width, height}) => {
                 <CartesianGrid strokeDasharray="1 1" stroke={gridStrokeColor}/>
                 <XAxis dataKey="duration" interval={1}/>
                 <YAxis/>
+                <Tooltip
+                    content={<GameDurationToolTip/>}
+                    cursor={{fill: "rgba(136, 136, 136, 0.5)"}}
+                />
                 <Bar dataKey="games">
                     {
                         data.map(({winRate, duration}) => {

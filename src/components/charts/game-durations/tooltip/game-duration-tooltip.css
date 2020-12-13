@@ -1,0 +1,8 @@
+.game-duration-content {
+    padding: 10px;
+    background-color: rgba(29, 47, 66, 0.7);
+    border-radius: 5px;
+}
+.game-duration-shadow-text {
+    text-shadow: 1px -1px 0 rgba(0, 0, 0, 1);
+}

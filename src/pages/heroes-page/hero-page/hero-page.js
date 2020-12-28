@@ -29,7 +29,7 @@ import "./hero-page.css"
 const HeroPage = (heroInfo) => {
 
     return (
-        <div className="jumbotron">
+        <div className="jumbotron margin-bottom-20">
             <ImageBackground link={getImageURL(heroInfo.img)}>
                 <div className="hero-preview-padding">
                     <div className="row justify-content-center align-items-center">

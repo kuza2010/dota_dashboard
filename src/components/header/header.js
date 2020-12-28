@@ -11,7 +11,7 @@ const Header = () => {
 
     return (
         <nav className="navbar navbar-expand navbar-dark bg-dark">
-            <div className="container border force-container-padding">
+            <div className="container force-container-padding">
                 <NavLink className="navbar-brand"
                          to="/">
                     <img className="site-logo"

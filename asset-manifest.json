@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/dota_dashboard/static/css/main.5c7b1731.chunk.css",
+    "main.js": "/dota_dashboard/static/js/main.2913c9c3.chunk.js",
+    "main.js.map": "/dota_dashboard/static/js/main.2913c9c3.chunk.js.map",
+    "runtime-main.js": "/dota_dashboard/static/js/runtime-main.dbebcdca.js",
+    "runtime-main.js.map": "/dota_dashboard/static/js/runtime-main.dbebcdca.js.map",
+    "static/css/2.764ccc25.chunk.css": "/dota_dashboard/static/css/2.764ccc25.chunk.css",
+    "static/js/2.77672cad.chunk.js": "/dota_dashboard/static/js/2.77672cad.chunk.js",
+    "static/js/2.77672cad.chunk.js.map": "/dota_dashboard/static/js/2.77672cad.chunk.js.map",
+    "index.html": "/dota_dashboard/index.html",
+    "precache-manifest.b3db7e34af37451b3722aa85967980d7.js": "/dota_dashboard/precache-manifest.b3db7e34af37451b3722aa85967980d7.js",
+    "service-worker.js": "/dota_dashboard/service-worker.js",
+    "static/css/2.764ccc25.chunk.css.map": "/dota_dashboard/static/css/2.764ccc25.chunk.css.map",
+    "static/css/main.5c7b1731.chunk.css.map": "/dota_dashboard/static/css/main.5c7b1731.chunk.css.map",
+    "static/js/2.77672cad.chunk.js.LICENSE.txt": "/dota_dashboard/static/js/2.77672cad.chunk.js.LICENSE.txt",
+    "static/media/easy-to-use.svg": "/dota_dashboard/static/media/easy-to-use.a4c12ff5.svg",
+    "static/media/fork.svg": "/dota_dashboard/static/media/fork.194e8f7a.svg",
+    "static/media/github-icon.svg": "/dota_dashboard/static/media/github-icon.eb83c632.svg",
+    "static/media/heroes.svg": "/dota_dashboard/static/media/heroes.d32a971e.svg",
+    "static/media/opendota.svg": "/dota_dashboard/static/media/opendota.a63a0620.svg",
+    "static/media/players.svg": "/dota_dashboard/static/media/players.4193926b.svg",
+    "static/media/steam-logo.svg": "/dota_dashboard/static/media/steam-logo.4a60a1ee.svg",
+    "static/media/teams.svg": "/dota_dashboard/static/media/teams.0b95663e.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.dbebcdca.js",
+    "static/css/2.764ccc25.chunk.css",
+    "static/js/2.77672cad.chunk.js",
+    "static/css/main.5c7b1731.chunk.css",
+    "static/js/main.2913c9c3.chunk.js"
+  ]
+}

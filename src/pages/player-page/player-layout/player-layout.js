@@ -9,7 +9,7 @@ import "./player-layout.css"
 
 const PlayerLayout = ({player, accountId}) => {
     return (
-        <div className="jumbotron">
+        <div className="jumbotron margin-bottom-20">
             <PlayerHeader {...player}/>
             <PlayerStats accountId={accountId}/>
         </div>

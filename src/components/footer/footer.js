@@ -12,7 +12,11 @@ const Footer = () => {
             <div className="row">
                 <div className="col">
                     <h4>Dota2 dashboard</h4>
-                    <p>Hand-made with <span className="text-danger">❤</span> for Dota2.</p>
+                    <p>
+                        Hand-made with <span className="text-danger">❤</span> for Dota2.
+                        {' '}
+                        <small className="text-muted">version {process.env.REACT_APP_VERSION}</small>
+                    </p>
                 </div>
                 <div className="col">
                     <blockquote className="blockquote text-right">

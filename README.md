@@ -8,10 +8,10 @@ This project is currently in development. Users can filter players by username a
 * Also, I have some good ideas which I'm going to implement. For example: implement [react-placeholder](https://github.com/buildo/react-placeholder) and other features.
 
 ## Project Screen Shots
-Main page:
+Main page:<br/>
 ![Main page:](http://imgur.com/L67oMOKl.png "Main page")
 
-Hero page:
+Hero page:<br/>
 ![Main page:](http://imgur.com/NjWkiedl.png "Main page")
 
 
